@@ -1,0 +1,49 @@
+.create_container {
+  width: 100%;
+  min-height: calc(100vh - 5rem);
+  margin-top: 5rem;
+}
+
+.topic_container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.creaters {
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.one_create {
+  width: 45%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  border: 2px solid black;
+  background-color: white;
+  padding: 2rem 0;
+}
+
+.one_create svg {
+  font-size: 7rem;
+}
+
+.create_btn {
+  background-color: white;
+  padding: 0.5rem 1rem;
+  font-weight: 600;
+  border: 2px solid black;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+}
+.create_btn:hover {
+  background-color: #e0e0e0;
+}

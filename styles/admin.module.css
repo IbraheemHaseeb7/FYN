@@ -1,0 +1,34 @@
+.admin_container {
+  width: 100%;
+  margin-top: 5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: calc(100vh - 5rem);
+}
+
+.sign_out_container,
+.sign_in_container {
+  width: 20rem;
+  height: 10rem;
+  border: 2px solid black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.signBtn {
+  background-color: white;
+  padding: 0.5rem 1rem;
+  font-weight: 600;
+  border: 2px solid black;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+}
+.signBtn:hover {
+  background-color: #e0e0e0;
+}
