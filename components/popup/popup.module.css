@@ -1,0 +1,148 @@
+.popup_container {
+  width: 100%;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 5;
+}
+
+.main_announcement_container {
+  border: 2px solid #000;
+  width: 80%;
+  background-color: #fff;
+  height: 80%;
+  display: grid;
+  justify-items: center;
+  align-items: start;
+  overflow-y: scroll;
+  grid-template-rows: 5rem;
+  position: relative;
+}
+
+.main_announcement_container > h1 {
+  margin: 1rem;
+}
+
+.rules_container {
+  width: 100%;
+  display: grid;
+  place-items: center;
+}
+
+.blur {
+  width: 100%;
+  height: 100%;
+  backdrop-filter: blur(10px);
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -1;
+}
+
+.markdown_container {
+  border: 2px solid #c5c6c7;
+  display: grid;
+  width: 90%;
+  grid-template-columns: repeat(3, 33%);
+  grid-auto-rows: 4rem;
+  margin: 1rem;
+}
+
+.markdown_container p,
+.markdown_container span {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  border-bottom: 1px solid #c5c6c753;
+}
+.span {
+  border-left: 1px solid #c5c6c753;
+  border-right: 1px solid #c5c6c753;
+}
+
+.title_and_btn_container {
+  display: grid;
+  grid-template-columns: 100%;
+  place-items: center;
+  position: relative;
+  width: 90%;
+}
+
+.see_btn {
+  background-color: transparent;
+  border: none;
+  color: grey;
+  cursor: pointer;
+  position: absolute;
+  right: 0;
+}
+
+.see_btn:hover {
+  color: #000;
+}
+
+.close_btn {
+  margin: 1rem;
+}
+
+.forms_container {
+  width: 90%;
+  min-height: 90vh;
+}
+
+.forms_container > form {
+  margin-bottom: 1rem;
+}
+
+.main_announcement_container::-webkit-scrollbar {
+  width: 10px;
+  background-color: grey;
+}
+
+.main_announcement_container::-webkit-scrollbar-thumb {
+  border-radius: 10rem;
+  background-color: #000;
+  cursor: pointer;
+}
+
+.announcement_container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.textarea_announcement {
+  width: 100%;
+  height: 55vh;
+  border: 2px solid black;
+  padding: 0.5rem;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+}
+
+.submitBtn {
+  background-color: white;
+  padding: 0.5rem 1rem;
+  font-weight: 600;
+  border: 2px solid black;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  margin: 1rem;
+}
+.submitBtn:hover {
+  background-color: #e0e0e0;
+}

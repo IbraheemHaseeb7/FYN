@@ -2,6 +2,8 @@ import styles from "../../../styles/blog_create.module.css";
 import BookIcon from "@mui/icons-material/Book";
 import QuestionAnswerIcon from "@mui/icons-material/QuestionAnswer";
 import { useReducer } from "react";
+import Popup from "../../../components/popup/popup";
+import Announcement from "../../../components/popup/announcement";
 
 function reducer(state, action) {
   switch (action.type) {
@@ -9,6 +11,12 @@ function reducer(state, action) {
       return {
         ...state,
         [action.payload.name]: !action.payload.value,
+      };
+
+    case "close":
+      return {
+        ...state,
+        [action.payload.name]: action.payload.value,
       };
   }
 }
@@ -66,6 +74,20 @@ export default function Create() {
           );
         })}
       </div>
+      {state.blog && (
+        <Popup title="Create a new Blog" name="blog" dispatch={dispatch}>
+          <Announcement />
+        </Popup>
+      )}
+      {state.forum && (
+        <Popup
+          title="Create a new Forum Question"
+          name="forum"
+          dispatch={dispatch}
+        >
+          <Announcement />
+        </Popup>
+      )}
     </div>
   );
 }
