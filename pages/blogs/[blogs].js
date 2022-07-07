@@ -1,0 +1,21 @@
+import styles from "../../styles/blogs.module.css";
+import ReactMarkdown from "react-markdown";
+
+let content =
+  "# This is the title of this blog \n Lorem ipsum dolor sit, amet consectetur adipisicing elit. Laboriosam, harum cum officiis numquam dicta corrupti commodi sunt perferendis officia, voluptates vel minima sapiente. Voluptatem fuga esse at quod dolores illum, et voluptate ab, dolore pariatur, soluta vitae eum quia obcaecati aliquid consequuntur praesentium minus incidunt beatae est provident? Consectetur dolores cupiditate ab nam enim. Autem, magni. Non excepturi ducimus iure nostrum quidem nemo, obcaecati, rerum architecto, itaque necessitatibus at omnis quod reprehenderit. Nihil voluptate quam repudiandae, adipisci nostrum praesentium reiciendis maiores ipsa aliquid perferendis quae aperiam deserunt pariatur error assumenda odio suscipit ad \n\n perspiciatis reprehenderit. Enim, veniam praesentium inventore natus itaque, vero facilis similique ducimus est eius maiores nemo facere incidunt quo quae tenetur molestias culpa deserunt. Eius maiores atque quaerat placeat distinctio doloribus est! Nulla delectus expedita quibusdam assumenda aspernatur pariatur. Laudantium iusto nobis dignissimos at nesciunt dolorem provident nostrum, quia facilis quos corporis ipsam ipsa velit sapiente assumenda fugit praesentium. Commodi facilis necessitatibus autem accusamus corrupti ad sit quae iure vitae, est, sequi cumque nobis, debitis omnis reiciendis eos. Iste praesentium maxime ipsum tempore \n\n nam corrupti officia at quam, culpa odio numquam repellendus neque mollitia voluptas libero similique enim nulla, perferendis cum accusantium fuga quaerat commodi sint perspiciatis. Aut aliquam nemo consectetur, voluptates quaerat labore? Ad beatae quibusdam quae sit voluptate maiores illum non dicta provident adipisci saepe tenetur, delectus quo minima quas error facilis quod amet ipsam unde laborum sequi itaque cupiditate. Vero, sequi saepe doloremque at eos eius recusandae neque, quibusdam, illo eveniet ipsum ipsam possimus accusamus. Earum provident eligendi accusantium obcaecati labore, minus vero itaque architecto a? Temporibus quisquam nisi nam, et assumenda ea. Earum sed repellendus aut fugit consequuntur sint sunt ut magni rem nulla, quasi veniam animi voluptatibus natus harum et sequi culpa est eaque ipsa perspiciatis voluptate alias eveniet nisi! Non eligendi suscipit commodi aliquid voluptate laboriosam voluptas eos quos consequuntur, tenetur harum, recusandae dolores corrupti! Sit cum natus neque error molestiae necessitatibus placeat et? Cum aspernatur, rem tempore ut assumenda, illo est dicta maiores voluptatibus hic accusamus \n\n saepe. Vitae culpa hic nisi doloribus, vero iste accusantium inventore molestias a, nostrum natus. Porro officia earum animi obcaecati odio molestias hic tempore? Similique, ipsum voluptatem saepe soluta esse repellendus id, accusantium corporis quod perspiciatis consectetur laboriosam, eos laborum eveniet officia eius dolores expedita ut pariatur velit ex minus autem tempora distinctio! Ipsam nihil molestias, rem labore accusamus nam vel praesentium, voluptatem cumque similique amet optio doloremque fugiat! Dolorum minima debitis quos voluptatem deserunt dolorem quae incidunt perspiciatis asperiores placeat, possimus consequuntur deleniti beatae sequi aut velit. In aliquam maiores numquam incidunt pariatur asperiores, similique adipisci officia ab beatae. Sunt aut doloribus pariatur saepe \n\n ullam eligendi eveniet quod deserunt neque soluta voluptatum in praesentium nisi beatae, ea maxime tempore cum ducimus, minima nihil. Ea blanditiis quod delectus exercitationem nostrum eligendi autem assumenda pariatur sequi reprehenderit sit quasi voluptatum nulla ex illum voluptate perspiciatis provident, repellat eaque! Nihil, eaque velit ipsum similique vel aspernatur voluptates nemo culpa quibusdam neque doloremque provident corrupti maiores quidem harum.";
+
+export default function Blogs() {
+  return (
+    <div className={styles.blog_container}>
+      <div className={styles.inner_blog_container}>
+        <ReactMarkdown>{content}</ReactMarkdown>
+        <div className={styles.tags_container}>
+          <span>TAGS</span>
+          <p>sex</p>
+          <p>pussy</p>
+          <p>masturbation</p>
+        </div>
+      </div>
+    </div>
+  );
+}

@@ -1,21 +1,12 @@
 import Link from "next/link";
 import styles from "./navbar.module.css";
 
-export default function Navbar({ scrollValue }) {
-  console.log(scrollValue);
-
+export default function Navbar() {
   return (
-    <nav
-      className={styles.navbar}
-      style={scrollValue === 0 ? { height: "7rem" } : { height: "5rem" }}
-    >
+    <nav className={styles.navbar}>
       <Link href="/">
         <div className={styles.logo_container}>
-          <img
-            className={styles.logo}
-            src="gen1logo_transparent.png"
-            alt="logo"
-          />
+          <img className={styles.logo} src="logo.png" alt="logo" />
         </div>
       </Link>
       <div className={styles.options_container}>

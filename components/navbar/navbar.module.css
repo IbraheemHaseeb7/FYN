@@ -1,16 +1,14 @@
 .navbar {
   width: 100%;
-  height: 7rem;
+  height: 6rem;
   display: grid;
   grid-template-columns: 20% 60% 20%;
-  background-color: white;
-  box-shadow: 0 5px 15px #b7b7b74e;
+  background-color: #ff8e7e;
   position: fixed;
   top: 0;
   left: 0;
   z-index: 3;
-  transition: all 0.2s ease;
-  border-bottom: 2px solid black;
+  color: white;
 }
 
 .logo_container {
@@ -24,7 +22,8 @@
 .logo_container > img {
   width: 100%;
   height: 5rem;
-  object-fit: cover;
+  object-fit: contain;
+  cursor: pointer;
 }
 
 .options_container {
@@ -36,9 +35,14 @@
 }
 
 .options_container > h3 {
-  font-weight: 400;
-  text-transform: uppercase;
+  font-weight: 100;
+  text-transform: capitalize;
   cursor: pointer;
+  font-size: 1rem;
+}
+
+.options_container > h3:hover {
+  text-decoration: underline;
 }
 
 .sign_up_container {
