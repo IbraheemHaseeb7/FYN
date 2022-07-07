@@ -15,15 +15,87 @@ export default function Home() {
   const circle2 = useRef();
   const line = useRef();
 
+  // steps references are created here
+  const stepText1 = useRef();
+  const stepText2 = useRef();
+  const stepText3 = useRef();
+  const stepText4 = useRef();
+  const stepText5 = useRef();
+  const stepImg1 = useRef();
+  const stepImg2 = useRef();
+  const stepImg3 = useRef();
+  const stepImg4 = useRef();
+  const stepImg5 = useRef();
+
+  let num = 0;
+
+  const steps = [
+    {
+      src: "step1.png",
+      steps_info:
+        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi temporibus quisquam ipsum. Ad animi nulla sit, similique impedit, est beatae, tempore illum qui cum at reiciendis pariatur dicta iste illo itaque? Nam dolor vel neque quas praesentium soluta debitis a?",
+      text_ref: stepText1,
+      img_ref: stepImg1,
+    },
+    {
+      src: "step1.png",
+      steps_info:
+        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi temporibus quisquam ipsum. Ad animi nulla sit, similique impedit, est beatae, tempore illum qui cum at reiciendis pariatur dicta iste illo itaque? Nam dolor vel neque quas praesentium soluta debitis a?",
+      text_ref: stepText2,
+      img_ref: stepImg2,
+    },
+    {
+      src: "step1.png",
+      steps_info:
+        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi temporibus quisquam ipsum. Ad animi nulla sit, similique impedit, est beatae, tempore illum qui cum at reiciendis pariatur dicta iste illo itaque? Nam dolor vel neque quas praesentium soluta debitis a?",
+      text_ref: stepText3,
+      img_ref: stepImg3,
+    },
+    {
+      src: "step1.png",
+      steps_info:
+        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi temporibus quisquam ipsum. Ad animi nulla sit, similique impedit, est beatae, tempore illum qui cum at reiciendis pariatur dicta iste illo itaque? Nam dolor vel neque quas praesentium soluta debitis a?",
+      text_ref: stepText4,
+      img_ref: stepImg4,
+    },
+    {
+      src: "step1.png",
+      steps_info:
+        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi temporibus quisquam ipsum. Ad animi nulla sit, similique impedit, est beatae, tempore illum qui cum at reiciendis pariatur dicta iste illo itaque? Nam dolor vel neque quas praesentium soluta debitis a?",
+      text_ref: stepText5,
+      img_ref: stepImg5,
+    },
+  ];
   gsap.registerPlugin(ScrollTrigger);
 
+  // first animation
   useEffect(() => {
-    var tl = gsap.timeline();
-
-    // initial sets
     gsap.set(image.current, {
       x: 0,
     });
+    // animation timeline
+    gsap.to(image.current, {
+      x: "-100%",
+      scrollTrigger: {
+        markers: false,
+        start: "25% bottom",
+        end: "+=50%",
+        scrub: 1,
+      },
+    });
+    gsap.to(act.current, {
+      opacity: 0,
+      scrollTrigger: {
+        markers: false,
+        scrub: 1,
+        start: "25% bottom",
+        end: "+=50%",
+      },
+    });
+  }, []);
+
+  useEffect(() => {
+    // initial sets
     gsap.set(left.current, {
       x: "-100%",
       y: "-20%",
@@ -58,79 +130,69 @@ export default function Home() {
       strokeDasharray: 771,
     });
 
-    // animation timeline
-    tl.to(image.current, {
-      x: "-100%",
-      scrollTrigger: {
-        markers: false,
-        start: "center bottom",
-        end: "+=50%",
-        scrub: 1,
-      },
-    });
-    tl.to(act.current, {
-      opacity: 0,
-      scrollTrigger: {
-        markers: false,
-        scrub: 1,
-        start: "center bottom",
-        end: "+=50%",
-      },
-    });
-    tl.to(left.current, {
+    // entering
+
+    gsap.to(left.current, {
       x: "-40%",
       scrollTrigger: {
         markers: false,
-        start: "50% bottom",
+        start: "30% bottom",
         end: "+=50%",
         scrub: 1,
       },
     });
-    tl.to(right.current, {
+    gsap.to(right.current, {
       x: "30%",
       scrollTrigger: {
         markers: false,
-        start: "50% bottom",
+        start: "30% bottom",
         end: "+=50%",
         scrub: 1,
       },
     });
-    tl.to(circle.current, {
+    gsap.to(circle.current, {
       strokeDashoffset: 0,
       scrollTrigger: {
         markers: false,
-        start: "50% bottom",
+        start: "30% bottom",
         end: "+=50%",
         scrub: 1,
       },
     });
-    tl.to(circle2.current, {
+    gsap.to(circle2.current, {
       strokeDashoffset: 0,
       scrollTrigger: {
         markers: false,
-        start: "50% bottom",
+        start: "30% bottom",
         end: "+=50%",
         scrub: 1,
       },
     });
-    tl.to(line.current, {
+    gsap.to(line.current, {
       strokeDashoffset: 0,
       scrollTrigger: {
         markers: false,
-        start: "50% bottom",
+        start: "30% bottom",
         end: "+=50%",
         scrub: 1,
       },
     });
-    tl.to(methods.current, {
+    gsap.to(methods.current, {
       opacity: 1,
       scrollTrigger: {
         markers: false,
-        start: "50% bottom",
+        start: "30% bottom",
         end: "+=50%",
         scrub: 1,
       },
     });
+  }, []);
+
+  // exit animations go here
+  useEffect(() => {
+    var tl = gsap.timeline();
+
+    // initial sets
   }, []);
 
   return (
@@ -312,6 +374,22 @@ export default function Home() {
           Our Methods of Practice
         </div>
       </section>
+      {steps.map(({ src, steps_info, img_ref, text_ref }) => {
+        num = num + 1;
+        return (
+          <section className={styles.steps_container}>
+            <div className={styles.step}>
+              <div className={styles.steps_vector} ref={img_ref}>
+                <img src={src} alt="There is an image" />
+              </div>
+              <div className={styles.steps_text} ref={text_ref}>
+                <h1>{`Step ${num}`}</h1>
+                <p>{steps_info}</p>
+              </div>
+            </div>
+          </section>
+        );
+      })}
       {/* <Footer /> */}
     </div>
   );

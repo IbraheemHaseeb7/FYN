@@ -1,6 +1,6 @@
 .home_container {
   width: 100%;
-  min-height: 250vh;
+  min-height: 1000vh;
 }
 
 .first_page {
@@ -108,10 +108,6 @@
   justify-content: center;
   align-items: center;
 }
-
-.circle {
-}
-
 .methods {
   position: absolute;
   top: 50%;
@@ -120,4 +116,32 @@
   font-family: "Times New Roman";
   font-size: 4rem;
   font-weight: 1000;
+}
+
+/* steps styling go here */
+
+.steps_container {
+  position: fixed;
+  top: 6rem;
+  width: 100%;
+}
+
+.step {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 50% 50%;
+  place-items: center;
+  display: none;
+}
+
+.steps_text {
+  width: 80%;
+}
+
+.steps_text > h1 {
+  font-size: 3.5rem;
+}
+
+.steps_text > p {
+  font-size: 2rem;
 }
