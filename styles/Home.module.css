@@ -131,7 +131,6 @@
   display: grid;
   grid-template-columns: 50% 50%;
   place-items: center;
-  display: none;
 }
 
 .steps_text {
@@ -144,4 +143,18 @@
 
 .steps_text > p {
   font-size: 2rem;
+}
+
+.steps_vector {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: calc(100vh - 6rem);
+}
+
+.step_images {
+  width: 100%;
+  height: calc(100vh - 6rem);
+  object-fit: contain;
 }

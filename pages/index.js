@@ -38,28 +38,28 @@ export default function Home() {
       img_ref: stepImg1,
     },
     {
-      src: "step1.png",
+      src: "step2.jpg",
       steps_info:
         "Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi temporibus quisquam ipsum. Ad animi nulla sit, similique impedit, est beatae, tempore illum qui cum at reiciendis pariatur dicta iste illo itaque? Nam dolor vel neque quas praesentium soluta debitis a?",
       text_ref: stepText2,
       img_ref: stepImg2,
     },
     {
-      src: "step1.png",
+      src: "step3.jpg",
       steps_info:
         "Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi temporibus quisquam ipsum. Ad animi nulla sit, similique impedit, est beatae, tempore illum qui cum at reiciendis pariatur dicta iste illo itaque? Nam dolor vel neque quas praesentium soluta debitis a?",
       text_ref: stepText3,
       img_ref: stepImg3,
     },
     {
-      src: "step1.png",
+      src: "step4.jpg",
       steps_info:
         "Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi temporibus quisquam ipsum. Ad animi nulla sit, similique impedit, est beatae, tempore illum qui cum at reiciendis pariatur dicta iste illo itaque? Nam dolor vel neque quas praesentium soluta debitis a?",
       text_ref: stepText4,
       img_ref: stepImg4,
     },
     {
-      src: "step1.png",
+      src: "step5.png",
       steps_info:
         "Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi temporibus quisquam ipsum. Ad animi nulla sit, similique impedit, est beatae, tempore illum qui cum at reiciendis pariatur dicta iste illo itaque? Nam dolor vel neque quas praesentium soluta debitis a?",
       text_ref: stepText5,
@@ -95,6 +95,15 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
+    let tl = gsap.timeline({
+      scrollTrigger: {
+        markers: false,
+        start: "30% bottom",
+        end: "+=100%",
+        scrub: 1,
+      },
+    });
+
     // initial sets
     gsap.set(left.current, {
       x: "-100%",
@@ -132,67 +141,278 @@ export default function Home() {
 
     // entering
 
-    gsap.to(left.current, {
-      x: "-40%",
-      scrollTrigger: {
-        markers: false,
-        start: "30% bottom",
-        end: "+=50%",
-        scrub: 1,
+    tl.to(
+      left.current,
+      {
+        x: "-40%",
       },
-    });
-    gsap.to(right.current, {
-      x: "30%",
-      scrollTrigger: {
-        markers: false,
-        start: "30% bottom",
-        end: "+=50%",
-        scrub: 1,
+      0
+    );
+    tl.to(
+      right.current,
+      {
+        x: "30%",
       },
-    });
-    gsap.to(circle.current, {
-      strokeDashoffset: 0,
-      scrollTrigger: {
-        markers: false,
-        start: "30% bottom",
-        end: "+=50%",
-        scrub: 1,
+      0
+    );
+    tl.to(
+      circle.current,
+      {
+        strokeDashoffset: 0,
       },
-    });
-    gsap.to(circle2.current, {
-      strokeDashoffset: 0,
-      scrollTrigger: {
-        markers: false,
-        start: "30% bottom",
-        end: "+=50%",
-        scrub: 1,
+      0
+    );
+    tl.to(
+      circle2.current,
+      {
+        strokeDashoffset: 0,
       },
-    });
-    gsap.to(line.current, {
-      strokeDashoffset: 0,
-      scrollTrigger: {
-        markers: false,
-        start: "30% bottom",
-        end: "+=50%",
-        scrub: 1,
+      0
+    );
+    tl.to(
+      line.current,
+      {
+        strokeDashoffset: 0,
       },
-    });
-    gsap.to(methods.current, {
-      opacity: 1,
-      scrollTrigger: {
-        markers: false,
-        start: "30% bottom",
-        end: "+=50%",
-        scrub: 1,
+      0
+    );
+    tl.to(
+      methods.current,
+      {
+        opacity: 1,
       },
-    });
-  }, []);
+      0
+    );
 
+    // exiting
+    tl.to(
+      left.current,
+      {
+        x: "-100%",
+      },
+      2
+    );
+    tl.to(
+      right.current,
+      {
+        x: "120%",
+      },
+      2
+    );
+    tl.to(
+      circle.current,
+      {
+        strokeDashoffset: 295,
+      },
+      2
+    );
+    tl.to(
+      circle2.current,
+      {
+        strokeDashoffset: 295,
+      },
+      2
+    );
+    tl.to(
+      line.current,
+      {
+        strokeDashoffset: 771,
+      },
+      2
+    );
+    tl.to(
+      methods.current,
+      {
+        opacity: 0,
+      },
+      2
+    );
+  }, []);
   // exit animations go here
   useEffect(() => {
-    var tl = gsap.timeline();
+    var tl = gsap.timeline({
+      scrollTrigger: {
+        markers: false,
+        start: "50% bottom",
+        end: "+=400%",
+        scrub: 1,
+      },
+    });
 
     // initial sets
+
+    gsap.set(stepImg1.current, {
+      opacity: 0,
+    });
+    gsap.set(stepImg2.current, {
+      opacity: 0,
+    });
+    gsap.set(stepImg3.current, {
+      opacity: 0,
+    });
+    gsap.set(stepImg4.current, {
+      opacity: 0,
+    });
+    gsap.set(stepImg5.current, {
+      opacity: 0,
+    });
+    gsap.set(stepText1.current, {
+      opacity: 0,
+    });
+    gsap.set(stepText2.current, {
+      opacity: 0,
+    });
+    gsap.set(stepText3.current, {
+      opacity: 0,
+    });
+    gsap.set(stepText4.current, {
+      opacity: 0,
+    });
+    gsap.set(stepText5.current, {
+      opacity: 0,
+    });
+
+    // animation begins here. Entering and exiting will be done simultaneously
+    tl.to(
+      stepImg1.current,
+      {
+        opacity: 1,
+      },
+      0
+    );
+    tl.to(
+      stepText1.current,
+      {
+        opacity: 1,
+      },
+      0
+    );
+    tl.to(
+      stepImg1.current,
+      {
+        opacity: 0,
+      },
+      1
+    );
+    tl.to(
+      stepImg2.current,
+      {
+        opacity: 1,
+      },
+      1
+    );
+    tl.to(
+      stepText1.current,
+      {
+        opacity: 0,
+      },
+      2
+    );
+    tl.to(
+      stepText2.current,
+      {
+        opacity: 1,
+      },
+      2
+    );
+    tl.to(
+      stepImg2.current,
+      {
+        opacity: 0,
+      },
+      3
+    );
+    tl.to(
+      stepImg3.current,
+      {
+        opacity: 1,
+      },
+      3
+    );
+    tl.to(
+      stepText2.current,
+      {
+        opacity: 0,
+      },
+      4
+    );
+    tl.to(
+      stepText3.current,
+      {
+        opacity: 1,
+      },
+      4
+    );
+    tl.to(
+      stepImg3.current,
+      {
+        opacity: 0,
+      },
+      5
+    );
+    tl.to(
+      stepImg4.current,
+      {
+        opacity: 1,
+      },
+      5
+    );
+    tl.to(
+      stepText3.current,
+      {
+        opacity: 0,
+      },
+      6
+    );
+    tl.to(
+      stepText4.current,
+      {
+        opacity: 1,
+      },
+      6
+    );
+    tl.to(
+      stepImg4.current,
+      {
+        opacity: 0,
+      },
+      7
+    );
+    tl.to(
+      stepImg5.current,
+      {
+        opacity: 1,
+      },
+      7
+    );
+    tl.to(
+      stepText4.current,
+      {
+        opacity: 0,
+      },
+      8
+    );
+    tl.to(
+      stepText5.current,
+      {
+        opacity: 1,
+      },
+      8
+    );
+    tl.to(
+      stepImg5.current,
+      {
+        opacity: 0,
+      },
+      9
+    );
+    tl.to(
+      stepText5.current,
+      {
+        opacity: 0,
+      },
+      9
+    );
   }, []);
 
   return (
@@ -380,7 +600,11 @@ export default function Home() {
           <section className={styles.steps_container}>
             <div className={styles.step}>
               <div className={styles.steps_vector} ref={img_ref}>
-                <img src={src} alt="There is an image" />
+                <img
+                  src={src}
+                  alt="There is an image"
+                  className={styles.step_images}
+                />
               </div>
               <div className={styles.steps_text} ref={text_ref}>
                 <h1>{`Step ${num}`}</h1>
