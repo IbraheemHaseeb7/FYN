@@ -2,8 +2,12 @@ import styles from "../styles/Home.module.css";
 import Link from "next/link";
 import Footer from "../components/footer/footer";
 import { gsap } from "gsap";
+import { Elastic } from "gsap";
 import { useEffect, useRef } from "react";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
+import FacebookIcon from "@mui/icons-material/Facebook";
+import InstagramIcon from "@mui/icons-material/Instagram";
+import WhatsAppIcon from "@mui/icons-material/WhatsApp";
 
 export default function Home() {
   const image = useRef();
@@ -94,6 +98,7 @@ export default function Home() {
     });
   }, []);
 
+  // exit animations go here
   useEffect(() => {
     let tl = gsap.timeline({
       scrollTrigger: {
@@ -228,7 +233,22 @@ export default function Home() {
       2
     );
   }, []);
-  // exit animations go here
+
+  // staggering animation for the socials
+  useEffect(() => {
+    gsap.set("#social", {
+      scale: 0,
+    });
+
+    gsap.to("#social", {
+      scale: 1,
+      ease: Elastic.easeOut.config(1, 0.3),
+      stagger: {
+        each: 0.2,
+      },
+    });
+  }, []);
+
   useEffect(() => {
     var tl = gsap.timeline({
       scrollTrigger: {
@@ -417,6 +437,29 @@ export default function Home() {
 
   return (
     <div className={styles.home_container}>
+      <div className={styles.socials_container}>
+        <a
+          href="https://www.facebook.com/fightyournafsofficial"
+          target="_blank"
+          id="social"
+        >
+          <FacebookIcon />
+        </a>
+        <a
+          href="https://www.instagran.com/fightyournafsofficial"
+          target="_blank"
+          id="social"
+        >
+          <InstagramIcon />
+        </a>
+        <a
+          href="https://www.facebook.com/fightyournafsofficial"
+          target="_blank"
+          id="social"
+        >
+          <WhatsAppIcon />
+        </a>
+      </div>
       <section className={styles.first_page}>
         <div className={styles.image_container} ref={image}>
           <img src="homepage.png" alt="image" className={styles.img} />

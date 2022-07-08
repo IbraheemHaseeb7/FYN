@@ -158,3 +158,40 @@
   height: calc(100vh - 6rem);
   object-fit: contain;
 }
+
+/* socials styling */
+
+.socials_container {
+  width: 5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: column;
+  position: fixed;
+  top: 50%;
+  left: 5%;
+  z-index: 5;
+  gap: 1rem;
+  
+}
+
+.socials_container > a {
+  border-radius: 10rem;
+  cursor: pointer;
+  background-color: #ff8e7e;
+  padding: 0.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+}
+
+.socials_container > a > svg {
+  font-size: 2.5rem;
+  pointer-events: none;
+}
+
+.socials_container > a:hover{
+  color: black;
+  background-color: #ffe87e;
+}
