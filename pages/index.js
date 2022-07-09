@@ -8,6 +8,7 @@ import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import WhatsAppIcon from "@mui/icons-material/WhatsApp";
+import SwipeDownAltIcon from "@mui/icons-material/SwipeDownAlt";
 
 export default function Home() {
   const image = useRef();
@@ -18,6 +19,11 @@ export default function Home() {
   const circle = useRef();
   const circle2 = useRef();
   const line = useRef();
+  const swipe_down = useRef();
+  const left_sign = useRef();
+  const right_sign = useRef();
+  const sign_heading = useRef();
+  const sign_text = useRef();
 
   // steps references are created here
   const stepText1 = useRef();
@@ -88,6 +94,15 @@ export default function Home() {
       },
     });
     gsap.to(act.current, {
+      opacity: 0,
+      scrollTrigger: {
+        markers: false,
+        scrub: 1,
+        start: "25% bottom",
+        end: "+=50%",
+      },
+    });
+    gsap.to(swipe_down.current, {
       opacity: 0,
       scrollTrigger: {
         markers: false,
@@ -249,6 +264,7 @@ export default function Home() {
     });
   }, []);
 
+  // animation for the steps
   useEffect(() => {
     var tl = gsap.timeline({
       scrollTrigger: {
@@ -435,8 +451,77 @@ export default function Home() {
     );
   }, []);
 
+  // animation for the sign up
+  useEffect(() => {
+    var tl = gsap.timeline({
+      scrollTrigger: {
+        markers: false,
+        scrub: true,
+        start: "88% bottom",
+        end: "+=80%",
+        trigger: "#home",
+        pin: "#pin",
+      },
+    });
+
+    // setting up the positions
+
+    gsap.set(left_sign.current, {
+      scale: 2,
+      x: "-150%",
+      y: "-10%",
+    });
+    gsap.set(right_sign.current, {
+      scale: 2,
+      x: "500%",
+      y: "80%",
+    });
+    gsap.set(sign_heading.current, {
+      textAlign: "center",
+      y: "-550%",
+      opacity: 0,
+    });
+    gsap.set(sign_text.current, {
+      x: "50%",
+      y: "-350%",
+      opacity: 0,
+    });
+
+    // animation timeline is here
+    tl.to(
+      left_sign.current,
+      {
+        x: "50%",
+      },
+      0
+    );
+    tl.to(
+      right_sign.current,
+      {
+        x: "300%",
+      },
+      0
+    );
+    tl.to(
+      sign_heading.current,
+      {
+        y: "-500%",
+        opacity: 1,
+      },
+      0
+    );
+    tl.to(
+      sign_text.current,
+      {
+        y: "-300%",
+        opacity: 1,
+      },
+      0
+    );
+  }, []);
+
   return (
-    <div className={styles.home_container}>
+    <div className={styles.home_container} id="home">
       <div className={styles.socials_container}>
         <a
           href="https://www.facebook.com/fightyournafsofficial"
@@ -657,7 +742,48 @@ export default function Home() {
           </section>
         );
       })}
-      {/* <Footer /> */}
+      <div className={styles.sign_up_container} id="pin">
+        <svg
+          width="248"
+          height="294"
+          viewBox="0 0 248 294"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          ref={left_sign}
+        >
+          <path
+            d="M179 60C211.4 50 238.167 20.5 247.5 7L-14.5 0.5L-20.5 85L-32 293.5C-17.8333 281.5 15.7 252.1 36.5 230.5C62.5 203.5 66.5 179.5 82.5 148C98.5 116.5 138.5 72.5 179 60Z"
+            fill="#FF8E7E"
+          />
+        </svg>
+        <svg
+          ref={right_sign}
+          width="264"
+          height="236"
+          viewBox="0 0 264 236"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M238 4.9999C270 -7.8001 292.667 10.3332 300 20.9999L304.5 219.5L205.5 235.5C170.667 230.5 -35.5001 241.5 6.49996 198.5C48.5 155.5 54.6904 152.342 70.0001 142.5C91.0001 129 151 94 176 68C201 42 198 20.9999 238 4.9999Z"
+            fill="#FF8E7E"
+          />
+        </svg>
+        <div>
+          <h1 ref={sign_heading}>Sign Up Process</h1>
+          <p ref={sign_text}>
+            We keep your identity hidden while you are signed up so you feel
+            free to ask any question you may!
+          </p>
+        </div>
+      </div>
+      <div className={styles.swipe_container} ref={swipe_down}>
+        <SwipeDownAltIcon />
+        <p>Swipe down for more</p>
+      </div>
+      <div className={styles.footer_container}>
+        <Footer />
+      </div>
     </div>
   );
 }

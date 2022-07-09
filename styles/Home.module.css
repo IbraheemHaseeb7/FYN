@@ -1,6 +1,8 @@
 .home_container {
   width: 100%;
   min-height: 1000vh;
+  position: relative;
+  overflow-x: hidden;
 }
 
 .first_page {
@@ -170,9 +172,9 @@
   position: fixed;
   top: 50%;
   left: 5%;
+  transform: translateY(-50%);
   z-index: 5;
   gap: 1rem;
-  
 }
 
 .socials_container > a {
@@ -191,7 +193,73 @@
   pointer-events: none;
 }
 
-.socials_container > a:hover{
+.socials_container > a:hover {
   color: black;
   background-color: #ffe87e;
+}
+
+.footer_container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  bottom: 0;
+}
+
+.swipe_container {
+  position: fixed;
+  bottom: 3rem;
+  right: 3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 6rem;
+  text-align: center;
+}
+
+.swipe_container > svg {
+  animation-name: up-and-down;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+  animation-iteration-count: infinite;
+  animation-duration: 2s;
+}
+
+@keyframes up-and-down {
+  0% {
+    transform: translateY(10px);
+  }
+  50% {
+    transform: translateY(0px);
+  }
+  100% {
+    transform: translateY(10px);
+  }
+}
+
+/* sign up settings */
+
+.sign_up_container {
+  position: absolute;
+  bottom: 90vh;
+  height: 100vh;
+  width: 100%;
+}
+
+.sign_up_container > div {
+  width: 100%;
+}
+
+.sign_up_container > div > h1 {
+  font-family: "Times New Roman";
+  font-size: 4rem;
+  font-weight: 1000;
+}
+
+.sign_up_container > div > p {
+  font-size: 2rem;
+  width: 50%;
+  text-align: center;
 }
