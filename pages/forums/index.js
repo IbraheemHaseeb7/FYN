@@ -39,6 +39,7 @@ export default function Forums() {
         "This is a 3 month long course where you will be guided not only how to refrain from pornography but also you will be given a series of diets and exercise that will help you build a perfect character",
       link: "https://www.youtube.com",
       open: false,
+      id: 1,
     },
     {
       date: "22 June, 2022",
@@ -47,6 +48,7 @@ export default function Forums() {
         "This is a 3 month long course where you will be guided not only how to refrain from pornography but also you will be given a series of diets and exercise that will help you build a perfect character",
       link: "https://www.youtube.com",
       open: false,
+      id: 2,
     },
     {
       date: "22 June, 2022",
@@ -55,12 +57,12 @@ export default function Forums() {
         "This is a 3 month long course where you will be guided not only how to refrain from pornography but also you will be given a series of diets and exercise that will help you build a perfect character",
       link: "https://www.youtube.com",
       open: false,
+      id: 3,
     },
   ]);
 
-  let index = -1;
-
   console.log(render);
+
   return (
     <div className={styles.forums_container}>
       <div className={styles.title_container}>
@@ -73,15 +75,23 @@ export default function Forums() {
         </p>
       </div>
       <div className={styles.forums}>
-        {render.map(({ date, question, open, answer }) => {
-          index++;
-
+        {render.map(({ date, question, open, answer, id }) => {
           return (
             <div
               className={styles.forum}
-              onClick={() => {
-                setRender([...render, {}]);
+              onClick={(e) => {
+                let data = e.target.dataset.value;
+
+                let array = render;
+
+                array.forEach((value, index, arr) => {
+                  if (arr[index].id === parseInt(data)) {
+                    arr[index].open = !arr[index].open;
+                  }
+                });
+                setRender(array);
               }}
+              data-value={id}
             >
               <p>{question}</p>
               <ArrowDropDownIcon />
