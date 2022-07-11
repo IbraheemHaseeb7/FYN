@@ -138,13 +138,6 @@ export default function Home() {
     gsap.set(methods.current, {
       opacity: 0,
     });
-    gsap.set(circle.current, {
-      y: "-650%",
-      x: "1150%",
-      scale: 1.5,
-      strokeDashoffset: 295,
-      strokeDasharray: 295,
-    });
     gsap.set(circle2.current, {
       scale: 3,
       y: "-100%",
@@ -158,6 +151,38 @@ export default function Home() {
       strokeDashoffset: 771,
       strokeDasharray: 771,
     });
+
+    if (window.innerWidth < 600) {
+      gsap.set(line.current, {
+        y: "-650%",
+        x: "10%",
+        scale: 3,
+        strokeDashoffset: 771,
+        strokeDasharray: 771,
+      });
+      gsap.set(circle.current, {
+        y: "-700%",
+        x: "300%",
+        scale: 1.5,
+        strokeDashoffset: 295,
+        strokeDasharray: 295,
+      });
+    } else {
+      gsap.set(line.current, {
+        y: "-500%",
+        x: "10%",
+        scale: 3,
+        strokeDashoffset: 771,
+        strokeDasharray: 771,
+      });
+      gsap.set(circle.current, {
+        y: "-650%",
+        x: "1150%",
+        scale: 1.5,
+        strokeDashoffset: 295,
+        strokeDasharray: 295,
+      });
+    }
 
     // entering
 

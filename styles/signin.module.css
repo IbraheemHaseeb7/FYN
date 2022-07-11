@@ -102,6 +102,7 @@
   transition: all 0.2s ease;
   justify-self: end;
   align-self: start;
+  border: none;
 }
 
 .signup:hover {
