@@ -5,6 +5,7 @@ export default function Footer() {
   return (
     <footer className={styles.footer}>
       <div className={styles.navigators}>
+        <h2>Navigation</h2>
         <Link href="/">
           <p>Home</p>
         </Link>
@@ -19,6 +20,7 @@ export default function Footer() {
         </Link>
       </div>
       <div className={styles.blogs}>
+        <h2>Blogs</h2>
         <Link href="/blogs/123">
           <p>Introduction Video</p>
         </Link>

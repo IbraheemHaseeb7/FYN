@@ -9,6 +9,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
   z-index: 5;
 }
 
@@ -145,4 +146,35 @@
 }
 .submitBtn:hover {
   background-color: #e0e0e0;
+}
+
+.input {
+  width: 100%;
+  padding: 0.5rem;
+  border: 2px solid black;
+  margin: 1rem 0;
+  outline: none;
+}
+
+.announcement_container > div {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.announcement_container > div > input {
+  width: 50%;
+}
+
+.preview_container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.preview_container > div {
+  align-self: flex-start;
 }

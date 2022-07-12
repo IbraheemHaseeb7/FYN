@@ -1,15 +1,30 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import styles from "../../styles/signin.module.css";
-import VisibilityIcon from "@mui/icons-material/Visibility";
 import Footer from "../../components/footer/footer";
-import Link from "next/link";
+import GoogleIcon from "@mui/icons-material/Google";
+import { GoogleAuthProvider, signInWithPopup, signOut } from "firebase/auth";
+import { auth, firestore } from "../../libraries/firebase";
+import { UserContext } from "../_app";
+import {
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  query,
+  setDoc,
+  updateDoc,
+  where,
+} from "firebase/firestore";
+import useUsername from "../../hooks/username";
+import { useAuthState } from "react-firebase-hooks/auth";
 
 export default function SignIn() {
   const [data, setData] = useState({
     username: "",
-    password: "",
   });
-  const [view, setView] = useState("password");
+
+  const [avail, setAvail] = useState(false);
+  const { username, uid, signedIn } = useContext(UserContext);
 
   function handleChange(e) {
     let value = e.target.value;
@@ -21,20 +36,46 @@ export default function SignIn() {
     });
   }
 
-  function changeView() {
-    if (view === "password") {
-      setView("name");
-    } else {
-      setView("password");
+  async function signIn() {
+    await signInWithPopup(auth, new GoogleAuthProvider());
+
+    if (signedIn) {
+      if (username === null) {
+        await setDoc(doc(firestore, `/users`, uid), {
+          uid: uid,
+          username: null,
+        });
+      }
     }
+  }
+
+  async function checkAvailable() {
+    await getDocs(
+      query(
+        collection(firestore, "users"),
+        where("username", "==", data.username)
+      )
+    ).then((res) => {
+      let array = res.docs.map((data) => {
+        return data.data();
+      });
+      if (array.length === 0) {
+        setAvail(true);
+      } else {
+        setAvail(false);
+      }
+    });
   }
 
   async function handleSubmit(e) {
     e.preventDefault();
 
+    await updateDoc(doc(firestore, `/users`, uid), {
+      username: data.username,
+    });
+
     setData({
       username: "",
-      password: "",
     });
   }
 
@@ -48,37 +89,52 @@ export default function SignIn() {
           <img alt="image was here" src="sign.jpg" className={styles.img} />
         </div>
         <form className={styles.form}>
-          <input
-            name="username"
-            type="name"
-            value={data.username}
-            className={styles.input}
-            onChange={handleChange}
-            placeholder="Username"
-          />
-          <div className={styles.pass_div}>
-            <input
-              name="password"
-              type={view}
-              value={data.password}
-              className={`${styles.input} ${styles.pass}`}
-              onChange={handleChange}
-              placeholder="Password"
-            />
-            <span className={styles.label} onClick={changeView}>
-              <VisibilityIcon />
-            </span>
-          </div>
-          <Link href="/login">
-            <p className={styles.login}>Already have an account? Login here</p>
-          </Link>
-          <button
-            type="button"
-            onClick={handleSubmit}
-            className={styles.signup}
-          >
-            Sign Up
-          </button>
+          {!signedIn ? (
+            <button type="button" onClick={signIn} className={styles.google}>
+              <GoogleIcon /> Sign In with Google
+            </button>
+          ) : (
+            <button
+              type="button"
+              onClick={async () => {
+                await signOut(auth);
+              }}
+              className={styles.google}
+            >
+              <GoogleIcon /> Sign Out from Google
+            </button>
+          )}
+          {username === null ? (
+            <>
+              <input
+                disabled={!signedIn}
+                name="username"
+                type="name"
+                value={data.username}
+                className={styles.input}
+                onChange={handleChange}
+                placeholder="Username"
+              />
+
+              <button
+                type="button"
+                onClick={checkAvailable}
+                className={`${styles.signup} ${styles.check}`}
+              >
+                Check Availablity
+              </button>
+              <button
+                disabled={!avail}
+                type="button"
+                onClick={handleSubmit}
+                className={styles.signup}
+              >
+                Sign Up
+              </button>
+            </>
+          ) : (
+            <h3>Welcome back, {username}</h3>
+          )}
           <p className={styles.lil}>
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Est ut
             repudiandae nihil itaque, reiciendis, magni necessitatibus

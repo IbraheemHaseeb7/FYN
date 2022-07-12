@@ -60,27 +60,9 @@
   grid-column: 1/3;
 }
 
-.pass_div {
-  width: 100%;
-  height: 100%;
-  position: relative;
-  grid-column: 1/3;
-}
-
-.pass {
-  width: 100%;
-}
-
-.label {
-  position: absolute;
-  top: 50%;
-  right: 5%;
-  transform: translate(5%, -75%);
-  cursor: pointer;
-}
-
-.label svg {
-  pointer-events: none;
+.input:disabled {
+  border: 1px solid red;
+  cursor: not-allowed;
 }
 
 .login {
@@ -107,4 +89,23 @@
 
 .signup:hover {
   background-color: #fcdf5d;
+}
+
+.check {
+  justify-self: flex-start;
+}
+
+.google {
+  background-color: #d9d9d9;
+  border: none;
+  outline: none;
+  padding: 0.5rem;
+  border: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  border-radius: 5px;
+  justify-self: flex-start;
+  cursor: pointer;
 }

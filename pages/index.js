@@ -3,14 +3,21 @@ import Link from "next/link";
 import Footer from "../components/footer/footer";
 import { gsap } from "gsap";
 import { Elastic } from "gsap";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import WhatsAppIcon from "@mui/icons-material/WhatsApp";
 import SwipeDownAltIcon from "@mui/icons-material/SwipeDownAlt";
+import ChatIcon from "@mui/icons-material/Chat";
+import { doc, setDoc } from "firebase/firestore";
+import { firestore } from "../libraries/firebase";
+import { useContext } from "react";
+import { UserContext } from "./_app";
 
 export default function Home() {
+  const { uid, username } = useContext(UserContext);
+
   const image = useRef();
   const act = useRef();
   const left = useRef();
@@ -80,37 +87,41 @@ export default function Home() {
 
   // first animation
   useEffect(() => {
+    let tl = gsap.timeline({
+      scrollTrigger: {
+        markers: false,
+        start: "25% bottom",
+        end: "+=50%",
+        scrub: true,
+      },
+    });
+
     gsap.set(image.current, {
       x: 0,
     });
     // animation timeline
-    gsap.to(image.current, {
-      x: "-100%",
-      scrollTrigger: {
-        markers: false,
-        start: "25% bottom",
-        end: "+=50%",
-        scrub: 1,
+
+    tl.to(
+      image.current,
+      {
+        x: "-100%",
       },
-    });
-    gsap.to(act.current, {
-      opacity: 0,
-      scrollTrigger: {
-        markers: false,
-        scrub: 1,
-        start: "25% bottom",
-        end: "+=50%",
+      0
+    );
+    tl.to(
+      act.current,
+      {
+        opacity: 0,
       },
-    });
-    gsap.to(swipe_down.current, {
-      opacity: 0,
-      scrollTrigger: {
-        markers: false,
-        scrub: 1,
-        start: "25% bottom",
-        end: "+=50%",
+      0
+    );
+    tl.to(
+      swipe_down.current,
+      {
+        opacity: 0,
       },
-    });
+      0
+    );
   }, []);
 
   // exit animations go here
@@ -120,7 +131,7 @@ export default function Home() {
         markers: false,
         start: "30% bottom",
         end: "+=100%",
-        scrub: 1,
+        scrub: true,
       },
     });
 
@@ -296,7 +307,7 @@ export default function Home() {
         markers: false,
         start: "50% bottom",
         end: "+=400%",
-        scrub: 1,
+        scrub: true,
       },
     });
 
@@ -545,6 +556,15 @@ export default function Home() {
     );
   }, []);
 
+  const id = new Date().getTime().toString();
+  // creating room
+  async function createRoom() {
+    await setDoc(doc(firestore, `chats`, id), {
+      uid: [uid, "R3tc0RKCDgX8yhaHS5c0Ej3IXxF3"],
+      title: username,
+      id: id,
+    });
+  }
   return (
     <div className={styles.home_container} id="home">
       <div className={styles.socials_container}>
@@ -570,6 +590,11 @@ export default function Home() {
           <WhatsAppIcon />
         </a>
       </div>
+      <Link href={`/chats/${id}`}>
+        <button className={styles.message_container} onClick={createRoom}>
+          <ChatIcon />
+        </button>
+      </Link>
       <section className={styles.first_page}>
         <div className={styles.image_container} ref={image}>
           <img src="homepage.png" alt="image" className={styles.img} />

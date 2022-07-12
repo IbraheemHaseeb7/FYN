@@ -2,39 +2,37 @@ import styles from "../../styles/forums.module.css";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import Footer from "../../components/footer/footer";
 import { useState, useRef } from "react";
-import { useEffect } from "react";
+import {
+  collection,
+  getDocs,
+  limit,
+  orderBy,
+  query,
+  startAfter,
+} from "firebase/firestore";
+import { firestore } from "../../libraries/firebase";
+import Link from "next/link";
 
-export default function Forums() {
-  const [render, setRender] = useState([
-    {
-      date: "22 June, 2022",
-      question: "How long is this course?",
-      answer:
-        "This is a 3 month long course where you will be guided not only how to refrain from pornography but also you will be given a series of diets and exercise that will help you build a perfect character",
-      link: "https://www.youtube.com",
-      open: false,
-      id: 1,
-    },
-    {
-      date: "22 June, 2022",
-      question: "How long is this course?",
-      answer:
-        "This is a 3 month long course where you will be guided not only how to refrain from pornography but also you will be given a series of diets and exercise that will help you build a perfect characterThis is a 3 month long course where you will be guided not only how to refrain from pornography but also you will be given a series of diets and exercise that will help you build a perfect character",
-      link: "https://www.youtube.com",
-      open: false,
-      id: 2,
-    },
-    {
-      date: "22 June, 2022",
-      question: "How long is this course?",
-      answer:
-        "This is a 3 month long course where you will be guided not only how to refrain from pornography but also you will be given a series of diets and exercise that will help you build a perfect character",
-      link: "https://www.youtube.com",
-      open: false,
-      id: 3,
-    },
-  ]);
+export async function getServerSideProps(data) {
+  let array = [];
+
+  await getDocs(
+    query(collection(firestore, "forum"), orderBy("id", "asc"), limit(5))
+  ).then((res) => {
+    array = res.docs.map((data) => {
+      return data.data();
+    });
+  });
+
+  return {
+    props: { array },
+  };
+}
+
+export default function Forums({ array }) {
+  const [render, setRender] = useState(array);
   const [okay, setOkay] = useState(true);
+  const [last, setLast] = useState(false);
 
   const answerDiv = useRef();
 
@@ -42,7 +40,7 @@ export default function Forums() {
     let data = e.target.dataset.value;
     let array = render;
     array.forEach((value, index, arr) => {
-      if (arr[index].id === parseInt(data)) {
+      if (arr[index].id === data) {
         arr[index].open = !arr[index].open;
       }
     });
@@ -51,9 +49,31 @@ export default function Forums() {
     setRender(array);
   }
 
-  useEffect(() => {
-    console.log(answerDiv.current.offsetHeight);
-  }, []);
+  async function loadMore() {
+    const last = render[render.length - 1];
+
+    await getDocs(
+      query(
+        collection(firestore, "forum"),
+        orderBy("id", "asc"),
+        limit(5),
+        startAfter(last.id)
+      )
+    ).then((res) => {
+      let array = render;
+
+      let thisTime = res.docs.map((data) => {
+        array.push(data.data());
+      });
+
+      setOkay(!okay);
+      setRender(array);
+
+      if (thisTime.length < 5) {
+        setLast(true);
+      }
+    });
+  }
 
   return (
     <div className={styles.forums_container}>
@@ -67,7 +87,7 @@ export default function Forums() {
         </p>
       </div>
       <div className={styles.forums}>
-        {render.map(({ date, question, open, answer, id }) => {
+        {render.map(({ waqt, question, open, answer, id }) => {
           return (
             <div
               className={styles.forum}
@@ -81,24 +101,30 @@ export default function Forums() {
               </div>
               <div className={styles.forum_answer} ref={answerDiv}>
                 <p>{answer}</p>
-                <span>{date}</span>
-                <button
-                  className={styles.load_more}
-                  style={{
-                    backgroundColor: "#d9d9d9",
-                    padding: "0.5rem",
-                    justifySelf: "end",
-                  }}
-                >
-                  Read More
-                </button>
+                <span>{waqt}</span>
+                <Link href={`/forums/${id}`}>
+                  <button
+                    className={styles.load_more}
+                    style={{
+                      backgroundColor: "#d9d9d9",
+                      padding: "0.5rem",
+                      justifySelf: "end",
+                    }}
+                  >
+                    Read More
+                  </button>
+                </Link>
               </div>
             </div>
           );
         })}
-        <button type="button" className={styles.load_more}>
-          Load More
-        </button>
+        {last ? (
+          <p></p>
+        ) : (
+          <button type="button" className={styles.load_more} onClick={loadMore}>
+            Load More
+          </button>
+        )}
       </div>
       <Footer />
     </div>

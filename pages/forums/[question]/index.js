@@ -1,31 +1,62 @@
 import styles from "../../../styles/question.module.css";
 import Footer from "../../../components/footer/footer";
 import { useState } from "react";
+import {
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  onSnapshot,
+  setDoc,
+} from "firebase/firestore";
+import { firestore } from "../../../libraries/firebase";
+import { useContext } from "react";
+import { UserContext } from "../../_app";
+import { useEffect } from "react";
+import { useRouter } from "next/router";
 
-const question = "How long is this course?";
-const answer =
-  "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sequi ipsam earum hic provident, molestiae, repudiandae mollitia tenetur ea nesciunt voluptate culpa iusto fugiat accusamus quasi enim veritatis. Voluptas sit, porro cupiditate omnis facere excepturi ipsum beatae voluptatibus perferendis quod ratione alias corrupti deserunt sunt id a maiores nisi autem accusamus!";
+export async function getStaticProps(data) {
+  const id = data.params.question;
 
-const message = [
-  {
-    time: "22 June, 2022",
-    message: "Hello there how are you I love you...",
-    sender: "user_1",
-  },
-  {
-    time: "22 June, 2022",
-    message: "Hello there how are you I love you...",
-    sender: "user_1",
-  },
-  {
-    time: "22 June, 2022",
-    message: "Hello there how are you I love you...",
-    sender: "user_1",
-  },
-];
+  let array = null;
 
-export default function Question() {
+  await getDoc(doc(firestore, "forum", id)).then((res) => {
+    array = res.data();
+  });
+
+  return {
+    props: {
+      question: array.question,
+      answer: array.answer,
+      id: array.id,
+    },
+  };
+}
+
+export async function getStaticPaths() {
+  let array = [];
+
+  await getDocs(collection(firestore, "forum")).then((res) => {
+    array = res.docs.map((data) => {
+      const { id } = data.data();
+
+      return {
+        params: { question: id },
+      };
+    });
+  });
+
+  return {
+    paths: array,
+    fallback: "blocking",
+  };
+}
+
+export default function Question({ question, answer, id }) {
   const [value, setValue] = useState("");
+  const { username } = useContext(UserContext);
+  const router = useRouter();
+  const [message, setMessage] = useState([]);
 
   function handleChange(e) {
     setValue(e.target.value);
@@ -34,8 +65,42 @@ export default function Question() {
   async function handleSubmit(e) {
     e.preventDefault();
 
+    const comId = new Date().getTime().toString();
+
+    const date = new Date().toString();
+    const month = date.substring(4, 7);
+    const day = date.substring(8, 10);
+    const year = date.substring(11, 15);
+
+    const waqt = day + " " + month + ", " + year;
+
+    await setDoc(doc(firestore, `/forum/${id}/comments`, comId), {
+      message: value,
+      waqt: waqt,
+      sender: username,
+    });
+
     setValue("");
   }
+
+  useEffect(() => {
+    let unsub = onSnapshot(
+      collection(firestore, `/forum/${id}/comments`),
+      (data) => {
+        let array = message;
+
+        array = data.docs.map((data) => {
+          return data.data();
+        });
+
+        console.log(array);
+
+        setMessage(array);
+      }
+    );
+
+    return unsub;
+  }, [router.query?.question]);
 
   return (
     <div className={styles.question_container}>
@@ -57,7 +122,7 @@ export default function Question() {
         </form>
       </div>
       <div className={styles.comments_container}>
-        {message.map(({ time, sender, message }) => {
+        {message.map(({ waqt, sender, message }) => {
           return (
             <div className={styles.comment}>
               <div className={styles.sender_container}>
@@ -66,7 +131,7 @@ export default function Question() {
               </div>
               <div className={styles.comment_container}>
                 <p>{message}</p>
-                <span>{time}</span>
+                <span>{waqt}</span>
               </div>
             </div>
           );

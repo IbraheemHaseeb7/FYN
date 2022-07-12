@@ -1,0 +1,21 @@
+.form_container {
+  width: 90%;
+  display: flex;
+}
+
+.form_container > textarea {
+  flex-grow: 1;
+  resize: none;
+  padding: 0.5rem;
+  font-family: "Roboto";
+  border: 1px solid #ff8e7e;
+  border-radius: 5px;
+  outline: none;
+}
+
+.form_container > button {
+  background-color: white;
+  border: 1px solid #ff8e7e;
+  color: black;
+  cursor: pointer;
+}

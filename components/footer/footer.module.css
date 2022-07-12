@@ -1,6 +1,6 @@
 .footer {
   width: 100%;
-  height: 40vh;
+  height: 50vh;
   background-color: #ff8e7e;
   color: white;
   display: grid;
@@ -28,4 +28,37 @@
 .navigators > p:hover,
 .blogs > p:hover {
   text-decoration: underline;
+}
+
+@media (max-width: 600px) {
+  .footer {
+    grid-template-columns: 100%;
+    grid-template-rows: 30% 30% 30% 10%;
+    height: 100vh;
+  }
+
+  .navigators,
+  .blogs,
+  .try {
+    grid-column: 1/2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+
+  .navigators > p,
+  .blogs > p,
+  .try > p {
+    margin: 0.5rem;
+  }
+
+  .navigators > h2,
+  .blogs > h2,
+  .try > h2 {
+  }
+
+  .copyrights {
+    grid-column: 1/2;
+  }
 }

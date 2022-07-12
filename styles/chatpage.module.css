@@ -1,0 +1,46 @@
+.main_container {
+  width: 100%;
+  min-height: calc(100vh - 6rem);
+  margin-top: 6rem;
+}
+
+.title_container > h1 {
+  width: 100%;
+  font-size: 3.5rem;
+  font-family: "Times new Roman";
+  justify-self: center;
+  text-align: center;
+  margin: 0;
+}
+
+.go_back_container > button {
+  padding: 0.5rem;
+  background-color: white;
+  border: 2px solid black;
+  cursor: pointer;
+  margin: 1rem;
+}
+
+.go_back_container > button:hover {
+  background-color: #d9d9d9;
+}
+
+.chats_container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin: 2rem 0;
+}
+
+.chats {
+  border: 2px solid black;
+  width: 80%;
+  text-align: center;
+  cursor: pointer;
+}
+
+.chats:hover {
+  background-color: #d9d9d9;
+}

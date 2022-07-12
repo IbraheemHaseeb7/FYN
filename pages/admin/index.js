@@ -1,8 +1,14 @@
 import styles from "../../styles/admin.module.css";
-import { useState } from "react";
-import { signInWithPopup, GoogleAuthProvider, signOut } from "firebase/auth";
+import { useEffect, useState } from "react";
+import {
+  signInWithPopup,
+  GoogleAuthProvider,
+  signOut,
+  onAuthStateChanged,
+} from "firebase/auth";
 import { auth } from "../../libraries/firebase";
 import GoogleIcon from "@mui/icons-material/Google";
+import Link from "next/link";
 
 export default function Admin() {
   const [sign, setSign] = useState(false);
@@ -27,6 +33,16 @@ export default function Admin() {
       });
   }
 
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setSign(true);
+      } else {
+        setSign(false);
+      }
+    });
+  }, []);
+
   return (
     <div className={styles.admin_container}>
       {sign ? (
@@ -35,6 +51,9 @@ export default function Admin() {
           <button className={styles.signBtn} onClick={SignOut}>
             Sign Out
           </button>
+          <Link href="/admin/create">
+            <button className={styles.signBtn}>Go to Portal</button>
+          </Link>
         </div>
       ) : (
         <div className={styles.sign_in_container}>

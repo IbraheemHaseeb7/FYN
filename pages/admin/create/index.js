@@ -4,6 +4,10 @@ import QuestionAnswerIcon from "@mui/icons-material/QuestionAnswer";
 import { useReducer } from "react";
 import Popup from "../../../components/popup/popup";
 import Announcement from "../../../components/popup/announcement";
+import Forum from "../../../components/popup/forum";
+import ChatIcon from "@mui/icons-material/Chat";
+import Link from "next/link";
+import Footer from "../../../components/footer/footer";
 
 function reducer(state, action) {
   switch (action.type) {
@@ -25,6 +29,7 @@ export default function Create() {
   const [state, dispatch] = useReducer(reducer, {
     blog: false,
     forum: false,
+    chats: false,
   });
 
   const creater = [
@@ -85,9 +90,17 @@ export default function Create() {
           name="forum"
           dispatch={dispatch}
         >
-          <Announcement />
+          <Forum />
         </Popup>
       )}
+      <div className={`${styles.one_create} ${styles.chats_container}`}>
+        <ChatIcon />
+        <h2>Chat with people here</h2>
+        <button type="button" className={styles.create_btn}>
+          <Link href="/admin/chats">View chats here</Link>
+        </button>
+      </div>
+      <Footer />
     </div>
   );
 }

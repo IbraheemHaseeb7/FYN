@@ -279,6 +279,47 @@
   text-align: center;
 }
 
+.message_container {
+  width: 2.5rem;
+  height: 2.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  cursor: pointer;
+  z-index: 10;
+  background-color: transparent;
+  border: none;
+}
+
+.message_container::before {
+  content: "Chat with us";
+  background-color: #eaeaea;
+  padding: 0.5rem;
+  display: block;
+  border-radius: 5px;
+  white-space: nowrap;
+  position: absolute;
+  right: 100%;
+  transform: scaleY(0);
+  transition: all 0.2s ease;
+}
+
+.message_container:hover::before {
+  transform: scaleY(1);
+}
+
+.message_container > svg {
+  pointer-events: none;
+  color: white;
+  background-color: #ff8e7e;
+  padding: 0.5rem;
+  border-radius: 5rem;
+  box-sizing: content-box;
+}
+
 /* responsive design */
 
 @media (max-width: 600px) {

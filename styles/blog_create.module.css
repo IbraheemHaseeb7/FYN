@@ -2,6 +2,9 @@
   width: 100%;
   min-height: calc(100vh - 5rem);
   margin-top: 5rem;
+  display: grid;
+  grid-template-columns: 100%;
+  place-items: center;
 }
 
 .topic_container {
@@ -9,6 +12,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  text-align: center;
 }
 
 .creaters {
@@ -46,4 +50,23 @@
 }
 .create_btn:hover {
   background-color: #e0e0e0;
+}
+
+.chats_container {
+  width: calc(90% + 3rem);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 2rem 0;
+}
+
+@media (max-width: 600px) {
+  .creaters {
+    flex-direction: column;
+    gap: 2rem;
+  }
+  .one_create {
+    width: 90%;
+    text-align: center;
+  }
 }

@@ -1,0 +1,139 @@
+.blogs_container {
+  width: 100%;
+  min-height: calc(100vh - 6rem);
+  margin-top: 6rem;
+}
+
+.title_container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "Times new Roman";
+}
+
+.title_container > h1 {
+  font-size: 3.5rem;
+}
+
+.blogs {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin: 0 0 5rem 0;
+}
+
+.blog_pic {
+  cursor: pointer;
+}
+
+.one_blog {
+  width: 100%;
+  height: 10rem;
+  position: relative;
+}
+
+.blog_pic > img {
+  position: relative;
+  object-fit: cover;
+  width: 100%;
+  height: 10rem;
+}
+
+.blog_pic::before {
+  content: "";
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: rgba(255, 255, 255, 0.384);
+  z-index: 1;
+  pointer-events: none;
+  backdrop-filter: blur(10px);
+  transition: all 0.2s ease;
+}
+.blog_pic::after {
+  content: "";
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  pointer-events: none;
+  opacity: 0;
+}
+
+.blog_pic:hover::before {
+  backdrop-filter: blur(0px);
+}
+
+.blog_pic:hover::after {
+  opacity: 1;
+}
+
+.blog_title {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  pointer-events: none;
+}
+
+.blog_title > h1 {
+  margin: 0;
+  user-select: none;
+  font-weight: 700;
+  font-size: 2rem;
+  text-align: center;
+  pointer-events: none;
+}
+
+.tags_and_date {
+  position: absolute;
+  bottom: 0.5rem;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.tags_and_date > div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 1rem;
+}
+
+.tags_and_date > div > p {
+  background-color: #eaeaea;
+  padding: 0.5rem;
+  border-radius: 5rem;
+  margin: 0;
+}
+
+.tags_and_date > span {
+  margin: 0;
+  margin-left: 1rem;
+}
+
+@media (max-width: 600px) {
+  .title_container > h1 {
+    font-size: 2.5rem;
+    text-align: center;
+  }
+
+  .blog_title {
+    width: 100%;
+  }
+  .blog_title > h1 {
+    width: 100%;
+    font-size: 1.5rem;
+  }
+}

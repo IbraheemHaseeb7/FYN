@@ -1,0 +1,18 @@
+.main_container {
+  width: 90%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  flex-direction: column;
+  border: 2px solid #ff8e7e;
+  height: 70vh;
+  overflow-y: scroll;
+  border-radius: 5px;
+  padding: 0.5rem;
+}
+
+.main_container > p {
+  padding: 0.5rem;
+  margin: 0.25rem;
+  border-radius: 1rem;
+}
