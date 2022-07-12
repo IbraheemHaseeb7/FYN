@@ -10,13 +10,24 @@ import InstagramIcon from "@mui/icons-material/Instagram";
 import WhatsAppIcon from "@mui/icons-material/WhatsApp";
 import SwipeDownAltIcon from "@mui/icons-material/SwipeDownAlt";
 import ChatIcon from "@mui/icons-material/Chat";
-import { doc, setDoc } from "firebase/firestore";
-import { firestore } from "../libraries/firebase";
+import {
+  collection,
+  doc,
+  getDocs,
+  query,
+  setDoc,
+  where,
+} from "firebase/firestore";
+import { auth, firestore } from "../libraries/firebase";
 import { useContext } from "react";
 import { UserContext } from "./_app";
+import { useRouter } from "next/router";
+import { onAuthStateChanged } from "firebase/auth";
 
 export default function Home() {
   const { uid, username } = useContext(UserContext);
+  const router = useRouter();
+  const [room, setRoom] = useState(null);
 
   const image = useRef();
   const act = useRef();
@@ -565,6 +576,31 @@ export default function Home() {
       id: id,
     });
   }
+
+  // check room
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        console.log(auth.currentUser?.uid);
+        getDocs(
+          query(
+            collection(firestore, `chats`),
+            where("uid", "array-contains", auth.currentUser?.uid)
+          )
+        ).then((res) => {
+          let array = res.docs.map((data) => {
+            return data.data();
+          });
+
+          if (array.length === 0) {
+            setRoom(id);
+          } else {
+            setRoom(null);
+          }
+        });
+      }
+    });
+  }, [router.query]);
   return (
     <div className={styles.home_container} id="home">
       <div className={styles.socials_container}>
@@ -591,7 +627,16 @@ export default function Home() {
         </a>
       </div>
       <Link href={`/chats/${id}`}>
-        <button className={styles.message_container} onClick={createRoom}>
+        <button
+          className={styles.message_container}
+          onClick={() => {
+            if (room === null) {
+              createRoom();
+            } else {
+              () => {};
+            }
+          }}
+        >
           <ChatIcon />
         </button>
       </Link>
