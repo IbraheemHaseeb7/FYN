@@ -5,9 +5,13 @@ import styles from "./chat.module.css";
 export default function ChatBox({ messages }) {
   const data = useContext(UserContext);
 
+  let index = -1;
+
   return (
     <div className={styles.main_container}>
       {messages.map(({ message, uid }) => {
+        index++;
+
         return (
           <p
             style={
@@ -24,6 +28,7 @@ export default function ChatBox({ messages }) {
                     alignSelf: "flex-end",
                   }
             }
+            key={index}
           >
             {message}
           </p>

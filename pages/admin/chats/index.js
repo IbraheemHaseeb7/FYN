@@ -30,7 +30,7 @@ export default function ChatPage({ array }) {
       <div className={styles.chats_container}>
         {array.map(({ title, id }) => {
           return (
-            <Link href={`/admin/chats/${id}`}>
+            <Link href={`/admin/chats/${id}`} key={id}>
               <div className={styles.chats}>
                 <h3>{title}</h3>
               </div>

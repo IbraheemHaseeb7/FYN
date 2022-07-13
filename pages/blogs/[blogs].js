@@ -60,7 +60,7 @@ export default function Blogs({ title, tags, id, content, waqt }) {
         <div className={styles.tags_container}>
           <span>TAGS</span>
           {tags.map((data) => {
-            return <p>{data}</p>;
+            return <p key={data}>{data}</p>;
           })}
         </div>
       </div>

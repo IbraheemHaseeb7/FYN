@@ -65,7 +65,7 @@ export default function Create() {
       <div className={styles.creaters}>
         {creater.map(({ logo, title, button, open, value }) => {
           return (
-            <div className={styles.one_create}>
+            <div className={styles.one_create} key={title}>
               {logo}
               <h2>{title}</h2>
               <button
