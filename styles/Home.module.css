@@ -322,6 +322,13 @@
   border: 1px solid #ffe87e;
 }
 
+.sign_up_container > div > div {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 /* responsive design */
 
 @media (max-width: 600px) {
@@ -344,5 +351,14 @@
   }
   .socials_container > a > svg {
     font-size: 1.25rem;
+  }
+  .home_container {
+    min-height: 1100vh;
+  }
+  .sign_up_container > div > h1 {
+    font-size: 2.5rem;
+  }
+  .sign_up_container > div > p {
+    font-size: 1.5rem;
   }
 }

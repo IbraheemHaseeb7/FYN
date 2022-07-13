@@ -508,71 +508,161 @@ export default function Home() {
 
   // animation for the sign up
   useEffect(() => {
-    var tl = gsap.timeline({
-      scrollTrigger: {
-        markers: false,
-        scrub: true,
-        start: "88% bottom",
-        end: "+=80%",
-        trigger: "#home",
-        pin: "#pin",
-      },
-    });
-
     // setting up the positions
 
-    gsap.set(left_sign.current, {
-      scale: 2,
-      x: "-150%",
-      y: "-10%",
-    });
-    gsap.set(right_sign.current, {
-      scale: 2,
-      x: "500%",
-      y: "80%",
-    });
-    gsap.set(sign_heading.current, {
-      textAlign: "center",
-      y: "-550%",
-      opacity: 0,
-    });
-    gsap.set(sign_text.current, {
-      x: "50%",
-      y: "-350%",
-      opacity: 0,
-    });
+    if (window.innerWidth > 800) {
+      var tl = gsap.timeline({
+        scrollTrigger: {
+          markers: false,
+          scrub: true,
+          start: "88% bottom",
+          end: "+=80%",
+          trigger: "#home",
+          pin: "#pin",
+        },
+      });
 
-    // animation timeline is here
-    tl.to(
-      left_sign.current,
-      {
+      gsap.set(left_sign.current, {
+        scale: 2,
+        x: "-150%",
+        y: "-10%",
+      });
+      gsap.set(right_sign.current, {
+        scale: 2,
+        x: "500%",
+        y: "80%",
+      });
+      gsap.set(sign_heading.current, {
+        textAlign: "center",
+        y: "-550%",
+        opacity: 0,
+      });
+      gsap.set(sign_text.current, {
         x: "50%",
-      },
-      0
-    );
-    tl.to(
-      right_sign.current,
-      {
-        x: "300%",
-      },
-      0
-    );
-    tl.to(
-      sign_heading.current,
-      {
+        y: "-350%",
+        opacity: 0,
+      });
+      gsap.set("#btn_container", {
+        y: "-700%",
+        opacity: 0,
+      });
+
+      // animation timeline is here
+      tl.to(
+        left_sign.current,
+        {
+          x: "50%",
+        },
+        0
+      );
+      tl.to(
+        right_sign.current,
+        {
+          x: "300%",
+        },
+        0
+      );
+      tl.to(
+        sign_heading.current,
+        {
+          y: "-500%",
+          opacity: 1,
+        },
+        0
+      );
+      tl.to(
+        sign_text.current,
+        {
+          y: "-300%",
+          opacity: 1,
+        },
+        0
+      );
+      tl.to(
+        "#btn_container",
+        {
+          y: "-650%",
+          opacity: 1,
+        },
+        0
+      );
+    } else if (window.innerWidth > 200 && window.innerWidth <= 800) {
+      var tl = gsap.timeline({
+        scrollTrigger: {
+          markers: false,
+          scrub: true,
+          start: "88% bottom",
+          end: "+=30%",
+          trigger: "#home",
+          pin: "#pin",
+        },
+      });
+
+      gsap.set(left_sign.current, {
+        scale: 1,
+        x: "-100%",
+        y: "-120%",
+      });
+      gsap.set(right_sign.current, {
+        scale: 1,
+        x: "170%",
+        y: "30%",
+      });
+      gsap.set(sign_heading.current, {
+        textAlign: "center",
+        y: "-1600%",
+        opacity: 0,
+      });
+      gsap.set(sign_text.current, {
+        x: "50%",
         y: "-500%",
-        opacity: 1,
-      },
-      0
-    );
-    tl.to(
-      sign_text.current,
-      {
-        y: "-300%",
-        opacity: 1,
-      },
-      0
-    );
+        opacity: 0,
+      });
+      gsap.set("#btn_container", {
+        y: "-1300%",
+        opacity: 0,
+      });
+
+      // animation timeline is here
+      tl.to(
+        left_sign.current,
+        {
+          x: "0%",
+        },
+        0
+      );
+      tl.to(
+        right_sign.current,
+        {
+          x: "70%",
+        },
+        0
+      );
+      tl.to(
+        sign_heading.current,
+        {
+          y: "-1500%",
+          opacity: 1,
+        },
+        0
+      );
+      tl.to(
+        sign_text.current,
+        {
+          y: "-400%",
+          opacity: 1,
+        },
+        0
+      );
+      tl.to(
+        "#btn_container",
+        {
+          y: "-1200%",
+          opacity: 1,
+        },
+        0
+      );
+    }
   }, []);
 
   const id = new Date().getTime().toString();
@@ -886,6 +976,13 @@ export default function Home() {
             We keep your identity hidden while you are signed up so you feel
             free to ask any question you may!
           </p>
+          <div id="btn_container">
+            <Link href="/sign-in">
+              <button className="try-btn" type="button">
+                TRY FOR FREE
+              </button>
+            </Link>
+          </div>
         </div>
       </div>
       <div className={styles.swipe_container} ref={swipe_down}>
