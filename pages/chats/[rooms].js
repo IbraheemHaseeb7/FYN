@@ -27,7 +27,7 @@ export default function Rooms() {
   }, [router.query?.rooms]);
 
   return (
-    <div className={styles.main_container}>
+    <div className={styles.main_container} key={1}>
       <ChatBox messages={messages} />
       <Send room_id={router.query?.rooms} />
     </div>
