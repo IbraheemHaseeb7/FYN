@@ -5,6 +5,8 @@ import styles from "../../styles/chats.module.css";
 import { useRouter } from "next/router";
 import { firestore } from "../../libraries/firebase";
 import { collection, doc, onSnapshot } from "firebase/firestore";
+import SignCheck from "../../protectors/signCheck";
+import UsernameCheck from "../../protectors/usernameCheck";
 
 export default function Rooms() {
   const router = useRouter();
@@ -27,9 +29,13 @@ export default function Rooms() {
   }, [router.query?.rooms]);
 
   return (
-    <div className={styles.main_container} key={1}>
-      <ChatBox messages={messages} />
-      <Send room_id={router.query?.rooms} />
-    </div>
+    <SignCheck>
+      <UsernameCheck>
+        <div className={styles.main_container} key={1}>
+          <ChatBox messages={messages} />
+          <Send room_id={router.query?.rooms} />
+        </div>
+      </UsernameCheck>
+    </SignCheck>
   );
 }

@@ -6,6 +6,7 @@ import { useRouter } from "next/router";
 import { collection, onSnapshot } from "firebase/firestore";
 import { firestore } from "../../../libraries/firebase";
 import Send from "../../../components/send/send";
+import AdminCheck from "../../../protectors/adminCheck";
 
 export default function Rooms() {
   const [messages, setMessages] = useState([]);
@@ -29,9 +30,11 @@ export default function Rooms() {
   }, [router.query?.rooms]);
 
   return (
-    <div className={styles.main_container}>
-      <ChatBox messages={messages} />
-      <Send room_id={router.query?.rooms} />
-    </div>
+    <AdminCheck>
+      <div className={styles.main_container}>
+        <ChatBox messages={messages} />
+        <Send room_id={router.query?.rooms} />
+      </div>
+    </AdminCheck>
   );
 }

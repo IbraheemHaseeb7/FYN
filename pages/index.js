@@ -26,7 +26,7 @@ import { onAuthStateChanged } from "firebase/auth";
 import { toast } from "react-hot-toast";
 
 export default function Home() {
-  const { uid, username } = useContext(UserContext);
+  const { uid, username, username_set } = useContext(UserContext);
   const router = useRouter();
   const [room, setRoom] = useState(null);
   const [roomExists, setRoomExists] = useState(false);
@@ -644,10 +644,12 @@ export default function Home() {
         <button
           className={styles.message_container}
           onClick={() => {
-            if (roomExists) {
-              return;
-            } else {
-              createRoom();
+            if (username_set) {
+              if (roomExists) {
+                return;
+              } else {
+                createRoom();
+              }
             }
           }}
         >

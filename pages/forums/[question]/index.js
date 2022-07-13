@@ -18,6 +18,8 @@ import { UserContext } from "../../_app";
 import { useEffect } from "react";
 import { useRouter } from "next/router";
 import { toast } from "react-hot-toast";
+import SignCheck from "../../../protectors/signCheck";
+import UsernameCheck from "../../../protectors/usernameCheck";
 
 export async function getStaticProps(data) {
   const id = data.params.question;
@@ -141,17 +143,21 @@ export default function Question({ question, answer, id, comments }) {
         <p>{answer}</p>
       </div>
       <div className={styles.form_align}>
-        <form className={styles.form_container}>
-          <textarea
-            placeholder="Start typing from here..."
-            value={value}
-            onChange={handleChange}
-            name="message"
-          ></textarea>
-          <button type="button" onClick={handleSubmit}>
-            Send
-          </button>
-        </form>
+        <SignCheck>
+          <UsernameCheck>
+            <form className={styles.form_container}>
+              <textarea
+                placeholder="Start typing from here..."
+                value={value}
+                onChange={handleChange}
+                name="message"
+              ></textarea>
+              <button type="button" onClick={handleSubmit}>
+                Send
+              </button>
+            </form>
+          </UsernameCheck>
+        </SignCheck>
       </div>
       <div className={styles.comments_container}>
         {message.map(({ waqt, sender, message, id }) => {

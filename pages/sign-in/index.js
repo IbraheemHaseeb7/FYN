@@ -20,6 +20,7 @@ import {
   updateDoc,
   where,
 } from "firebase/firestore";
+import { toast } from "react-hot-toast";
 
 export default function SignIn() {
   const [data, setData] = useState({
@@ -33,13 +34,13 @@ export default function SignIn() {
     let value = e.target.value;
     let name = e.target.name;
 
+    setAvail(false);
+
     setData({
       ...data,
       [name]: value,
     });
   }
-
-  console.log(username_set, username);
   async function signIn() {
     await signInWithPopup(auth, new GoogleAuthProvider());
 
@@ -66,7 +67,9 @@ export default function SignIn() {
       });
       if (array.length === 0) {
         setAvail(true);
+        toast.success("Username available for use");
       } else {
+        toast.error("Username is not available");
         setAvail(false);
       }
     });
@@ -79,6 +82,8 @@ export default function SignIn() {
       username: data.username,
       username_set: true,
     });
+
+    toast.success("Username set successfully");
 
     setData({
       username: "",

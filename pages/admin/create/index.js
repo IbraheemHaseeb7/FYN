@@ -8,6 +8,7 @@ import Forum from "../../../components/popup/forum";
 import ChatIcon from "@mui/icons-material/Chat";
 import Link from "next/link";
 import Footer from "../../../components/footer/footer";
+import AdminCheck from "../../../protectors/adminCheck";
 
 function reducer(state, action) {
   switch (action.type) {
@@ -58,49 +59,51 @@ export default function Create() {
   ];
 
   return (
-    <div className={styles.create_container}>
-      <div className={styles.topic_container}>
-        <h1>Welcome, Please choose your option from below</h1>
+    <AdminCheck>
+      <div className={styles.create_container}>
+        <div className={styles.topic_container}>
+          <h1>Welcome, Please choose your option from below</h1>
+        </div>
+        <div className={styles.creaters}>
+          {creater.map(({ logo, title, button, open, value }) => {
+            return (
+              <div className={styles.one_create} key={title}>
+                {logo}
+                <h2>{title}</h2>
+                <button
+                  type="button"
+                  className={styles.create_btn}
+                  onClick={open}
+                >
+                  {button}
+                </button>
+              </div>
+            );
+          })}
+        </div>
+        {state.blog && (
+          <Popup title="Create a new Blog" name="blog" dispatch={dispatch}>
+            <Announcement />
+          </Popup>
+        )}
+        {state.forum && (
+          <Popup
+            title="Create a new Forum Question"
+            name="forum"
+            dispatch={dispatch}
+          >
+            <Forum />
+          </Popup>
+        )}
+        <div className={`${styles.one_create} ${styles.chats_container}`}>
+          <ChatIcon />
+          <h2>Chat with people here</h2>
+          <button type="button" className={styles.create_btn}>
+            <Link href="/admin/chats">View chats here</Link>
+          </button>
+        </div>
+        <Footer />
       </div>
-      <div className={styles.creaters}>
-        {creater.map(({ logo, title, button, open, value }) => {
-          return (
-            <div className={styles.one_create} key={title}>
-              {logo}
-              <h2>{title}</h2>
-              <button
-                type="button"
-                className={styles.create_btn}
-                onClick={open}
-              >
-                {button}
-              </button>
-            </div>
-          );
-        })}
-      </div>
-      {state.blog && (
-        <Popup title="Create a new Blog" name="blog" dispatch={dispatch}>
-          <Announcement />
-        </Popup>
-      )}
-      {state.forum && (
-        <Popup
-          title="Create a new Forum Question"
-          name="forum"
-          dispatch={dispatch}
-        >
-          <Forum />
-        </Popup>
-      )}
-      <div className={`${styles.one_create} ${styles.chats_container}`}>
-        <ChatIcon />
-        <h2>Chat with people here</h2>
-        <button type="button" className={styles.create_btn}>
-          <Link href="/admin/chats">View chats here</Link>
-        </button>
-      </div>
-      <Footer />
-    </div>
+    </AdminCheck>
   );
 }

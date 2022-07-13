@@ -339,4 +339,10 @@
   .steps_text > h1 {
     margin-bottom: 0.5rem;
   }
+  .main_title > h1 {
+    font-size: 2rem;
+  }
+  .socials_container > a > svg {
+    font-size: 1.25rem;
+  }
 }
