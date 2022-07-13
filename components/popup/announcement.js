@@ -3,6 +3,7 @@ import Preview from "./preview";
 import { doc, setDoc } from "firebase/firestore";
 import { firestore } from "../../libraries/firebase";
 import styles from "./popup.module.css";
+import { toast } from "react-hot-toast";
 
 export default function Announcement() {
   const [value, setValue] = useState({
@@ -10,6 +11,7 @@ export default function Announcement() {
     title: "",
     tags: [],
     tag: "",
+    src: "",
   });
 
   function handleChange(e) {
@@ -31,23 +33,29 @@ export default function Announcement() {
 
     const id = new Date().getTime().toString();
 
-    await setDoc(doc(firestore, `/blogs`, id), {
-      id: id,
-      content: value.content,
-      title: value.title,
-      tags: value.tags,
-      waqt: waqt,
-    });
+    if (value.content && value.src && value.title) {
+      await setDoc(doc(firestore, `/blogs`, id), {
+        id: id,
+        content: value.content,
+        title: value.title,
+        tags: value.tags,
+        waqt: waqt,
+        src: value.src,
+      });
 
-    setValue({
-      content: "",
-      title: "",
-      tags: [],
-      tag: "",
-    });
+      toast.success("Blog Successfully written");
+
+      setValue({
+        content: "",
+        title: "",
+        tags: [],
+        tag: "",
+        src: "",
+      });
+    } else {
+      toast.error("Please fill out all the fields");
+    }
   }
-
-  console.log(value.tags);
 
   function handleTags() {
     setValue({ ...value, tags: [...value.tags, value.tag], tag: "" });
@@ -62,6 +70,8 @@ export default function Announcement() {
 
     setValue({ ...value, tags: array2 });
   }
+
+  let id = -1;
 
   return (
     <form className={styles.announcement_container}>
@@ -80,6 +90,14 @@ export default function Announcement() {
         name={`content`}
         onChange={handleChange}
       ></textarea>
+      <input
+        className={styles.input}
+        placeholder="Image link goes here..."
+        type="url"
+        name="src"
+        value={value.src}
+        onChange={handleChange}
+      />
       <div>
         <input
           className={styles.input}
@@ -94,8 +112,10 @@ export default function Announcement() {
         </button>
       </div>
       {value.tags.map((tag) => {
+        id++;
+
         return (
-          <div className={styles.tags_container}>
+          <div className={styles.tags_container} key={id}>
             <p>{tag}</p>
             <button
               type="button"

@@ -23,11 +23,14 @@ import { useContext } from "react";
 import { UserContext } from "./_app";
 import { useRouter } from "next/router";
 import { onAuthStateChanged } from "firebase/auth";
+import { toast } from "react-hot-toast";
 
 export default function Home() {
   const { uid, username } = useContext(UserContext);
   const router = useRouter();
   const [room, setRoom] = useState(null);
+  const [roomExists, setRoomExists] = useState(false);
+  const [render, setRender] = useState(false);
 
   const image = useRef();
   const act = useRef();
@@ -64,6 +67,7 @@ export default function Home() {
         "Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi temporibus quisquam ipsum. Ad animi nulla sit, similique impedit, est beatae, tempore illum qui cum at reiciendis pariatur dicta iste illo itaque? Nam dolor vel neque quas praesentium soluta debitis a?",
       text_ref: stepText1,
       img_ref: stepImg1,
+      id: 1,
     },
     {
       src: "step2.jpg",
@@ -71,6 +75,7 @@ export default function Home() {
         "Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi temporibus quisquam ipsum. Ad animi nulla sit, similique impedit, est beatae, tempore illum qui cum at reiciendis pariatur dicta iste illo itaque? Nam dolor vel neque quas praesentium soluta debitis a?",
       text_ref: stepText2,
       img_ref: stepImg2,
+      id: 2,
     },
     {
       src: "step3.jpg",
@@ -78,6 +83,7 @@ export default function Home() {
         "Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi temporibus quisquam ipsum. Ad animi nulla sit, similique impedit, est beatae, tempore illum qui cum at reiciendis pariatur dicta iste illo itaque? Nam dolor vel neque quas praesentium soluta debitis a?",
       text_ref: stepText3,
       img_ref: stepImg3,
+      id: 3,
     },
     {
       src: "step4.jpg",
@@ -85,6 +91,7 @@ export default function Home() {
         "Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi temporibus quisquam ipsum. Ad animi nulla sit, similique impedit, est beatae, tempore illum qui cum at reiciendis pariatur dicta iste illo itaque? Nam dolor vel neque quas praesentium soluta debitis a?",
       text_ref: stepText4,
       img_ref: stepImg4,
+      id: 4,
     },
     {
       src: "step5.png",
@@ -92,6 +99,7 @@ export default function Home() {
         "Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi temporibus quisquam ipsum. Ad animi nulla sit, similique impedit, est beatae, tempore illum qui cum at reiciendis pariatur dicta iste illo itaque? Nam dolor vel neque quas praesentium soluta debitis a?",
       text_ref: stepText5,
       img_ref: stepImg5,
+      id: 5,
     },
   ];
   gsap.registerPlugin(ScrollTrigger);
@@ -575,13 +583,14 @@ export default function Home() {
       title: username,
       id: id,
     });
+
+    toast.success("New Chat created");
   }
 
   // check room
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
-        console.log(auth.currentUser?.uid);
         getDocs(
           query(
             collection(firestore, `chats`),
@@ -594,13 +603,18 @@ export default function Home() {
 
           if (array.length === 0) {
             setRoom(id);
+            setRoomExists(false);
+            setRender(!render);
           } else {
-            setRoom(null);
+            setRoom(array[0].id);
+            setRoomExists(true);
+            setRender(!render);
           }
         });
       }
     });
   }, [router.query]);
+
   return (
     <div className={styles.home_container} id="home">
       <div className={styles.socials_container}>
@@ -626,14 +640,14 @@ export default function Home() {
           <WhatsAppIcon />
         </a>
       </div>
-      <Link href={`/chats/${id}`}>
+      <Link href={`/chats/${room}`}>
         <button
           className={styles.message_container}
           onClick={() => {
-            if (room === null) {
-              createRoom();
+            if (roomExists) {
+              return;
             } else {
-              () => {};
+              createRoom();
             }
           }}
         >
@@ -817,10 +831,10 @@ export default function Home() {
           Our Methods of Practice
         </div>
       </section>
-      {steps.map(({ src, steps_info, img_ref, text_ref }) => {
+      {steps.map(({ src, steps_info, img_ref, text_ref, id }) => {
         num = num + 1;
         return (
-          <section className={styles.steps_container}>
+          <section className={styles.steps_container} key={id}>
             <div className={styles.step}>
               <div className={styles.steps_vector} ref={img_ref}>
                 <img

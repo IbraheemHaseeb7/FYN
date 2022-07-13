@@ -6,22 +6,39 @@ import {
   doc,
   getDoc,
   getDocs,
-  onSnapshot,
+  limit,
+  orderBy,
+  query,
   setDoc,
+  startAfter,
 } from "firebase/firestore";
 import { firestore } from "../../../libraries/firebase";
 import { useContext } from "react";
 import { UserContext } from "../../_app";
 import { useEffect } from "react";
 import { useRouter } from "next/router";
+import { toast } from "react-hot-toast";
 
 export async function getStaticProps(data) {
   const id = data.params.question;
 
   let array = null;
+  let comms = [];
 
   await getDoc(doc(firestore, "forum", id)).then((res) => {
     array = res.data();
+  });
+
+  await getDocs(
+    query(
+      collection(firestore, `/forum/${id}/comments`),
+      orderBy("id", "desc"),
+      limit(1)
+    )
+  ).then((data) => {
+    comms = data.docs.map((data) => {
+      return data.data();
+    });
   });
 
   return {
@@ -29,6 +46,7 @@ export async function getStaticProps(data) {
       question: array.question,
       answer: array.answer,
       id: array.id,
+      comments: comms,
     },
   };
 }
@@ -52,11 +70,13 @@ export async function getStaticPaths() {
   };
 }
 
-export default function Question({ question, answer, id }) {
+export default function Question({ question, answer, id, comments }) {
   const [value, setValue] = useState("");
   const { username } = useContext(UserContext);
   const router = useRouter();
-  const [message, setMessage] = useState([]);
+  const [message, setMessage] = useState(comments);
+  const [lastCheck, setLastCheck] = useState(false);
+  const [render, setRender] = useState(false);
 
   function handleChange(e) {
     setValue(e.target.value);
@@ -78,29 +98,41 @@ export default function Question({ question, answer, id }) {
       message: value,
       waqt: waqt,
       sender: username,
+      id: comId,
     });
+
+    toast.success("New Comment added");
 
     setValue("");
   }
 
-  useEffect(() => {
-    let unsub = onSnapshot(
-      collection(firestore, `/forum/${id}/comments`),
-      (data) => {
-        let array = message;
+  async function loadMore() {
+    let last = message[message.length - 1].id;
 
-        array = data.docs.map((data) => {
-          return data.data();
-        });
+    await getDocs(
+      query(
+        collection(firestore, `/forum/${id}/comments`),
+        orderBy("id", "desc"),
+        limit(5),
+        startAfter(last)
+      )
+    ).then((data) => {
+      let array = message;
 
-        console.log(array);
+      data.docs.map((data) => {
+        return array.push(data.data());
+      });
 
-        setMessage(array);
-      }
-    );
+      setMessage(array);
+      setRender(!render);
+    });
 
-    return unsub;
-  }, [router.query?.question]);
+    if (message.length < 5) {
+      setLastCheck(true);
+    } else {
+      setLastCheck(false);
+    }
+  }
 
   return (
     <div className={styles.question_container}>
@@ -122,9 +154,9 @@ export default function Question({ question, answer, id }) {
         </form>
       </div>
       <div className={styles.comments_container}>
-        {message.map(({ waqt, sender, message }) => {
+        {message.map(({ waqt, sender, message, id }) => {
           return (
-            <div className={styles.comment}>
+            <div className={styles.comment} key={id}>
               <div className={styles.sender_container}>
                 <div className={styles.sender_pic}></div>
                 <p>{sender}</p>
@@ -136,6 +168,13 @@ export default function Question({ question, answer, id }) {
             </div>
           );
         })}
+      </div>
+      <div className={styles.load_btn_container}>
+        {!lastCheck && (
+          <button type="button" onClick={loadMore}>
+            Load More
+          </button>
+        )}
       </div>
       <Footer />
     </div>

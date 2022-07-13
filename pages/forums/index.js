@@ -94,6 +94,7 @@ export default function Forums({ array }) {
               data-value={id}
               onClick={openIt}
               style={open ? { height: "auto" } : { height: "4rem" }}
+              key={id}
             >
               <div className={styles.forum_question}>
                 <p>{question}</p>

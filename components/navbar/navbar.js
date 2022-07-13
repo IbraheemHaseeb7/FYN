@@ -1,7 +1,16 @@
 import Link from "next/link";
 import styles from "./navbar.module.css";
+import MenuIcon from "@mui/icons-material/Menu";
+import CloseIcon from "@mui/icons-material/Close";
+import { useState } from "react";
 
 export default function Navbar() {
+  const [openClose, setOpenClose] = useState(false);
+
+  function open_or_close() {
+    setOpenClose(!openClose);
+  }
+
   return (
     <nav className={styles.navbar}>
       <Link href="/">
@@ -32,6 +41,38 @@ export default function Navbar() {
             try for free
           </button>
         </Link>
+      </div>
+      <div className={styles.burger_container}>
+        <button type="button" onClick={open_or_close}>
+          <MenuIcon />
+        </button>
+      </div>
+      <div
+        className={styles.shadow}
+        onClick={open_or_close}
+        style={openClose ? { display: "block" } : { display: "none" }}
+      ></div>
+      <div
+        className={styles.sidebar_container}
+        style={openClose ? { right: 0 } : { right: "-100%" }}
+      >
+        <div className={styles.close_container} onClick={open_or_close}>
+          <CloseIcon />
+        </div>
+        <div className={styles.sidebar_options}>
+          <Link href="/">
+            <p onClick={open_or_close}>Home</p>
+          </Link>
+          <Link href="/blogs">
+            <p onClick={open_or_close}>Blogs</p>
+          </Link>
+          <Link href="/forums">
+            <p onClick={open_or_close}>Forums</p>
+          </Link>
+          <Link href="/sign-in">
+            <p onClick={open_or_close}>Sign In</p>
+          </Link>
+        </div>
       </div>
     </nav>
   );

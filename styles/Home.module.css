@@ -201,6 +201,7 @@
   justify-content: center;
   align-items: center;
   color: white;
+  border: 1px solid #ffe87e;
 }
 
 .socials_container > a > svg {
@@ -318,6 +319,7 @@
   padding: 0.5rem;
   border-radius: 5rem;
   box-sizing: content-box;
+  border: 1px solid #ffe87e;
 }
 
 /* responsive design */

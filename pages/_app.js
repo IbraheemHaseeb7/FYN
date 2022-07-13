@@ -2,20 +2,16 @@ import Navbar from "../components/navbar/navbar";
 import useUser from "../hooks/user";
 import "../styles/globals.css";
 import React from "react";
-import useUsername from "../hooks/username";
+import { Toaster } from "react-hot-toast";
 
-export const UserContext = React.createContext({
-  uid: null,
-  signedIn: null,
-  username: null,
-});
+export const UserContext = React.createContext();
 
 function MyApp({ Component, pageProps }) {
-  const { username, uid, signedIn } = useUser();
-  // const { username } = useUsername();
+  const { username, uid, signedIn, username_set } = useUser();
 
   return (
-    <UserContext.Provider value={{ uid, signedIn, username }}>
+    <UserContext.Provider value={{ uid, signedIn, username, username_set }}>
+      <Toaster />
       <Navbar />
       <Component {...pageProps} />
     </UserContext.Provider>

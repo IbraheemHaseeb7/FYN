@@ -3,6 +3,7 @@ import Preview from "./preview";
 import { doc, setDoc } from "firebase/firestore";
 import { firestore } from "../../libraries/firebase";
 import styles from "./popup.module.css";
+import { toast } from "react-hot-toast";
 
 export default function Forum() {
   const [value, setValue] = useState({
@@ -29,18 +30,23 @@ export default function Forum() {
 
     const id = new Date().getTime().toString();
 
-    await setDoc(doc(firestore, `/forum`, id), {
-      id: id,
-      question: value.question,
-      answer: value.answer,
-      waqt: waqt,
-      open: false,
-    });
+    if (value.question && value.answer) {
+      await setDoc(doc(firestore, `/forum`, id), {
+        id: id,
+        question: value.question,
+        answer: value.answer,
+        waqt: waqt,
+        open: false,
+      });
 
-    setValue({
-      answer: "",
-      question: "",
-    });
+      toast.success("Question successfully uploaded on forum page");
+      setValue({
+        answer: "",
+        question: "",
+      });
+    } else {
+      toast.error("Please fill out all the fields");
+    }
   }
 
   return (

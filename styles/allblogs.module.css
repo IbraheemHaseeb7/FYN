@@ -123,6 +123,27 @@
   margin-left: 1rem;
 }
 
+.load_container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 2rem 0;
+}
+
+.load_container > button {
+  padding: 0.5rem;
+  border: none;
+  border-radius: 5px;
+  outline: none;
+  background-color: #eaeaea;
+  cursor: pointer;
+}
+
+.load_container > button:hover {
+  background-color: #d9d9d9;
+}
+
 @media (max-width: 600px) {
   .title_container > h1 {
     font-size: 2.5rem;

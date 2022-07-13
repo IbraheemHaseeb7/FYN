@@ -2,7 +2,12 @@ import { useContext, useState } from "react";
 import styles from "../../styles/signin.module.css";
 import Footer from "../../components/footer/footer";
 import GoogleIcon from "@mui/icons-material/Google";
-import { GoogleAuthProvider, signInWithPopup, signOut } from "firebase/auth";
+import {
+  GoogleAuthProvider,
+  onAuthStateChanged,
+  signInWithPopup,
+  signOut,
+} from "firebase/auth";
 import { auth, firestore } from "../../libraries/firebase";
 import { UserContext } from "../_app";
 import {
@@ -15,8 +20,6 @@ import {
   updateDoc,
   where,
 } from "firebase/firestore";
-import useUsername from "../../hooks/username";
-import { useAuthState } from "react-firebase-hooks/auth";
 
 export default function SignIn() {
   const [data, setData] = useState({
@@ -24,7 +27,7 @@ export default function SignIn() {
   });
 
   const [avail, setAvail] = useState(false);
-  const { username, uid, signedIn } = useContext(UserContext);
+  const { uid, signedIn, username, username_set } = useContext(UserContext);
 
   function handleChange(e) {
     let value = e.target.value;
@@ -36,14 +39,16 @@ export default function SignIn() {
     });
   }
 
+  console.log(username_set, username);
   async function signIn() {
     await signInWithPopup(auth, new GoogleAuthProvider());
 
-    if (signedIn) {
+    if (!username_set) {
       if (username === null) {
-        await setDoc(doc(firestore, `/users`, uid), {
+        setDoc(doc(firestore, `/users`, uid), {
           uid: uid,
           username: null,
+          username_set: false,
         });
       }
     }
@@ -72,6 +77,7 @@ export default function SignIn() {
 
     await updateDoc(doc(firestore, `/users`, uid), {
       username: data.username,
+      username_set: true,
     });
 
     setData({
@@ -115,14 +121,15 @@ export default function SignIn() {
                 onChange={handleChange}
                 placeholder="Username"
               />
-
               <button
+                disabled={avail}
                 type="button"
                 onClick={checkAvailable}
                 className={`${styles.signup} ${styles.check}`}
               >
                 Check Availablity
               </button>
+
               <button
                 disabled={!avail}
                 type="button"
@@ -133,14 +140,16 @@ export default function SignIn() {
               </button>
             </>
           ) : (
-            <h3>Welcome back, {username}</h3>
+            <>
+              <h3>Welcome back, {username}</h3>
+              <p className={styles.lil}>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Est ut
+                repudiandae nihil itaque, reiciendis, magni necessitatibus
+                cupiditate iure, dolorem similique minima? Molestiae eaque
+                autem, quam labore architecto hic suscipit quae!
+              </p>
+            </>
           )}
-          <p className={styles.lil}>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Est ut
-            repudiandae nihil itaque, reiciendis, magni necessitatibus
-            cupiditate iure, dolorem similique minima? Molestiae eaque autem,
-            quam labore architecto hic suscipit quae!
-          </p>
         </form>
       </div>
       <Footer />
