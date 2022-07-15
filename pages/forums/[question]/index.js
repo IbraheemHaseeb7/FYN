@@ -42,7 +42,6 @@ export async function getStaticProps(data) {
       return data.data();
     });
   });
-
   return {
     props: {
       question: array.question,
