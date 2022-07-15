@@ -21,6 +21,7 @@ export async function getStaticProps(data) {
       content: array.content,
       id: array.id,
     },
+    revalidate: 10000,
   };
 }
 
