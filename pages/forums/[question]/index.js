@@ -50,6 +50,7 @@ export async function getStaticProps(data) {
       id: array.id,
       comments: comms,
     },
+    revalidate: 10000,
   };
 }
 
