@@ -9,6 +9,8 @@ import ChatIcon from "@mui/icons-material/Chat";
 import Link from "next/link";
 import Footer from "../../../components/footer/footer";
 import AdminCheck from "../../../protectors/adminCheck";
+import OndemandVideoIcon from "@mui/icons-material/OndemandVideo";
+import Video from "../../../components/popup/video";
 
 function reducer(state, action) {
   switch (action.type) {
@@ -31,6 +33,7 @@ export default function Create() {
     blog: false,
     forum: false,
     chats: false,
+    video: false,
   });
 
   const creater = [
@@ -53,6 +56,17 @@ export default function Create() {
         dispatch({
           type: "open",
           payload: { name: "forum", value: state.forum },
+        });
+      },
+    },
+    {
+      logo: <OndemandVideoIcon />,
+      title: "Add a new video here",
+      button: "Click here to add new video and text",
+      open: function (e) {
+        dispatch({
+          type: "open",
+          payload: { name: "video", value: state.video },
         });
       },
     },
@@ -86,6 +100,11 @@ export default function Create() {
             <Announcement />
           </Popup>
         )}
+        {state.video && (
+          <Popup title="Add a new video" name="video" dispatch={dispatch}>
+            <Video />
+          </Popup>
+        )}
         {state.forum && (
           <Popup
             title="Create a new Forum Question"
@@ -102,7 +121,9 @@ export default function Create() {
             <Link href="/admin/chats">View chats here</Link>
           </button>
         </div>
-        <Footer />
+        <div className={styles.footer_container}>
+          <Footer />
+        </div>
       </div>
     </AdminCheck>
   );

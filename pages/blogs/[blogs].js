@@ -1,16 +1,31 @@
 import styles from "../../styles/blogs.module.css";
 import ReactMarkdown from "react-markdown";
-import { collection, doc, getDoc, getDocs } from "firebase/firestore";
+import {
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  limit,
+  query,
+} from "firebase/firestore";
 import { firestore } from "../../libraries/firebase";
 import Footer from "../../components/footer/footer";
+import BlogCard from "../../components/blogCard/BlogCard";
 
 export async function getStaticProps(data) {
   const id = data.params.blogs;
 
   let array = [];
+  let blogs = [];
 
   await getDoc(doc(firestore, "blogs", id)).then((res) => {
     array = res.data();
+  });
+
+  await getDocs(query(collection(firestore, "blogs"), limit(4))).then((res) => {
+    blogs = res.docs.map((data) => {
+      return data.data();
+    });
   });
 
   return {
@@ -20,6 +35,7 @@ export async function getStaticProps(data) {
       waqt: array.waqt,
       content: array.content,
       id: array.id,
+      blogs: blogs,
     },
     revalidate: 10000,
   };
@@ -42,7 +58,9 @@ export async function getStaticPaths() {
   };
 }
 
-export default function Blogs({ title, tags, id, content, waqt }) {
+export default function Blogs({ title, tags, id, content, waqt, blogs }) {
+  console.log(blogs);
+
   return (
     <div className={styles.blog_container}>
       <div className={styles.inner_blog_container}>
@@ -59,9 +77,35 @@ export default function Blogs({ title, tags, id, content, waqt }) {
           <ReactMarkdown>{content}</ReactMarkdown>
         </div>
         <div className={styles.tags_container}>
-          <span>TAGS</span>
-          {tags.map((data) => {
-            return <p key={data}>{data}</p>;
+          <span>Tags</span>
+          <div>
+            {tags.map((data) => {
+              return <p key={data}>{data}</p>;
+            })}
+          </div>
+        </div>
+        <h2
+          style={{
+            textAlign: "center",
+            fontSize: "2rem",
+            borderBottom: "1px solid #eaeaea",
+            marginTop: "1rem",
+            padding: "1rem",
+          }}
+        >
+          Read More
+        </h2>
+        <div className={styles.more_container}>
+          {blogs.map(({ id, tags, title, waqt, src }) => {
+            return (
+              <BlogCard
+                id={id}
+                tags={tags}
+                title={title}
+                waqt={waqt}
+                src={src}
+              />
+            );
           })}
         </div>
       </div>

@@ -1,21 +1,20 @@
 import { useState } from "react";
 import Preview from "./preview";
 import { doc, setDoc } from "firebase/firestore";
-import { firestore, storage } from "../../libraries/firebase";
+import { firestore } from "../../libraries/firebase";
 import styles from "./popup.module.css";
 import { toast } from "react-hot-toast";
-import { paramCase } from "param-case";
-import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 
-export default function Announcement() {
+export default function Video() {
   const [value, setValue] = useState({
     content: "",
     title: "",
     tags: [],
     tag: "",
     src: "",
+    video: "",
     file: "",
-    fileLink: "Upload a new file to get Link",
+    fileLink: "Upload a new image to get Link",
   });
 
   function handleChange(e) {
@@ -37,17 +36,18 @@ export default function Announcement() {
 
     const id = new Date().getTime().toString();
 
-    if (value.content && value.src && value.title) {
-      await setDoc(doc(firestore, `/blogs`, id), {
+    if (value.content && value.src && value.title && value.video) {
+      await setDoc(doc(firestore, `/videos`, id), {
         id: id,
         content: value.content,
         title: value.title,
         tags: value.tags,
         waqt: waqt,
         src: value.src,
+        video: value.video,
       });
 
-      toast.success("Blog Successfully written");
+      toast.success("Video Successfully added");
 
       setValue({
         content: "",
@@ -55,8 +55,9 @@ export default function Announcement() {
         tags: [],
         tag: "",
         src: "",
+        video: "",
         file: "",
-        fileLink: "Upload a new file to get link",
+        fileLink: "Upload a new image to get Link",
       });
     } else {
       toast.error("Please fill out all the fields");
@@ -122,6 +123,13 @@ export default function Announcement() {
       <h1>Start writing from here</h1>
       <input
         className={styles.input}
+        name="video"
+        value={value.video}
+        placeholder="Enter your video link here"
+        onChange={handleChange}
+      />
+      <input
+        className={styles.input}
         name="title"
         value={value.title}
         placeholder="Enter your title here"
@@ -136,7 +144,7 @@ export default function Announcement() {
       ></textarea>
       <input
         className={styles.input}
-        placeholder="Blog Thumbnail Image link goes here..."
+        placeholder="Image link goes here..."
         type="url"
         name="src"
         value={value.src}
@@ -187,7 +195,11 @@ export default function Announcement() {
           </div>
         );
       })}
-      <Preview content={value.content} title={value.title} />
+      <h1>{value.title}</h1>
+      <div className={styles.video_container}>
+        <iframe src={value.video}></iframe>
+      </div>
+      <Preview content={value.content} />
       <button className={styles.submitBtn} type="button" onClick={handleSubmit}>
         SUBMIT
       </button>

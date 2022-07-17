@@ -70,15 +70,12 @@ export default function Blogs({ blogs }) {
         <h1>Search Blogs of your Choice</h1>
       </div>
       <div className={styles.blogs}>
-        {view.map(({ title, tags, waqt, id }) => {
+        {view.map(({ title, tags, waqt, id, src }) => {
           return (
             <Link href={`/blogs/${id}`} key={id}>
               <div className={styles.one_blog}>
                 <div className={styles.blog_pic}>
-                  <img
-                    src="https://thumbs.dreamstime.com/b/sad-man-sitting-couch-home-side-view-hand-head-living-room-83798202.jpg"
-                    alt="image"
-                  />
+                  <img src={src} alt="image" />
                 </div>
                 <div className={styles.blog_title}>
                   <h1>{title}</h1>
