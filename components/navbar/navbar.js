@@ -25,8 +25,8 @@ export default function Navbar() {
         <Link href="/blogs">
           <h3>Blogs</h3>
         </Link>
-        <Link href="/about-us">
-          <h3>About Us</h3>
+        <Link href="/videos">
+          <h3>Videos</h3>
         </Link>
         <Link href="/forums">
           <h3>Forums</h3>
@@ -65,6 +65,9 @@ export default function Navbar() {
           </Link>
           <Link href="/blogs">
             <p onClick={open_or_close}>Blogs</p>
+          </Link>
+          <Link href="/videos">
+            <p onClick={open_or_close}>Videos</p>
           </Link>
           <Link href="/forums">
             <p onClick={open_or_close}>Forums</p>

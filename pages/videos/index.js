@@ -16,7 +16,7 @@ export async function getStaticProps() {
   let blogs = [];
 
   await getDocs(
-    query(collection(firestore, "blogs"), orderBy("id", "desc"), limit(10))
+    query(collection(firestore, "videos"), orderBy("id", "desc"), limit(10))
   ).then((res) => {
     blogs = res.docs.map((data) => {
       return data.data();
@@ -41,7 +41,7 @@ export default function Blogs({ blogs }) {
 
     await getDocs(
       query(
-        collection(firestore, `blogs`),
+        collection(firestore, `videos`),
         orderBy("id", "desc"),
         limit(10),
         startAfter(last)
@@ -67,12 +67,12 @@ export default function Blogs({ blogs }) {
   return (
     <div className={styles.blogs_container}>
       <div className={styles.title_container}>
-        <h1>Search Blogs of your Choice</h1>
+        <h1>Search Videos of your Choice</h1>
       </div>
       <div className={styles.blogs}>
         {view.map(({ title, tags, waqt, id, src }) => {
           return (
-            <Link href={`/blogs/${id}`} key={id}>
+            <Link href={`/videos/${id}`} key={id}>
               <div className={styles.one_blog}>
                 <div className={styles.blog_pic}>
                   <img src={src} alt="image" />

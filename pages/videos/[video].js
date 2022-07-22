@@ -10,23 +10,25 @@ import {
 } from "firebase/firestore";
 import { firestore } from "../../libraries/firebase";
 import Footer from "../../components/footer/footer";
-import BlogCard from "../../components/blogCard/BlogCard";
+import VideoCard from "../../components/videoCard/VideoCard";
 
 export async function getStaticProps(data) {
-  const id = data.params.blogs;
+  const id = data.params.video;
 
   let array = [];
   let blogs = [];
 
-  await getDoc(doc(firestore, "blogs", id)).then((res) => {
+  await getDoc(doc(firestore, "videos", id)).then((res) => {
     array = res.data();
   });
 
-  await getDocs(query(collection(firestore, "blogs"), limit(4))).then((res) => {
-    blogs = res.docs.map((data) => {
-      return data.data();
-    });
-  });
+  await getDocs(query(collection(firestore, "videos"), limit(4))).then(
+    (res) => {
+      blogs = res.docs.map((data) => {
+        return data.data();
+      });
+    }
+  );
 
   return {
     props: {
@@ -35,6 +37,7 @@ export async function getStaticProps(data) {
       waqt: array.waqt,
       content: array.content,
       id: array.id,
+      video: array.video,
       blogs: blogs,
     },
     revalidate: 10000,
@@ -44,11 +47,11 @@ export async function getStaticProps(data) {
 export async function getStaticPaths() {
   let array = [];
 
-  await getDocs(collection(firestore, "blogs")).then((res) => {
+  await getDocs(collection(firestore, "videos")).then((res) => {
     array = res.docs.map((data) => {
       const { id } = data.data();
 
-      return { params: { blogs: id } };
+      return { params: { video: id } };
     });
   });
 
@@ -58,7 +61,15 @@ export async function getStaticPaths() {
   };
 }
 
-export default function Blogs({ title, tags, id, content, waqt, blogs }) {
+export default function Blogs({
+  title,
+  tags,
+  id,
+  content,
+  waqt,
+  blogs,
+  video,
+}) {
   return (
     <div className={styles.blog_container}>
       <div className={styles.inner_blog_container}>
@@ -71,15 +82,24 @@ export default function Blogs({ title, tags, id, content, waqt, blogs }) {
         >
           {title}
         </h1>
+        <div className={styles.video_container}>
+          <iframe src={video} allow="fullscreen"></iframe>
+        </div>
         <div className={styles.content_container}>
           <ReactMarkdown>{content}</ReactMarkdown>
         </div>
         <div className={styles.tags_container}>
           <span>Tags</span>
           <div>
-            {tags.map((data) => {
-              return <p key={data}>{data}</p>;
-            })}
+            {tags.length === 0 ? (
+              <p>No Tags available</p>
+            ) : (
+              <>
+                {tags.map((data) => {
+                  return <p key={data}>{data}</p>;
+                })}
+              </>
+            )}
           </div>
         </div>
         <h2
@@ -96,7 +116,7 @@ export default function Blogs({ title, tags, id, content, waqt, blogs }) {
         <div className={styles.more_container}>
           {blogs.map(({ id, tags, title, waqt, src }) => {
             return (
-              <BlogCard
+              <VideoCard
                 id={id}
                 tags={tags}
                 title={title}
