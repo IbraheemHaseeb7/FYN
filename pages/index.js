@@ -24,6 +24,7 @@ import { UserContext } from "./_app";
 import { useRouter } from "next/router";
 import { onAuthStateChanged } from "firebase/auth";
 import { toast } from "react-hot-toast";
+import Metatags from "../components/meta/meta";
 
 export default function Home() {
   const { uid, username, username_set } = useContext(UserContext);
@@ -58,48 +59,51 @@ export default function Home() {
   const stepImg4 = useRef();
   const stepImg5 = useRef();
 
-  let num = 0;
-
   const steps = [
     {
       src: "step1.png",
       steps_info:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi temporibus quisquam ipsum. Ad animi nulla sit, similique impedit, est beatae, tempore illum qui cum at reiciendis pariatur dicta iste illo itaque? Nam dolor vel neque quas praesentium soluta debitis a?",
+        "Identifying and understanding the problem is half the battle. Realize the issues and habits that your struggle with. Go against the grain of culture that considers pornography, masturbation, and sinful acts normal and common. The decision to change has already brought you closer to your destination.",
       text_ref: stepText1,
       img_ref: stepImg1,
       id: 1,
+      heading: "Identify the Problem",
     },
     {
       src: "step2.jpg",
       steps_info:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi temporibus quisquam ipsum. Ad animi nulla sit, similique impedit, est beatae, tempore illum qui cum at reiciendis pariatur dicta iste illo itaque? Nam dolor vel neque quas praesentium soluta debitis a?",
+        "Change can be overwhelming, exciting but also stressful. Use the 80/20 rule (The Pareto Principle) and work on the habits that have the most damage, first. Build around the good habits and break down the bad ones by slowing, stopping, and eventually replacing them. Go at your own pace and do not be discouraged by broken streaks, withdrawals, and eventual mishaps.",
       text_ref: stepText2,
       img_ref: stepImg2,
       id: 2,
+      heading: "Focus, Strategize and Priortize",
     },
     {
       src: "step3.jpg",
       steps_info:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi temporibus quisquam ipsum. Ad animi nulla sit, similique impedit, est beatae, tempore illum qui cum at reiciendis pariatur dicta iste illo itaque? Nam dolor vel neque quas praesentium soluta debitis a?",
+        "Building and nurturing the positive ideas, is essential. Make an effort to learn about the positive impacts and remember why you started. Gain knowledge, follow professionals who teach methodologies, surround yourself with better, improved, and advanced information to make your journey easier and worth the effort.",
       text_ref: stepText3,
       img_ref: stepImg3,
       id: 3,
+      heading: "Learn and Act",
     },
     {
       src: "step4.jpg",
       steps_info:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi temporibus quisquam ipsum. Ad animi nulla sit, similique impedit, est beatae, tempore illum qui cum at reiciendis pariatur dicta iste illo itaque? Nam dolor vel neque quas praesentium soluta debitis a?",
+        "Reach out to the people who have struggled with the same problems as yours and have fixed them. Rehabilitation, self-improvement, and growth become fun with company. Do not be afraid to ask for a helping hand and share information for the mutual benefit of everyone.Remember, we are here to help.",
       text_ref: stepText4,
       img_ref: stepImg4,
       id: 4,
+      heading: "Communicate and Cooperate",
     },
     {
       src: "step5.png",
       steps_info:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi temporibus quisquam ipsum. Ad animi nulla sit, similique impedit, est beatae, tempore illum qui cum at reiciendis pariatur dicta iste illo itaque? Nam dolor vel neque quas praesentium soluta debitis a?",
+        "There will be challenges along the way but with a dedication mindset and a meaningful goal, it is certainly achievable. Convert these changes into lifelong habits and choose newer and tougher goals to strive for. Life is a test, not a competition. Help others, spread positivity and always keep your eyes on the primary goal. May Allah Almighty guide us all and make our journeys easier.",
       text_ref: stepText5,
       img_ref: stepImg5,
       id: 5,
+      heading: "Persist and Conquer",
     },
   ];
   gsap.registerPlugin(ScrollTrigger);
@@ -707,6 +711,11 @@ export default function Home() {
 
   return (
     <div className={styles.home_container} id="home">
+      <Metatags
+        title={`Home`}
+        description={`Fight your nafs focuses on improving your everyday rituals and help you become the better you for the future, for the community.`}
+        image={`logo.png`}
+      />
       <div className={styles.socials_container}>
         <a
           href="https://www.facebook.com/fightyournafsofficial"
@@ -923,8 +932,7 @@ export default function Home() {
           Our Methods of Practice
         </div>
       </section>
-      {steps.map(({ src, steps_info, img_ref, text_ref, id }) => {
-        num = num + 1;
+      {steps.map(({ src, steps_info, img_ref, text_ref, id, heading }) => {
         return (
           <section className={styles.steps_container} key={id}>
             <div className={styles.step}>
@@ -936,7 +944,7 @@ export default function Home() {
                 />
               </div>
               <div className={styles.steps_text} ref={text_ref}>
-                <h1>{`Step ${num}`}</h1>
+                <h1>{heading}</h1>
                 <p>{steps_info}</p>
               </div>
             </div>

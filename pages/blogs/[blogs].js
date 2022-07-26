@@ -11,6 +11,7 @@ import {
 import { firestore } from "../../libraries/firebase";
 import Footer from "../../components/footer/footer";
 import BlogCard from "../../components/blogCard/BlogCard";
+import Metatags from "../../components/meta/meta";
 
 export async function getStaticProps(data) {
   const id = data.params.blogs;
@@ -61,6 +62,7 @@ export async function getStaticPaths() {
 export default function Blogs({ title, tags, id, content, waqt, blogs }) {
   return (
     <div className={styles.blog_container}>
+      <Metatags title={title} description={content} image={`logo.png`} />
       <div className={styles.inner_blog_container}>
         <h1
           style={{

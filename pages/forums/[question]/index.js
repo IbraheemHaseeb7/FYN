@@ -20,6 +20,7 @@ import { useRouter } from "next/router";
 import { toast } from "react-hot-toast";
 import SignCheck from "../../../protectors/signCheck";
 import UsernameCheck from "../../../protectors/usernameCheck";
+import Metatags from "../../../components/meta/meta";
 
 export async function getStaticProps(data) {
   const id = data.params.question;
@@ -138,6 +139,7 @@ export default function Question({ question, answer, id, comments }) {
 
   return (
     <div className={styles.question_container}>
+      <Metatags title={question} description={answer} image={`logo.png`} />
       <div className={styles.ques_and_ans}>
         <h1>{question}</h1>
         <p>{answer}</p>

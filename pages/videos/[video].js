@@ -11,6 +11,7 @@ import {
 import { firestore } from "../../libraries/firebase";
 import Footer from "../../components/footer/footer";
 import VideoCard from "../../components/videoCard/VideoCard";
+import Metatags from "../../components/meta/meta";
 
 export async function getStaticProps(data) {
   const id = data.params.video;
@@ -72,6 +73,7 @@ export default function Blogs({
 }) {
   return (
     <div className={styles.blog_container}>
+      <Metatags title={title} description={content} image={`logo.png`} />
       <div className={styles.inner_blog_container}>
         <h1
           style={{

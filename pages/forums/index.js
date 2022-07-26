@@ -12,8 +12,9 @@ import {
 } from "firebase/firestore";
 import { firestore } from "../../libraries/firebase";
 import Link from "next/link";
+import Metatags from "../../components/meta/meta";
 
-export async function getServerSideProps(data) {
+export async function getStaticProps(data) {
   let array = [];
 
   await getDocs(
@@ -77,6 +78,11 @@ export default function Forums({ array }) {
 
   return (
     <div className={styles.forums_container}>
+      <Metatags
+        title={`Forum`}
+        description={`Learn more about us and feel free drop your thoughts on the questions below for us to analyze and respond to you appropriately.`}
+        image={`logo.png`}
+      />
       <div className={styles.title_container}>
         <h1>Community Forum</h1>
         <p>

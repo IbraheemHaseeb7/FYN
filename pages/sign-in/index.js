@@ -21,6 +21,7 @@ import {
   where,
 } from "firebase/firestore";
 import { toast } from "react-hot-toast";
+import Metatags from "../../components/meta/meta";
 
 export default function SignIn() {
   const [data, setData] = useState({
@@ -92,6 +93,11 @@ export default function SignIn() {
 
   return (
     <div className={styles.signin_container}>
+      <Metatags
+        title={`Sign In`}
+        description={`Sign in to our page and be a part of a wonderful community.`}
+        image={`logo.png`}
+      />
       <div className={styles.title_container}>
         <h1>Sign Up for free!</h1>
       </div>

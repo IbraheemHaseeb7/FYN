@@ -11,6 +11,7 @@ import {
 } from "firebase/firestore";
 import { firestore } from "../../libraries/firebase";
 import { useState } from "react";
+import Metatags from "../../components/meta/meta";
 
 export async function getStaticProps() {
   let blogs = [];
@@ -66,6 +67,11 @@ export default function Blogs({ blogs }) {
 
   return (
     <div className={styles.blogs_container}>
+      <Metatags
+        title={`Videos`}
+        description={`Watch videos free of cost and learn more in a graphical manner`}
+        image={`logo.png`}
+      />
       <div className={styles.title_container}>
         <h1>Search Videos of your Choice</h1>
       </div>

@@ -340,10 +340,11 @@
     height: 100%;
   }
   .steps_text > p {
-    font-size: 1.5rem;
+    font-size: 1.25rem;
     margin: 0;
   }
   .steps_text > h1 {
+    font-size: 2rem;
     margin-bottom: 0.5rem;
   }
   .main_title > h1 {
