@@ -22,20 +22,25 @@ import {
 } from "firebase/firestore";
 import { toast } from "react-hot-toast";
 import Metatags from "../../components/meta/meta";
+import { useAuthState } from "react-firebase-hooks/auth";
+import useUser from "../../hooks/user";
 
 export default function SignIn() {
   const [data, setData] = useState({
     username: "",
   });
-
-  const [avail, setAvail] = useState(false);
-  const { uid, signedIn, username, username_set } = useContext(UserContext);
+  const [user] = useAuthState(auth);
+  const [avail, setAvail] = useState(true);
+  const [signAvail, setSignAvail] = useState(true);
+  const { uid, signedIn, username, username_set, loading } =
+    useContext(UserContext);
 
   function handleChange(e) {
     let value = e.target.value;
     let name = e.target.name;
 
     setAvail(false);
+    setSignAvail(true);
 
     setData({
       ...data,
@@ -45,15 +50,24 @@ export default function SignIn() {
   async function signIn() {
     await signInWithPopup(auth, new GoogleAuthProvider());
 
-    if (!username_set) {
-      if (username === null) {
-        setDoc(doc(firestore, `/users`, uid), {
-          uid: uid,
-          username: null,
-          username_set: false,
+    let usernameCheck;
+
+    onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        await getDoc(doc(firestore, `/users`, user?.uid)).then((res) => {
+          usernameCheck = res?.data()?.username_set;
         });
+
+        if (usernameCheck === undefined) {
+          setDoc(doc(firestore, `users`, user.uid), {
+            uid: user.uid,
+            username: null,
+            username_set: false,
+          });
+        }
       }
-    }
+    });
+    setSignAvail(true);
   }
 
   async function checkAvailable() {
@@ -68,10 +82,12 @@ export default function SignIn() {
       });
       if (array.length === 0) {
         setAvail(true);
+        setSignAvail(false);
         toast.success("Username available for use");
       } else {
         toast.error("Username is not available");
-        setAvail(false);
+        setSignAvail(true);
+        setAvail(true);
       }
     });
   }
@@ -115,6 +131,8 @@ export default function SignIn() {
               type="button"
               onClick={async () => {
                 await signOut(auth);
+                setAvail(true);
+                setSignAvail(true);
               }}
               className={styles.google}
             >
@@ -142,7 +160,7 @@ export default function SignIn() {
               </button>
 
               <button
-                disabled={!avail}
+                disabled={signAvail}
                 type="button"
                 onClick={handleSubmit}
                 className={styles.signup}
@@ -154,10 +172,10 @@ export default function SignIn() {
             <>
               <h3>Welcome back, {username}</h3>
               <p className={styles.lil}>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Est ut
-                repudiandae nihil itaque, reiciendis, magni necessitatibus
-                cupiditate iure, dolorem similique minima? Molestiae eaque
-                autem, quam labore architecto hic suscipit quae!
+                You can now comment on the forum pages. With signing in you have
+                unlocked the features to chat annonymously with the admin and
+                share your problems without in hesitation. Do not worry your
+                identity can not be exposed.
               </p>
             </>
           )}

@@ -7,10 +7,12 @@ import { Toaster } from "react-hot-toast";
 export const UserContext = React.createContext();
 
 function MyApp({ Component, pageProps }) {
-  const { username, uid, signedIn, username_set } = useUser();
+  const { username, uid, signedIn, username_set, loading } = useUser();
 
   return (
-    <UserContext.Provider value={{ uid, signedIn, username, username_set }}>
+    <UserContext.Provider
+      value={{ uid, signedIn, username, username_set, loading }}
+    >
       <Toaster />
       <Navbar />
       <Component {...pageProps} />
