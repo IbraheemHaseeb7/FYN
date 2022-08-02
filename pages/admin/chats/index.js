@@ -4,7 +4,7 @@ import { collection, getDocs } from "firebase/firestore";
 import { firestore } from "../../../libraries/firebase";
 import AdminCheck from "../../../protectors/adminCheck";
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
   let array = [];
   await getDocs(collection(firestore, "chats")).then((res) => {
     array = res.docs.map((data) => {
