@@ -710,9 +710,6 @@ export default function Home() {
     });
   }, [router.query]);
 
-  // const { level1 } = useLevel();
-  // console.log(level1);
-
   return (
     <div className={styles.home_container} id="home">
       <Metatags

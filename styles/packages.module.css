@@ -1,0 +1,22 @@
+.main_container {
+  width: 100%;
+  height: calc(100vh - 6rem);
+  margin-top: 6rem;
+}
+
+.main_container > h1 {
+  width: 100%;
+  text-align: center;
+  font-family: "Times new Roman";
+  font-size: 4rem;
+  padding: 2rem 0;
+  margin: 0;
+}
+
+.packages_container {
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: flex-start;
+  margin-bottom: 3rem;
+}

@@ -1,21 +1,25 @@
 .form_container {
   width: 90%;
   display: flex;
+  justify-content: space-between;
 }
 
 .form_container > textarea {
-  flex-grow: 1;
+  width: 94%;
   resize: none;
   padding: 0.5rem;
   font-family: "Roboto";
-  border: 1px solid #ff8e7e;
+  border: none;
+  background-color: #d9d9d9;
   border-radius: 5px;
   outline: none;
 }
 
 .form_container > button {
-  background-color: white;
-  border: 1px solid #ff8e7e;
+  border-radius: 5px;
+  background-color: #d9d9d9;
+  border: none;
   color: black;
   cursor: pointer;
+  width: 5%;
 }

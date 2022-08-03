@@ -37,6 +37,9 @@ export default function Navbar() {
         <Link href="/sign-in">
           <h3>Sign In</h3>
         </Link>
+        <Link href="/packages">
+          <h3>Packages</h3>
+        </Link>
       </div>
       {level1 || level2 || level3 || ebook ? (
         <div className={styles.sign_up_container}>
@@ -87,6 +90,9 @@ export default function Navbar() {
           </Link>
           <Link href="/sign-in">
             <p onClick={open_or_close}>Sign In</p>
+          </Link>
+          <Link href="/packages">
+            <p onClick={open_or_close}>Packages</p>
           </Link>
           <Levels>
             <Link href="/portal">

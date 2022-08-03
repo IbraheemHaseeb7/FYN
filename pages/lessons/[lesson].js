@@ -12,6 +12,9 @@ import { firestore } from "../../libraries/firebase";
 import Footer from "../../components/footer/footer";
 import VideoCard from "../../components/videoCard/VideoCard";
 import Metatags from "../../components/meta/meta";
+import SignCheck from "../../protectors/signCheck";
+import UsernameCheck from "../../protectors/usernameCheck";
+import Levels from "../../protectors/levels";
 
 export async function getStaticProps(data) {
   const id = data.params.lesson;

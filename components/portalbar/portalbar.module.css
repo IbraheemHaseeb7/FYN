@@ -7,7 +7,7 @@
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  background-color: #ff8e7e;
+  border-right: 2px solid #ff8e7e;
 }
 
 .options_container {
@@ -18,6 +18,11 @@
   width: 100%;
   padding: 0.5rem;
   gap: 0.5rem;
+}
+
+.options_container > h3 {
+  align-self: flex-start;
+  margin: 0.5rem;
 }
 
 .option {

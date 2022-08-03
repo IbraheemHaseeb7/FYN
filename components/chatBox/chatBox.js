@@ -17,14 +17,13 @@ export default function ChatBox({ messages }) {
             style={
               data.uid !== uid
                 ? {
-                    backgroundColor: "#ff8e7e",
-                    color: "white",
+                    backgroundColor: "#d9d9d9",
+                    color: "black",
                     alignSelf: "flex-start",
                   }
                 : {
-                    backgroundColor: "white",
-                    border: "1px solid #ff8e7e",
-                    color: "black",
+                    backgroundColor: "#ff8e73",
+                    color: "white",
                     alignSelf: "flex-end",
                   }
             }

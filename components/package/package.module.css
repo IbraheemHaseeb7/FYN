@@ -1,0 +1,56 @@
+.main_container {
+  background-color: #ffedac;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0 2rem;
+  width: 30%;
+}
+
+.main_container > h1 {
+  font-family: "Times new roman";
+  font-size: 3rem;
+  margin: 0;
+  margin: 1rem 0;
+}
+
+.unlocks {
+  margin: 0;
+  align-self: flex-start;
+  font-size: 2rem;
+}
+
+.main_container > ul {
+  padding: 0;
+  margin: 0.5 0;
+  padding-left: 1rem;
+  font-size: 2rem;
+}
+
+.price {
+  font-size: 2rem;
+  margin: 0;
+}
+
+.price > span {
+  color: #32d27c;
+}
+
+.apply {
+  background-color: #ff8e7e;
+  border: none;
+  color: white;
+  padding: 0.5rem;
+  text-transform: uppercase;
+  border-radius: 5px;
+  margin: 2rem 0;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: all 0.2s ease;
+}
+
+.apply:hover {
+  background-color: #fd7a69;
+}
