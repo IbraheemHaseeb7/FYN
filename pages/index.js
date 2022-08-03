@@ -718,7 +718,7 @@ export default function Home() {
       />
       <div className={styles.socials_container}>
         <a
-          href="https://www.facebook.com/fightyournafsofficial"
+          href="https://www.facebook.com/Fight-Your-Nafs-110451648355031"
           target="_blank"
           id="social"
         >
