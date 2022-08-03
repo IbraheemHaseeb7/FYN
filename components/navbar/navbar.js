@@ -19,8 +19,8 @@ export default function Navbar() {
         </div>
       </Link>
       <div className={styles.options_container}>
-        <Link href="/first-step">
-          <h3>First Step</h3>
+        <Link href="/">
+          <h3>Home</h3>
         </Link>
         <Link href="/blogs">
           <h3>Blogs</h3>
