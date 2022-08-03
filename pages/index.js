@@ -25,6 +25,7 @@ import { useRouter } from "next/router";
 import { onAuthStateChanged } from "firebase/auth";
 import { toast } from "react-hot-toast";
 import Metatags from "../components/meta/meta";
+import useLevel from "../hooks/level";
 
 export default function Home() {
   const { uid, username, username_set } = useContext(UserContext);
@@ -708,6 +709,9 @@ export default function Home() {
       }
     });
   }, [router.query]);
+
+  // const { level1 } = useLevel();
+  // console.log(level1);
 
   return (
     <div className={styles.home_container} id="home">

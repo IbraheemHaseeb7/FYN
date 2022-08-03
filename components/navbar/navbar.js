@@ -3,9 +3,12 @@ import styles from "./navbar.module.css";
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
 import { useState } from "react";
+import Levels from "../../protectors/levels";
+import useLevel from "../../hooks/level";
 
 export default function Navbar() {
   const [openClose, setOpenClose] = useState(false);
+  const { level1, level2, level3, ebook } = useLevel();
 
   function open_or_close() {
     setOpenClose(!openClose);
@@ -35,13 +38,23 @@ export default function Navbar() {
           <h3>Sign In</h3>
         </Link>
       </div>
-      <div className={styles.sign_up_container}>
-        <Link href="/">
-          <button type="button" className="try-btn">
-            try for free
-          </button>
-        </Link>
-      </div>
+      {level1 || level2 || level3 || ebook ? (
+        <div className={styles.sign_up_container}>
+          <Link href="/portal">
+            <button type="button" className="try-btn">
+              go to portal
+            </button>
+          </Link>
+        </div>
+      ) : (
+        <div className={styles.sign_up_container}>
+          <Link href="/">
+            <button type="button" className="try-btn">
+              try for free
+            </button>
+          </Link>
+        </div>
+      )}
       <div className={styles.burger_container}>
         <button type="button" onClick={open_or_close}>
           <MenuIcon />
@@ -75,6 +88,11 @@ export default function Navbar() {
           <Link href="/sign-in">
             <p onClick={open_or_close}>Sign In</p>
           </Link>
+          <Levels>
+            <Link href="/portal">
+              <p onClick={open_or_close}>Portal</p>
+            </Link>
+          </Levels>
         </div>
       </div>
     </nav>

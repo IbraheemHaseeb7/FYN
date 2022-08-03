@@ -17,7 +17,6 @@ export default function useUser() {
 
     if (user) {
       unsub = onSnapshot(doc(firestore, `users`, user.uid), (data) => {
-        console.log(data.data());
         setUsername(data.data()?.username);
         setUsername_set(data.data()?.username_set);
         setUid(user.uid);

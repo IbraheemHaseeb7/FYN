@@ -23,7 +23,6 @@ import {
 import { toast } from "react-hot-toast";
 import Metatags from "../../components/meta/meta";
 import { useAuthState } from "react-firebase-hooks/auth";
-import useUser from "../../hooks/user";
 
 export default function SignIn() {
   const [data, setData] = useState({
@@ -63,6 +62,10 @@ export default function SignIn() {
             uid: user.uid,
             username: null,
             username_set: false,
+            level1: false,
+            level2: false,
+            level3: false,
+            ebook: false,
           });
         }
       }

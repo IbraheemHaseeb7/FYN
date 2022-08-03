@@ -1,7 +1,10 @@
 import styles from "./footer.module.css";
 import Link from "next/link";
+import useLevel from "../../hooks/level";
 
 export default function Footer() {
+  const { level1, level2, level3, ebook } = useLevel();
+
   return (
     <footer className={styles.footer}>
       <div className={styles.navigators}>
@@ -37,13 +40,23 @@ export default function Footer() {
           <p>What do we do?</p>
         </Link>
       </div>
-      <div className={styles.try}>
-        <Link href="/">
-          <button type="button" className="try-btn">
-            try for free
-          </button>
-        </Link>
-      </div>
+      {level1 || level2 || level3 || ebook ? (
+        <div className={styles.try}>
+          <Link href="/portal">
+            <button type="button" className="try-btn">
+              go to portal
+            </button>
+          </Link>
+        </div>
+      ) : (
+        <div className={styles.try}>
+          <Link href="/">
+            <button type="button" className="try-btn">
+              try for free
+            </button>
+          </Link>
+        </div>
+      )}
       <div className={styles.copyrights}>
         <p>Copyrights Reserved 2022 Ⓒ </p>
       </div>

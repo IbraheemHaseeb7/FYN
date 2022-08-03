@@ -11,6 +11,8 @@ import Footer from "../../../components/footer/footer";
 import AdminCheck from "../../../protectors/adminCheck";
 import OndemandVideoIcon from "@mui/icons-material/OndemandVideo";
 import Video from "../../../components/popup/video";
+import ImportContactsIcon from "@mui/icons-material/ImportContacts";
+import Lesson from "../../../components/popup/lesson";
 
 function reducer(state, action) {
   switch (action.type) {
@@ -34,6 +36,7 @@ export default function Create() {
     forum: false,
     chats: false,
     video: false,
+    lesson: false,
   });
 
   const creater = [
@@ -70,6 +73,17 @@ export default function Create() {
         });
       },
     },
+    {
+      logo: <ImportContactsIcon />,
+      title: "Add a new lesson here",
+      button: "Click here to add new lessons",
+      open: function (e) {
+        dispatch({
+          type: "open",
+          payload: { name: "lesson", value: state.lesson },
+        });
+      },
+    },
   ];
 
   return (
@@ -94,6 +108,13 @@ export default function Create() {
               </div>
             );
           })}
+          <div className={`${styles.one_create} ${styles.chats_container}`}>
+            <ChatIcon />
+            <h2>Chat with people here</h2>
+            <button type="button" className={styles.create_btn}>
+              <Link href="/admin/chats">View chats here</Link>
+            </button>
+          </div>
         </div>
         {state.blog && (
           <Popup title="Create a new Blog" name="blog" dispatch={dispatch}>
@@ -105,6 +126,11 @@ export default function Create() {
             <Video />
           </Popup>
         )}
+        {state.lesson && (
+          <Popup title="Add a new lesson" name="lesson" dispatch={dispatch}>
+            <Lesson />
+          </Popup>
+        )}
         {state.forum && (
           <Popup
             title="Create a new Forum Question"
@@ -114,13 +140,6 @@ export default function Create() {
             <Forum />
           </Popup>
         )}
-        <div className={`${styles.one_create} ${styles.chats_container}`}>
-          <ChatIcon />
-          <h2>Chat with people here</h2>
-          <button type="button" className={styles.create_btn}>
-            <Link href="/admin/chats">View chats here</Link>
-          </button>
-        </div>
         <div className={styles.footer_container}>
           <Footer />
         </div>
