@@ -1,6 +1,6 @@
 .main_container {
   width: 13rem;
-  height: calc(100vh - 6rem);
+  min-height: calc(100vh - 6rem);
   position: fixed;
   top: 6rem;
   left: 0;
@@ -37,4 +37,18 @@
 
 .option:hover {
   background-color: #d9d9d9;
+}
+
+@media (max-width: 768px) {
+  .main_container {
+    width: 100%;
+    border: none;
+    position: absolute;
+  }
+  .options_container {
+    min-height: 100vh;
+  }
+  .option {
+    padding: 1rem 0.5rem;
+  }
 }

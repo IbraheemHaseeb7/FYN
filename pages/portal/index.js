@@ -1,6 +1,7 @@
 import PortalBar from "../../components/portalbar/portalbar";
 import styles from "../../styles/portal.module.css";
 import Level from "../../protectors/levels";
+import Footer from "../../components/footer/footer";
 
 export default function Portal() {
   return (

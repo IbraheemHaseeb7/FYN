@@ -680,6 +680,7 @@ export default function Home() {
     });
 
     toast.success("New Chat created");
+    router.push(`/chats/${id}`);
   }
 
   // check room
@@ -740,22 +741,20 @@ export default function Home() {
           <WhatsAppIcon />
         </a>
       </div>
-      <Link href={`/chats/${room}`}>
-        <button
-          className={styles.message_container}
-          onClick={() => {
-            if (username_set) {
-              if (roomExists) {
-                return;
-              } else {
-                createRoom();
-              }
+      <button
+        className={styles.message_container}
+        onClick={() => {
+          if (username_set) {
+            if (roomExists) {
+              router.push(`/chats/${room}`);
+            } else {
+              createRoom();
             }
-          }}
-        >
-          <ChatIcon />
-        </button>
-      </Link>
+          }
+        }}
+      >
+        <ChatIcon />
+      </button>
       <section className={styles.first_page}>
         <div className={styles.image_container} ref={image}>
           <img src="homepage.png" alt="image" className={styles.img} />

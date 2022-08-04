@@ -3,7 +3,7 @@ import ChatBox from "../../components/chatBox/chatBox";
 import Send from "../../components/send/send";
 import styles from "../../styles/chats.module.css";
 import { useRouter } from "next/router";
-import { firestore } from "../../libraries/firebase";
+import { auth, firestore } from "../../libraries/firebase";
 import { collection, doc, onSnapshot } from "firebase/firestore";
 import SignCheck from "../../protectors/signCheck";
 import UsernameCheck from "../../protectors/usernameCheck";

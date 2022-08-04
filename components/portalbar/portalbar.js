@@ -4,6 +4,27 @@ import { signOut } from "firebase/auth";
 import { auth } from "../../libraries/firebase";
 import { toast } from "react-hot-toast";
 import useChat from "../../hooks/chat";
+import { useContext, useState } from "react";
+import Popup from "../popup/popup";
+import Priv from "../popup/priv";
+import { useReducer } from "react";
+import { UserContext } from "../../pages/_app";
+
+function reducer(state, action) {
+  switch (action.type) {
+    case "open":
+      return {
+        ...state,
+        [action.payload.name]: !action.payload.value,
+      };
+
+    case "close":
+      return {
+        ...state,
+        [action.payload.name]: action.payload.value,
+      };
+  }
+}
 
 export default function PortalBar() {
   const option = [
@@ -13,9 +34,13 @@ export default function PortalBar() {
     { name: "Public Forum", address: "/forums" },
     { name: "Sign In", address: "/sign-in" },
     { name: "Packages", address: "/packages" },
+    { name: "Portal", address: "/portal" },
   ];
-
+  const { uid } = useContext(UserContext);
   const room = useChat();
+  const [state, dispatch] = useReducer(reducer, {
+    priv: false,
+  });
 
   return (
     <div className={styles.main_container}>
@@ -53,9 +78,28 @@ export default function PortalBar() {
             </button>
           </Link>
         )}
-        <button type="button" className={styles.option}>
+        <button
+          type="button"
+          className={styles.option}
+          onClick={() => {
+            dispatch({
+              type: "open",
+              payload: { name: "priv", value: state.priv },
+            });
+          }}
+        >
           Post new Question
         </button>
+        <Link href={`/lessons`}>
+          <button className={styles.option} type="button">
+            Lessons
+          </button>
+        </Link>
+        <Link href={`/${uid}`}>
+          <button className={styles.option} type="button">
+            Your Questions
+          </button>
+        </Link>
         <button
           type="button"
           onClick={() => {
@@ -68,6 +112,11 @@ export default function PortalBar() {
           Sign Out
         </button>
       </div>
+      {state.priv && (
+        <Popup title={`Post a new question!`} name="priv" dispatch={dispatch}>
+          <Priv />
+        </Popup>
+      )}
     </div>
   );
 }

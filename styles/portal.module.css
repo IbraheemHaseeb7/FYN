@@ -13,3 +13,9 @@
   transform: translate(-50%, -50%);
   color: #d9d9d9;
 }
+
+@media (max-width: 768px) {
+  .main_container > h1 {
+    display: none;
+  }
+}

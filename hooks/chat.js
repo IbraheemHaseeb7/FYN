@@ -11,22 +11,24 @@ export default function useChat() {
 
   useEffect(() => {
     onAuthStateChanged(auth, async (user) => {
-      await getDocs(
-        query(
-          collection(firestore, `chats`),
-          where("uid", "array-contains", user.uid)
-        )
-      ).then((res) => {
-        let array = res.docs.map((res) => {
-          return res.data();
-        });
+      if (user) {
+        await getDocs(
+          query(
+            collection(firestore, `chats`),
+            where("uid", "array-contains", user.uid)
+          )
+        ).then((res) => {
+          let array = res.docs.map((res) => {
+            return res.data();
+          });
 
-        if (array.length === 0) {
-          setRoom("");
-        } else {
-          setRoom(array[0].id);
-        }
-      });
+          if (array.length === 0) {
+            setRoom("");
+          } else {
+            setRoom(array[0].id);
+          }
+        });
+      }
     });
   }, [router.query]);
 
