@@ -1,13 +1,15 @@
-import { doc, setDoc } from "firebase/firestore";
+import { arrayUnion, doc, setDoc, updateDoc } from "firebase/firestore";
 import { useContext } from "react";
 import { useState } from "react";
 import { firestore } from "../../libraries/firebase";
 import styles from "./send.module.css";
 import { UserContext } from "../../pages/_app";
+import { useRouter } from "next/router";
 
-export default function Send({ room_id }) {
+export default function Send({ room_id, array }) {
   const [value, setValue] = useState("");
   const { username, uid } = useContext(UserContext);
+  const router = useRouter();
 
   function handleChange(e) {
     setValue(e.target.value);
@@ -25,7 +27,34 @@ export default function Send({ room_id }) {
       uid: uid,
       id: id,
     });
+
+    let thisOne;
+    let otherUid;
+
+    for (let counter = 0; counter < array.read.length; counter++) {
+      if (uid === array.read[counter].uid) {
+        thisOne = array.read[counter];
+      }
+    }
+    for (let counter = 0; counter < array.uid.length; counter++) {
+      if (uid !== array.uid[counter]) {
+        otherUid = array.uid[counter];
+      }
+    }
+
+    let final = [thisOne, { uid: otherUid, read: false }];
+
+    for (let counter = 0; counter < final.length; counter++) {
+      if (undefined === array.read[counter]) {
+        final.splice(counter - 1, 1);
+      }
+    }
+
+    await updateDoc(doc(firestore, `chats`, router.query?.rooms), {
+      read: final,
+    });
   }
+
   return (
     <form className={styles.form_container}>
       <textarea

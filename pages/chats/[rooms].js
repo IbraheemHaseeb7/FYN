@@ -1,17 +1,60 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import ChatBox from "../../components/chatBox/chatBox";
 import Send from "../../components/send/send";
 import styles from "../../styles/chats.module.css";
 import { useRouter } from "next/router";
 import { auth, firestore } from "../../libraries/firebase";
-import { collection, doc, onSnapshot } from "firebase/firestore";
+import {
+  collection,
+  doc,
+  onSnapshot,
+  getDoc,
+  updateDoc,
+} from "firebase/firestore";
 import SignCheck from "../../protectors/signCheck";
 import UsernameCheck from "../../protectors/usernameCheck";
 import Metatags from "../../components/meta/meta";
+import { UserContext } from "../_app";
 
-export default function Rooms() {
+export async function getServerSideProps(data) {
+  const id = data.params.rooms;
+  let array;
+
+  await getDoc(doc(firestore, `chats`, id)).then((res) => {
+    array = res.data();
+  });
+
+  return {
+    props: { array: array },
+  };
+}
+
+export default function Rooms({ array }) {
   const router = useRouter();
   const [messages, setMessages] = useState([]);
+  const { uid } = useContext(UserContext);
+
+  async function readIt() {
+    let thisOne;
+
+    for (let counter = 0; counter < array.read.length; counter++) {
+      if (uid !== array.read[counter].uid) {
+        thisOne = array.read[counter];
+      }
+    }
+
+    let final = [thisOne, { uid: uid, read: true }];
+
+    for (let counter = 0; counter < final.length; counter++) {
+      if (undefined === array.read[counter]) {
+        final.splice(counter - 1, 1);
+      }
+    }
+
+    await updateDoc(doc(firestore, `chats`, router.query?.rooms), {
+      read: final,
+    });
+  }
 
   useEffect(() => {
     let unsub = onSnapshot(
@@ -33,9 +76,9 @@ export default function Rooms() {
     <SignCheck>
       <UsernameCheck>
         <Metatags title={`ChatRoom`} image={`logo.png`} />
-        <div className={styles.main_container} key={1}>
+        <div className={styles.main_container} key={1} onMouseLeave={readIt}>
           <ChatBox messages={messages} />
-          <Send room_id={router.query?.rooms} />
+          <Send room_id={router.query?.rooms} array={array} />
         </div>
       </UsernameCheck>
     </SignCheck>

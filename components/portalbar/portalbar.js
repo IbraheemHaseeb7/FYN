@@ -36,7 +36,7 @@ export default function PortalBar() {
     { name: "Packages", address: "/packages" },
     { name: "Portal", address: "/portal" },
   ];
-  const { uid } = useContext(UserContext);
+  const { uid, username } = useContext(UserContext);
   const room = useChat();
   const [state, dispatch] = useReducer(reducer, {
     priv: false,
@@ -45,6 +45,7 @@ export default function PortalBar() {
   return (
     <div className={styles.main_container}>
       <div className={styles.options_container}>
+        <h2 style={{ margin: "0.5rem 0" }}>{username}</h2>
         <h3>Navigations</h3>
         {option.map(({ name, address }) => {
           return (

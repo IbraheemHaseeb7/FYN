@@ -50,6 +50,7 @@ export default function SignIn() {
     await signInWithPopup(auth, new GoogleAuthProvider());
 
     let usernameCheck;
+    const id = new Date().getTime().toString();
 
     onAuthStateChanged(auth, async (user) => {
       if (user) {
@@ -65,7 +66,11 @@ export default function SignIn() {
             level1: false,
             level2: false,
             level3: false,
+            level1id: "",
+            level2id: "",
+            level3id: "",
             ebook: false,
+            id: id,
           });
         }
       }

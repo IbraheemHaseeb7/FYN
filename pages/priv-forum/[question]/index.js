@@ -7,6 +7,7 @@ import {
   getDoc,
   getDocs,
   limit,
+  onSnapshot,
   orderBy,
   query,
   setDoc,
@@ -49,7 +50,6 @@ export async function getStaticProps(data) {
       question: array.question,
       answer: array.details,
       id: array.id,
-      comments: comms,
     },
     revalidate: 10000,
   };
@@ -74,19 +74,43 @@ export async function getStaticPaths() {
   };
 }
 
-export default function Question({ question, answer, id, comments }) {
+export default function Question({ question, answer, id }) {
   const [value, setValue] = useState("");
   const { username } = useContext(UserContext);
   const router = useRouter();
-  const [message, setMessage] = useState(comments);
   const [lastCheck, setLastCheck] = useState(false);
   const [render, setRender] = useState(false);
-
+  const [comments, setComments] = useState([]);
+  const [cursor, setCursor] = useState("");
+  const LIMIT = 20;
   const [width, setWidth] = useState(false);
 
   useEffect(() => {
     setWidth(window.innerWidth < 768);
   }, []);
+
+  useEffect(() => {
+    let unsub = onSnapshot(
+      query(
+        collection(firestore, `/privateForum/${id}/comments`),
+        orderBy("id", "desc"),
+        limit(LIMIT)
+      ),
+      (data) => {
+        let array = data.docs.map((data) => {
+          return data.data();
+        });
+
+        let prevData = comments;
+        console.log(prevData);
+
+        setComments(array);
+        setCursor(array[array.length - 1]?.id);
+      }
+    );
+
+    return unsub;
+  }, [router.query]);
 
   function handleChange(e) {
     setValue(e.target.value);
@@ -117,28 +141,26 @@ export default function Question({ question, answer, id, comments }) {
   }
 
   async function loadMore() {
-    if (message.length !== 0) {
-      let last = message[message.length - 1].id;
-
+    if (comments.length !== 0) {
       await getDocs(
         query(
           collection(firestore, `/privateForum/${id}/comments`),
           orderBy("id", "desc"),
-          limit(5),
-          startAfter(last)
+          limit(LIMIT - 10),
+          startAfter(cursor)
         )
       ).then((data) => {
-        let array = message;
+        let array = comments;
 
         data.docs.map((data) => {
           return array.push(data.data());
         });
 
-        setMessage(array);
+        setComments(array);
         setRender(!render);
       });
 
-      if (message.length < 5) {
+      if (comments.length < LIMIT - 10) {
         setLastCheck(true);
       } else {
         setLastCheck(false);
@@ -182,7 +204,7 @@ export default function Question({ question, answer, id, comments }) {
           </SignCheck>
         </div>
         <div className={styles.comments_container}>
-          {message.map(({ waqt, sender, message, id }) => {
+          {comments.map(({ waqt, sender, message, id }) => {
             return (
               <div className={styles.comment} key={id}>
                 <div className={styles.sender_container}>

@@ -13,6 +13,9 @@ import OndemandVideoIcon from "@mui/icons-material/OndemandVideo";
 import Video from "../../../components/popup/video";
 import ImportContactsIcon from "@mui/icons-material/ImportContacts";
 import Lesson from "../../../components/popup/lesson";
+import LooksOneIcon from "@mui/icons-material/LooksOne";
+import LooksTwoIcon from "@mui/icons-material/LooksTwo";
+import Looks3Icon from "@mui/icons-material/Looks3";
 
 function reducer(state, action) {
   switch (action.type) {
@@ -113,6 +116,33 @@ export default function Create() {
             <h2>Chat with people here</h2>
             <button type="button" className={styles.create_btn}>
               <Link href="/admin/chats">View chats here</Link>
+            </button>
+          </div>
+          <div className={`${styles.one_create} ${styles.chats_container}`}>
+            <LooksOneIcon />
+            <h2>Manage Level1s here</h2>
+            <button type="button" className={styles.create_btn}>
+              <Link href="/admin/level1">
+                View level1 requests and users here
+              </Link>
+            </button>
+          </div>
+          <div className={`${styles.one_create} ${styles.chats_container}`}>
+            <LooksTwoIcon />
+            <h2>Manage Level2s here</h2>
+            <button type="button" className={styles.create_btn}>
+              <Link href="/admin/level2">
+                View level2 requests and users here
+              </Link>
+            </button>
+          </div>
+          <div className={`${styles.one_create} ${styles.chats_container}`}>
+            <Looks3Icon />
+            <h2>Manage Level3s here</h2>
+            <button type="button" className={styles.create_btn}>
+              <Link href="/admin/level3">
+                View level3 requests and users here
+              </Link>
             </button>
           </div>
         </div>

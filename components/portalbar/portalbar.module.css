@@ -1,6 +1,6 @@
 .main_container {
   width: 13rem;
-  min-height: calc(100vh - 6rem);
+  height: calc(100vh - 6rem);
   position: fixed;
   top: 6rem;
   left: 0;
@@ -8,6 +8,22 @@
   justify-content: center;
   align-items: flex-start;
   border-right: 2px solid #ff8e7e;
+  overflow-y: scroll;
+}
+
+.main_container::-webkit-scrollbar {
+  width: 10px;
+  background-color: #eaeaea;
+  border-radius: 10px;
+}
+
+.main_container::-webkit-scrollbar-thumb {
+  background-color: #d9d9d9;
+  border-radius: 10px;
+}
+.main_container::-webkit-scrollbar-thumb:hover,
+.main_container::-webkit-scrollbar-thumb:active {
+  background-color: #bfbfbf;
 }
 
 .options_container {

@@ -1,6 +1,7 @@
 import Package from "../../components/package/package";
 import styles from "../../styles/packages.module.css";
 import Footer from "../../components/footer/footer";
+import useLevelApply from "../../hooks/levelapply";
 
 const first = [
   "This is the first thing",
@@ -37,6 +38,8 @@ const third = [
 ];
 
 export default function Packages() {
+  const { level1, level2, level3 } = useLevelApply();
+
   return (
     <div className={styles.main_container}>
       <h1>Packages</h1>
@@ -46,18 +49,24 @@ export default function Packages() {
           points={first}
           price={`50`}
           button={`apply for level 1`}
+          level="level1"
+          applied={level1}
         />
         <Package
           title={`Level 2`}
           points={second}
           price={`75`}
           button={`apply for level 2`}
+          level="level2"
+          applied={level2}
         />
         <Package
           title={`Level 3`}
+          level="level3"
           points={third}
           price={`99`}
           button={`apply for level 3`}
+          applied={level3}
         />
       </div>
       <Footer />
