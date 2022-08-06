@@ -33,6 +33,7 @@ export default function Rooms({ array }) {
   const [messages, setMessages] = useState([]);
   const router = useRouter();
   const { uid } = useContext(UserContext);
+  const [read, setRead] = useState();
 
   async function readIt() {
     let thisOne;
@@ -40,10 +41,16 @@ export default function Rooms({ array }) {
     for (let counter = 0; counter < array.read.length; counter++) {
       if (uid !== array.read[counter].uid) {
         thisOne = array.read[counter];
+        setRead(array.read[counter].read);
       }
     }
 
-    let final = [thisOne, { uid: uid, read: true }];
+    const otherUid = thisOne?.uid;
+
+    let final = [
+      { uid: otherUid, read: read },
+      { uid: uid, read: true },
+    ];
 
     for (let counter = 0; counter < final.length; counter++) {
       if (undefined === array.read[counter]) {
@@ -77,7 +84,7 @@ export default function Rooms({ array }) {
     <AdminCheck>
       <div className={styles.main_container} onMouseLeave={readIt}>
         <ChatBox messages={messages} />
-        <Send room_id={router.query?.rooms} array={array} />
+        <Send room_id={router.query?.rooms} array={array} setRead={setRead} />
       </div>
     </AdminCheck>
   );

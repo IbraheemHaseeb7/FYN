@@ -6,7 +6,7 @@ import styles from "./send.module.css";
 import { UserContext } from "../../pages/_app";
 import { useRouter } from "next/router";
 
-export default function Send({ room_id, array }) {
+export default function Send({ room_id, array, setRead }) {
   const [value, setValue] = useState("");
   const { username, uid } = useContext(UserContext);
   const router = useRouter();
@@ -27,6 +27,8 @@ export default function Send({ room_id, array }) {
       uid: uid,
       id: id,
     });
+
+    setRead(false);
 
     let thisOne;
     let otherUid;
