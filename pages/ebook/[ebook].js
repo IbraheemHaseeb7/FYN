@@ -55,7 +55,7 @@ export async function getStaticPaths() {
     array = res.docs.map((data) => {
       const { id } = data.data();
 
-      return { params: { lesson: id } };
+      return { params: { ebook: id } };
     });
   });
 
