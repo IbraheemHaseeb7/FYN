@@ -7,6 +7,7 @@ import {
   getDocs,
   limit,
   query,
+  where,
 } from "firebase/firestore";
 import { firestore } from "../../libraries/firebase";
 import Footer from "../../components/footer/footer";
@@ -26,13 +27,17 @@ export async function getStaticProps(data) {
     array = res.data();
   });
 
-  await getDocs(query(collection(firestore, "lessons"), limit(4))).then(
-    (res) => {
-      blogs = res.docs.map((data) => {
-        return data.data();
-      });
-    }
-  );
+  await getDocs(
+    query(
+      collection(firestore, "lessons"),
+      where("ebook", "==", true),
+      limit(4)
+    )
+  ).then((res) => {
+    blogs = res.docs.map((data) => {
+      return data.data();
+    });
+  });
 
   return {
     props: {
@@ -51,7 +56,9 @@ export async function getStaticProps(data) {
 export async function getStaticPaths() {
   let array = [];
 
-  await getDocs(collection(firestore, "lessons")).then((res) => {
+  await getDocs(
+    query(collection(firestore, "lessons"), where("ebook", "==", true))
+  ).then((res) => {
     array = res.docs.map((data) => {
       const { id } = data.data();
 
