@@ -14,6 +14,7 @@ import { useState, useEffect } from "react";
 import Footer from "../../components/footer/footer";
 import Link from "next/link";
 import { onAuthStateChanged } from "firebase/auth";
+import Metatags from "../../components/meta/meta";
 
 export async function getServerSideProps(data) {
   let uid = data.params.your;
@@ -81,6 +82,11 @@ export default function PrivateForum({ array, uid }) {
 
   return (
     <div className={styles.main_container}>
+      <Metatags
+        title="Your Questions on Forum"
+        description={``}
+        image="logo.png"
+      />
       <div
         style={
           !width

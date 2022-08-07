@@ -12,6 +12,7 @@ import { firestore } from "../../libraries/firebase";
 import { useEffect, useState } from "react";
 import Footer from "../../components/footer/footer";
 import Link from "next/link";
+import Metatags from "../../components/meta/meta";
 
 export async function getServerSideProps() {
   let array = [];
@@ -71,6 +72,11 @@ export default function PrivateForum({ array }) {
 
   return (
     <div className={styles.main_container}>
+      <Metatags
+        title="Private Forum"
+        description="A place where subscribed users of fight your nafs can interact with eachother and share their concerns on the forum"
+        image="logo.png"
+      />
       <div
         style={
           !width

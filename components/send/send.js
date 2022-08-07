@@ -5,11 +5,15 @@ import { firestore } from "../../libraries/firebase";
 import styles from "./send.module.css";
 import { UserContext } from "../../pages/_app";
 import { useRouter } from "next/router";
+import SendIcon from "@mui/icons-material/Send";
+import AttachFileIcon from "@mui/icons-material/AttachFile";
+import Image from "../imageContainer/image";
 
-export default function Send({ room_id, array, setRead }) {
+export default function Send({ room_id, array }) {
   const [value, setValue] = useState("");
   const { username, uid } = useContext(UserContext);
   const router = useRouter();
+  const [open, setOpen] = useState(false);
 
   function handleChange(e) {
     setValue(e.target.value);
@@ -27,8 +31,6 @@ export default function Send({ room_id, array, setRead }) {
       uid: uid,
       id: id,
     });
-
-    setRead(false);
 
     let thisOne;
     let otherUid;
@@ -65,8 +67,17 @@ export default function Send({ room_id, array, setRead }) {
         name="message"
         onChange={handleChange}
       ></textarea>
+      {open && <Image setOpen={setOpen} open={open} />}
+      <button
+        type="button"
+        onClick={() => {
+          setOpen(!open);
+        }}
+      >
+        <AttachFileIcon />
+      </button>
       <button type="button" onClick={handleSubmit}>
-        Send
+        <SendIcon />
       </button>
     </form>
   );

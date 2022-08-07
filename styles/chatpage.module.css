@@ -40,6 +40,22 @@
   width: 80%;
   text-align: center;
   cursor: pointer;
+  position: relative;
+}
+
+.noti {
+  width: 20px;
+  height: 20px;
+  background-color: red;
+  color: white;
+  border-radius: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  content: "";
+  top: 0;
+  right: 0;
 }
 
 .chats:hover {

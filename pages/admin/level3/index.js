@@ -35,7 +35,10 @@ export default function Level1() {
     const lid = new Date().getTime().toString();
 
     await updateDoc(doc(firestore, `users`, uid), {
+      level1: true,
+      level2: true,
       level3: true,
+      ebook: true,
       level3id: lid,
     });
 
@@ -47,7 +50,10 @@ export default function Level1() {
     e.preventDefault();
 
     await updateDoc(doc(firestore, `users`, uid), {
+      level1: false,
+      level2: false,
       level3: false,
+      ebook: false,
       level3id: "",
     });
 

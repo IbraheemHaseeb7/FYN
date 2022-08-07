@@ -3,12 +3,12 @@ import Link from "next/link";
 import { signOut } from "firebase/auth";
 import { auth } from "../../libraries/firebase";
 import { toast } from "react-hot-toast";
-import useChat from "../../hooks/chat";
 import { useContext, useState } from "react";
 import Popup from "../popup/popup";
 import Priv from "../popup/priv";
 import { useReducer } from "react";
 import { UserContext } from "../../pages/_app";
+import { useRouter } from "next/router";
 
 function reducer(state, action) {
   switch (action.type) {
@@ -36,11 +36,11 @@ export default function PortalBar() {
     { name: "Packages", address: "/packages" },
     { name: "Portal", address: "/portal" },
   ];
-  const { uid, username } = useContext(UserContext);
-  const room = useChat();
+  const { uid, username, room, notification } = useContext(UserContext);
   const [state, dispatch] = useReducer(reducer, {
     priv: false,
   });
+  const router = useRouter();
 
   return (
     <div className={styles.main_container}>
@@ -62,6 +62,11 @@ export default function PortalBar() {
             Private Forum
           </button>
         </Link>
+        <Link href="/ebook">
+          <button className={styles.option} type="button">
+            eBook
+          </button>
+        </Link>
         {room === "" ? (
           <button
             className={styles.option}
@@ -73,11 +78,14 @@ export default function PortalBar() {
             Chat with admin
           </button>
         ) : (
-          <Link href={`/chats/${room}`}>
-            <button className={styles.option} type="button">
-              Chat with admin
-            </button>
-          </Link>
+          <>
+            <Link href={`/chats/${room}`}>
+              <button className={styles.option} type="button">
+                {!notification && <div>1</div>}
+                Chat with admin
+              </button>
+            </Link>
+          </>
         )}
         <button
           type="button"
@@ -107,6 +115,7 @@ export default function PortalBar() {
             signOut(auth);
 
             toast.success("Signed Out Successfully");
+            router.push("/sign-in");
           }}
           className={styles.option}
         >

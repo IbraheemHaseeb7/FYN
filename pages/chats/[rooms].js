@@ -10,11 +10,15 @@ import {
   onSnapshot,
   getDoc,
   updateDoc,
+  query,
+  limit,
+  orderBy,
 } from "firebase/firestore";
 import SignCheck from "../../protectors/signCheck";
 import UsernameCheck from "../../protectors/usernameCheck";
 import Metatags from "../../components/meta/meta";
 import { UserContext } from "../_app";
+import useOtherRead from "../../hooks/otherRead";
 
 export async function getServerSideProps(data) {
   const id = data.params.rooms;
@@ -33,7 +37,7 @@ export default function Rooms({ array }) {
   const router = useRouter();
   const [messages, setMessages] = useState([]);
   const { uid } = useContext(UserContext);
-  const [read, setRead] = useState();
+  const read = useOtherRead();
 
   async function readIt() {
     let thisOne;
@@ -41,10 +45,8 @@ export default function Rooms({ array }) {
     for (let counter = 0; counter < array.read.length; counter++) {
       if (uid !== array.read[counter].uid) {
         thisOne = array.read[counter];
-        setRead(array.read[counter].read);
       }
     }
-
     const otherUid = thisOne?.uid;
 
     let final = [
@@ -65,14 +67,18 @@ export default function Rooms({ array }) {
 
   useEffect(() => {
     let unsub = onSnapshot(
-      collection(firestore, `chats/${router.query?.rooms}/messages`),
+      query(
+        collection(firestore, `chats/${router.query?.rooms}/messages`),
+        limit(100),
+        orderBy("id", "desc")
+      ),
       (data) => {
         let array = messages;
 
         array = data.docs.map((data) => {
           return data.data();
         });
-        setMessages(array);
+        setMessages(array.reverse());
       }
     );
 
@@ -84,8 +90,8 @@ export default function Rooms({ array }) {
       <UsernameCheck>
         <Metatags title={`ChatRoom`} image={`logo.png`} />
         <div className={styles.main_container} key={1} onMouseLeave={readIt}>
-          <ChatBox messages={messages} />
-          <Send room_id={router.query?.rooms} array={array} setRead={setRead} />
+          <ChatBox messages={messages} setMessages={setMessages} />
+          <Send room_id={router.query?.rooms} array={array} />
         </div>
       </UsernameCheck>
     </SignCheck>

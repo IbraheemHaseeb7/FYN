@@ -3,15 +3,25 @@ import useUser from "../hooks/user";
 import "../styles/globals.css";
 import React from "react";
 import { Toaster } from "react-hot-toast";
+import useChat from "../hooks/chat";
 
 export const UserContext = React.createContext();
 
 function MyApp({ Component, pageProps }) {
   const { username, uid, signedIn, username_set, loading } = useUser();
+  const { room, notification } = useChat();
 
   return (
     <UserContext.Provider
-      value={{ uid, signedIn, username, username_set, loading }}
+      value={{
+        uid,
+        signedIn,
+        username,
+        username_set,
+        loading,
+        room,
+        notification,
+      }}
     >
       <Toaster />
       <Navbar />

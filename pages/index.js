@@ -28,7 +28,7 @@ import Metatags from "../components/meta/meta";
 import useLevel from "../hooks/level";
 
 export default function Home() {
-  const { uid, username, username_set } = useContext(UserContext);
+  const { uid, username, username_set, notification } = useContext(UserContext);
   const router = useRouter();
   const [room, setRoom] = useState(null);
   const [roomExists, setRoomExists] = useState(false);
@@ -753,6 +753,7 @@ export default function Home() {
           }
         }}
       >
+        {!notification && <div className={styles.noti}>1</div>}
         <ChatIcon />
       </button>
       <section className={styles.first_page}>

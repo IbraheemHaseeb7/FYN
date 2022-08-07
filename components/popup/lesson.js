@@ -21,6 +21,8 @@ export default function Lesson() {
     level1: false,
     level2: false,
     level3: false,
+    ebook: false,
+    public: false,
   });
 
   function handleChange(e) {
@@ -47,7 +49,11 @@ export default function Lesson() {
       value.src &&
       value.title &&
       value.video &&
-      (value.level1 || value.level2 || value.level3)
+      (value.level1 ||
+        value.level2 ||
+        value.level3 ||
+        value.ebook ||
+        value.public)
     ) {
       await setDoc(doc(firestore, `/lessons`, id), {
         id: id,
@@ -60,6 +66,8 @@ export default function Lesson() {
         level1: value.level1,
         level2: value.level2,
         level3: value.level3,
+        ebook: value.ebook,
+        public: value.public,
       });
 
       toast.success("Lesson Successfully added");
@@ -76,6 +84,8 @@ export default function Lesson() {
         level1: false,
         level2: false,
         level3: false,
+        ebook: false,
+        public: false,
       });
     } else {
       toast.error("Please fill out all the fields");
@@ -264,6 +274,32 @@ export default function Lesson() {
             id="level3"
           />
           <label htmlFor="level3">Level 3</label>
+        </div>
+        <div>
+          <input
+            className={styles.level_input}
+            type="checkbox"
+            name="level"
+            title="ebook"
+            data-toggle="tooltip"
+            value={value.ebook}
+            onClick={handleLevels}
+            id="ebook"
+          />
+          <label htmlFor="ebook">eBook</label>
+        </div>
+        <div>
+          <input
+            className={styles.level_input}
+            type="checkbox"
+            name="level"
+            title="public"
+            data-toggle="tooltip"
+            value={value.public}
+            onClick={handleLevels}
+            id="public"
+          />
+          <label htmlFor="public">Public</label>
         </div>
       </div>
       <h1>{value.title}</h1>

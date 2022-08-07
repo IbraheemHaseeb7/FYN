@@ -1,4 +1,4 @@
-import { useLevel } from "../hooks/level";
+import useLevel from "../hooks/level";
 
 export default function Level2({ children }) {
   const { level2 } = useLevel();

@@ -28,23 +28,11 @@ export async function getStaticProps(data) {
   const id = data.params.question;
 
   let array = null;
-  let comms = [];
 
   await getDoc(doc(firestore, "privateForum", id)).then((res) => {
     array = res.data();
   });
 
-  await getDocs(
-    query(
-      collection(firestore, `/privateForum/${id}/comments`),
-      orderBy("id", "desc"),
-      limit(1)
-    )
-  ).then((data) => {
-    comms = data.docs.map((data) => {
-      return data.data();
-    });
-  });
   return {
     props: {
       question: array.question,
@@ -102,7 +90,6 @@ export default function Question({ question, answer, id }) {
         });
 
         let prevData = comments;
-        console.log(prevData);
 
         setComments(array);
         setCursor(array[array.length - 1]?.id);

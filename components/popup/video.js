@@ -4,6 +4,9 @@ import { doc, setDoc } from "firebase/firestore";
 import { firestore } from "../../libraries/firebase";
 import styles from "./popup.module.css";
 import { toast } from "react-hot-toast";
+import { paramCase } from "param-case";
+import { uploadBytesResumable, ref, getDownloadURL } from "firebase/storage";
+import { storage } from "../../libraries/firebase";
 
 export default function Video() {
   const [value, setValue] = useState({
@@ -15,6 +18,10 @@ export default function Video() {
     video: "",
     file: "",
     fileLink: "Upload a new image to get Link",
+    level1: false,
+    level2: false,
+    level3: false,
+    public: false,
   });
 
   function handleChange(e) {
@@ -36,7 +43,12 @@ export default function Video() {
 
     const id = new Date().getTime().toString();
 
-    if (value.content && value.src && value.title && value.video) {
+    if (
+      value.src &&
+      value.title &&
+      value.video &&
+      (value.level1 || value.level2 || value.level3 || value.public)
+    ) {
       await setDoc(doc(firestore, `/videos`, id), {
         id: id,
         content: value.content,
@@ -45,6 +57,10 @@ export default function Video() {
         waqt: waqt,
         src: value.src,
         video: value.video,
+        level1: value.level1,
+        level2: value.level2,
+        level3: value.level3,
+        public: value.public,
       });
 
       toast.success("Video Successfully added");
@@ -58,6 +74,10 @@ export default function Video() {
         video: "",
         file: "",
         fileLink: "Upload a new image to get Link",
+        level1: false,
+        level2: false,
+        level3: false,
+        public: false,
       });
     } else {
       toast.error("Please fill out all the fields");
@@ -115,6 +135,20 @@ export default function Video() {
 
     setValue({ ...value, file: "", fileLink: "Upload to get a file link..." });
   }
+
+  function handleLevels(e) {
+    let val = e.target.value;
+    let title = e.target.title;
+
+    let result = val === "true";
+
+    setValue({
+      ...value,
+      [title]: !result,
+    });
+  }
+
+  console.log(value);
 
   let id = -1;
 
@@ -195,6 +229,60 @@ export default function Video() {
           </div>
         );
       })}
+      <div className={styles.levels_container}>
+        <div>
+          <input
+            className={styles.level_input}
+            type="checkbox"
+            name="level"
+            data-toggle="tooltip"
+            title="level1"
+            value={value.level1}
+            onClick={handleLevels}
+            id="level1"
+          />
+          <label htmlFor="level1">Level 1</label>
+        </div>
+        <div>
+          <input
+            className={styles.level_input}
+            type="checkbox"
+            name="level"
+            data-toggle="tooltip"
+            title="level2"
+            value={value.level2}
+            onClick={handleLevels}
+            id="level2"
+          />
+          <label htmlFor="level2">Level 2</label>
+        </div>
+        <div>
+          <input
+            className={styles.level_input}
+            type="checkbox"
+            name="level"
+            title="level3"
+            data-toggle="tooltip"
+            value={value.level3}
+            onClick={handleLevels}
+            id="level3"
+          />
+          <label htmlFor="level3">Level 3</label>
+        </div>
+        <div>
+          <input
+            className={styles.level_input}
+            type="checkbox"
+            name="level"
+            title="public"
+            data-toggle="tooltip"
+            value={value.public}
+            onClick={handleLevels}
+            id="public"
+          />
+          <label htmlFor="public">Public</label>
+        </div>
+      </div>
       <h1>{value.title}</h1>
       <div className={styles.video_container}>
         <iframe src={value.video}></iframe>

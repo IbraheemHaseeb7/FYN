@@ -35,6 +35,7 @@ export default function Level1() {
     const lid = new Date().getTime().toString();
 
     await updateDoc(doc(firestore, `users`, uid), {
+      level1: true,
       level2: true,
       level2id: lid,
     });
@@ -47,11 +48,12 @@ export default function Level1() {
     e.preventDefault();
 
     await updateDoc(doc(firestore, `users`, uid), {
+      level1: false,
       level2: false,
       level2id: "",
     });
 
-    toast.success("user has been removed from level 2");
+    toast.success("user has been removed from level 2 and level 1");
   }
   async function deleteIt(e, id) {
     e.preventDefault();

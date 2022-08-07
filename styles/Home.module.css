@@ -295,6 +295,20 @@
   border: none;
 }
 
+.noti {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  width: 20px;
+  height: 20px;
+  color: white;
+  background-color: red;
+  border-radius: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .message_container::before {
   content: "Chat with us";
   background-color: #eaeaea;

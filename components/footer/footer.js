@@ -12,14 +12,20 @@ export default function Footer() {
         <Link href="/">
           <p>Home</p>
         </Link>
-        <Link href="/about-us">
-          <p>About Us</p>
-        </Link>
-        <Link href="/contact-us">
-          <p>Contact Us</p>
-        </Link>
         <Link href="/blogs">
           <p>Blogs</p>
+        </Link>
+        <Link href="/forums">
+          <p>Forums</p>
+        </Link>
+        <Link href="/videos">
+          <p>Videos</p>
+        </Link>
+        <Link href="/sign-in">
+          <p>Sign In</p>
+        </Link>
+        <Link href="/packages">
+          <p>Packages</p>
         </Link>
       </div>
       <div className={styles.blogs}>

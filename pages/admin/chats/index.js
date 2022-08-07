@@ -30,11 +30,20 @@ export default function ChatPage({ array }) {
           <h1>Chat with people</h1>
         </div>
         <div className={styles.chats_container}>
-          {array.map(({ title, id }) => {
+          {array.map(({ title, id, read }) => {
+            let noti = true;
+
+            for (let counter = 0; counter < read?.length; counter++) {
+              if (read[counter]?.uid === "R3tc0RKCDgX8yhaHS5c0Ej3IXxF3") {
+                noti = read[counter]?.read;
+              }
+            }
+
             return (
               <Link href={`/admin/chats/${id}`} key={id}>
                 <div className={styles.chats}>
                   <h3>{title}</h3>
+                  {!noti && <div className={styles.noti}>1</div>}
                 </div>
               </Link>
             );

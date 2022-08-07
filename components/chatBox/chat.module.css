@@ -6,13 +6,33 @@
   flex-direction: column;
   border: 2px solid #ff8e7e;
   height: 70vh;
-  overflow-y: scroll;
   border-radius: 5px;
-  padding: 0.5rem;
 }
 
-.main_container > p {
+.messages_container {
+  overflow-y: scroll;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.main_container > div > p {
   padding: 0.5rem;
   margin: 0.25rem;
   border-radius: 1rem;
+}
+
+.load {
+  justify-self: center;
+  align-self: center;
+  padding: 0.5rem;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  background-color: #eaeaea;
+  transition: all 0.2s ease;
+}
+
+.load:hover {
+  background-color: #d9d9d9;
 }

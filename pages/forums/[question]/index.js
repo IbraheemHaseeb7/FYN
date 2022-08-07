@@ -11,6 +11,7 @@ import {
   query,
   setDoc,
   startAfter,
+  onSnapshot,
 } from "firebase/firestore";
 import { firestore } from "../../../libraries/firebase";
 import { useContext } from "react";
@@ -26,29 +27,16 @@ export async function getStaticProps(data) {
   const id = data.params.question;
 
   let array = null;
-  let comms = [];
 
   await getDoc(doc(firestore, "forum", id)).then((res) => {
     array = res.data();
   });
 
-  await getDocs(
-    query(
-      collection(firestore, `/forum/${id}/comments`),
-      orderBy("id", "desc"),
-      limit(1)
-    )
-  ).then((data) => {
-    comms = data.docs.map((data) => {
-      return data.data();
-    });
-  });
   return {
     props: {
       question: array.question,
       answer: array.answer,
       id: array.id,
-      comments: comms,
     },
     revalidate: 10000,
   };
@@ -73,13 +61,37 @@ export async function getStaticPaths() {
   };
 }
 
-export default function Question({ question, answer, id, comments }) {
+export default function Question({ question, answer, id }) {
   const [value, setValue] = useState("");
   const { username } = useContext(UserContext);
   const router = useRouter();
-  const [message, setMessage] = useState(comments);
   const [lastCheck, setLastCheck] = useState(false);
   const [render, setRender] = useState(false);
+  const [comments, setComments] = useState([]);
+  const [cursor, setCursor] = useState("");
+  const LIMIT = 20;
+
+  useEffect(() => {
+    let unsub = onSnapshot(
+      query(
+        collection(firestore, `/forum/${id}/comments`),
+        orderBy("id", "desc"),
+        limit(LIMIT)
+      ),
+      (data) => {
+        let array = data.docs.map((data) => {
+          return data.data();
+        });
+
+        let prevData = comments;
+
+        setComments(array);
+        setCursor(array[array.length - 1]?.id);
+      }
+    );
+
+    return unsub;
+  }, [router.query]);
 
   function handleChange(e) {
     setValue(e.target.value);
@@ -110,30 +122,32 @@ export default function Question({ question, answer, id, comments }) {
   }
 
   async function loadMore() {
-    let last = message[message.length - 1].id;
+    if (comments.length !== 0) {
+      await getDocs(
+        query(
+          collection(firestore, `/forum/${id}/comments`),
+          orderBy("id", "desc"),
+          limit(LIMIT - 10),
+          startAfter(cursor)
+        )
+      ).then((data) => {
+        let array = comments;
 
-    await getDocs(
-      query(
-        collection(firestore, `/forum/${id}/comments`),
-        orderBy("id", "desc"),
-        limit(5),
-        startAfter(last)
-      )
-    ).then((data) => {
-      let array = message;
+        data.docs.map((data) => {
+          return array.push(data.data());
+        });
 
-      data.docs.map((data) => {
-        return array.push(data.data());
+        setComments(array);
+        setRender(!render);
       });
 
-      setMessage(array);
-      setRender(!render);
-    });
-
-    if (message.length < 5) {
-      setLastCheck(true);
+      if (comments.length < LIMIT - 10) {
+        setLastCheck(true);
+      } else {
+        setLastCheck(false);
+      }
     } else {
-      setLastCheck(false);
+      setLastCheck(true);
     }
   }
 
@@ -162,7 +176,7 @@ export default function Question({ question, answer, id, comments }) {
         </SignCheck>
       </div>
       <div className={styles.comments_container}>
-        {message.map(({ waqt, sender, message, id }) => {
+        {comments.map(({ waqt, sender, message, id }) => {
           return (
             <div className={styles.comment} key={id}>
               <div className={styles.sender_container}>

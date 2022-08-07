@@ -1,0 +1,158 @@
+.main_container {
+  z-index: 20;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.shadow {
+  z-index: 9;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.373);
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.inside_container {
+  position: absolute;
+  z-index: 20;
+  width: 90%;
+  height: 90%;
+  background-color: white;
+  border-radius: 0.5rem;
+}
+
+.inside_container > h1 {
+  text-align: center;
+  font-family: "Times new Roman";
+  font-size: 3rem;
+  margin: 1rem 0;
+}
+
+.your {
+  font-size: 1rem !important;
+  margin: 0 !important;
+  text-align: left !important;
+  font-family: "Arial" !important;
+}
+
+.your_container,
+.other_container {
+  width: 100%;
+  height: 25vh;
+  border-top: 2px solid #ff8e7e;
+  border-bottom: 2px solid #ff8e7e;
+}
+.your_container {
+  border-bottom: none;
+}
+
+.images_container {
+  overflow-x: scroll;
+  height: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.images_container > div {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.images_container > div > img {
+  height: 100%;
+  object-fit: cover;
+}
+
+.close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  border: none;
+  padding: 0.5rem;
+  border-radius: 5px;
+  z-index: 21;
+  cursor: pointer;
+  background-color: #eaeaea;
+  transition: all 0.2s ease;
+}
+
+.close:hover {
+  background-color: #d9d9d9;
+}
+
+.form {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.form > input {
+  padding: 0.5rem;
+  border: none;
+  border-radius: 5px;
+  background-color: #eaeaea;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.image_preview {
+  width: 10rem;
+  height: 10rem;
+  object-fit: contain;
+}
+
+.send {
+  padding: 0.5rem;
+  border: none;
+  border-radius: 5px;
+  background-color: #eaeaea;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.send:hover {
+  background-color: #d9d9d9;
+}
+
+.popup {
+  width: 100%;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 22;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.popup > div {
+  background-color: rgba(0, 0, 0, 0.373);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  z-index: 21;
+  cursor: pointer;
+}
+
+.popup > img {
+  height: 90%;
+  width: 90%;
+  object-fit: contain;
+  z-index: 22;
+}

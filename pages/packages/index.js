@@ -2,6 +2,7 @@ import Package from "../../components/package/package";
 import styles from "../../styles/packages.module.css";
 import Footer from "../../components/footer/footer";
 import useLevelApply from "../../hooks/levelapply";
+import Metatags from "../../components/meta/meta";
 
 const first = [
   "This is the first thing",
@@ -42,6 +43,11 @@ export default function Packages() {
 
   return (
     <div className={styles.main_container}>
+      <Metatags
+        title="Packages"
+        image="logo.png"
+        description={`Choose a package of your choice and learn more about fight your nafs.`}
+      />
       <h1>Packages</h1>
       <div className={styles.packages_container}>
         <Package
