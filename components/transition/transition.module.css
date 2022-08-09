@@ -1,0 +1,54 @@
+.right {
+  width: calc(100% - 13rem);
+  height: calc(100vh - 6rem);
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  z-index: 20;
+}
+.full {
+  width: 100%;
+  height: calc(100vh - 6rem);
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  z-index: 20;
+}
+
+.right > img,
+.full > img {
+  width: 15rem;
+  height: 15rem;
+  object-fit: cover;
+  animation-name: fader;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+  animation-iteration-count: infinite;
+  animation-duration: 1s;
+}
+
+@keyframes fader {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@media (max-width: 768px) {
+  .right {
+    width: 100%;
+  }
+}

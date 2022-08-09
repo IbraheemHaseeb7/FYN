@@ -3,12 +3,13 @@ import Link from "next/link";
 import { signOut } from "firebase/auth";
 import { auth } from "../../libraries/firebase";
 import { toast } from "react-hot-toast";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import Popup from "../popup/popup";
 import Priv from "../popup/priv";
 import { useReducer } from "react";
 import { UserContext } from "../../pages/_app";
 import { useRouter } from "next/router";
+import Transition from "../transition/transition";
 
 function reducer(state, action) {
   switch (action.type) {
@@ -41,10 +42,24 @@ export default function PortalBar() {
     priv: false,
   });
   const router = useRouter();
+  const options = useRef();
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    let children = options.current.childNodes;
+    children.forEach((data) => {
+      if (data.nodeName == "BUTTON") {
+        data.addEventListener("click", () => {
+          setLoading(true);
+        });
+      }
+    });
+  }, []);
 
   return (
     <div className={styles.main_container}>
-      <div className={styles.options_container}>
+      {loading && <Transition right={true} />}
+      <div className={styles.options_container} ref={options}>
         <h2 style={{ margin: "0.5rem 0" }}>{username}</h2>
         <h3>Navigations</h3>
         {option.map(({ name, address }) => {

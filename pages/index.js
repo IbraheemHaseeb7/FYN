@@ -26,6 +26,7 @@ import { onAuthStateChanged } from "firebase/auth";
 import { toast } from "react-hot-toast";
 import Metatags from "../components/meta/meta";
 import useLevel from "../hooks/level";
+import Transition from "../components/transition/transition";
 
 export default function Home() {
   const { uid, username, username_set, notification } = useContext(UserContext);
@@ -33,6 +34,7 @@ export default function Home() {
   const [room, setRoom] = useState(null);
   const [roomExists, setRoomExists] = useState(false);
   const [render, setRender] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const image = useRef();
   const act = useRef();
@@ -717,6 +719,7 @@ export default function Home() {
 
   return (
     <div className={styles.home_container} id="home">
+      {loading && <Transition right={false} />}
       <Metatags
         title={`Home`}
         description={`Fight your nafs focuses on improving your everyday rituals and help you become the better you for the future, for the community.`}
@@ -747,12 +750,14 @@ export default function Home() {
       </div>
       <button
         className={styles.message_container}
-        onClick={() => {
+        onClick={async () => {
           if (username_set) {
             if (roomExists) {
-              router.push(`/chats/${room}`);
+              setLoading(true);
+              await router.push(`/chats/${room}`);
             } else {
-              createRoom();
+              setLoading(true);
+              await createRoom();
             }
           }
         }}
