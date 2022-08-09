@@ -3,6 +3,8 @@ import styles from "../../styles/packages.module.css";
 import Footer from "../../components/footer/footer";
 import useLevelApply from "../../hooks/levelapply";
 import Metatags from "../../components/meta/meta";
+import { useContext } from "react";
+import { UserContext } from "../_app";
 
 const first = [
   "This is the first thing",

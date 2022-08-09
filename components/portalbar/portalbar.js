@@ -109,6 +109,13 @@ export default function PortalBar() {
             Your Questions
           </button>
         </Link>
+        {uid === "R3tc0RKCDgX8yhaHS5c0Ej3IXxF3" && (
+          <Link href={`/admin`}>
+            <button className={styles.option} type="button">
+              Admin Portal
+            </button>
+          </Link>
+        )}
         <button
           type="button"
           onClick={() => {

@@ -677,6 +677,10 @@ export default function Home() {
       uid: [uid, "R3tc0RKCDgX8yhaHS5c0Ej3IXxF3"],
       title: username,
       id: id,
+      read: [
+        { uid: uid, read: true },
+        { uid: "R3tc0RKCDgX8yhaHS5c0Ej3IXxF3", read: true },
+      ],
     });
 
     toast.success("New Chat created");

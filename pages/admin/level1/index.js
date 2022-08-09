@@ -17,6 +17,7 @@ import { toast } from "react-hot-toast";
 import { useEffect } from "react";
 import { useRouter } from "next/router";
 import { useState } from "react";
+import Link from "next/link";
 
 export default function Level1() {
   const LIMIT = 20;
@@ -176,11 +177,16 @@ export default function Level1() {
       <div className={styles.requests_container}>
         <h2>Requests</h2>
         <div>
-          {requests.map(({ username, id, uid }) => {
+          {requests.map(({ username, id, uid, room }) => {
             return (
               <div className={styles.requests} key={id}>
                 <h3>{username}</h3>
                 <div>
+                  <Link href={`/admin/chats/${room}`}>
+                    <button type="button" className={styles.accept}>
+                      Chat
+                    </button>
+                  </Link>
                   <button
                     type="button"
                     className={styles.accept}

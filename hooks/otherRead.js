@@ -16,10 +16,8 @@ export default function useOtherRead() {
       (data) => {
         for (let counter = 0; counter < data.data()?.read.length; counter++) {
           if (data.data()?.read[0].uid !== uid) {
-            console.log(data.data()?.read[0].uid);
             setRead(data.data()?.read[0].read);
           } else {
-            console.log(data.data()?.read[1].uid);
             setRead(data.data()?.read[1].read);
           }
         }

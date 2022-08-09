@@ -15,10 +15,11 @@ export default function Package({
   level,
   applied,
 }) {
-  const { username, uid } = useContext(UserContext);
+  const { username, uid, room } = useContext(UserContext);
 
   async function putRequest(e) {
     e.preventDefault();
+
     if (applied) {
       toast("You have already applied for this level", {
         icon: "ℹ",
@@ -26,19 +27,49 @@ export default function Package({
     } else {
       const id = new Date().getTime().toString();
 
+      const roomId = await createRoom();
+
       if (username !== null) {
-        await setDoc(doc(firestore, level, id), {
-          uid: uid,
-          username: username,
-          allowed: false,
-          id: id,
-        });
+        if (room !== "") {
+          await setDoc(doc(firestore, level, id), {
+            uid: uid,
+            username: username,
+            allowed: false,
+            id: id,
+            room: room,
+          });
+        } else {
+          await setDoc(doc(firestore, level, id), {
+            uid: uid,
+            username: username,
+            allowed: false,
+            id: id,
+            room: roomId,
+          });
+        }
 
         toast.success(`Your request for ${level} have been submitted!`);
       } else {
         toast.error("Please make an account first to put in request");
       }
     }
+  }
+
+  async function createRoom() {
+    let id = new Date().getTime().toString();
+
+    if (room == "") {
+      await setDoc(doc(firestore, `chats`, id), {
+        uid: [uid, "R3tc0RKCDgX8yhaHS5c0Ej3IXxF3"],
+        title: username,
+        id: id,
+        read: [
+          { uid: uid, read: true },
+          { uid: "R3tc0RKCDgX8yhaHS5c0Ej3IXxF3", read: true },
+        ],
+      });
+    }
+    return id;
   }
 
   return (
