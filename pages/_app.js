@@ -8,7 +8,7 @@ import useChat from "../hooks/chat";
 export const UserContext = React.createContext();
 
 function MyApp({ Component, pageProps }) {
-  const { username, uid, signedIn, username_set, loading } = useUser();
+  const { username, uid, signedIn, username_set, load } = useUser();
   const { room, notification } = useChat();
 
   return (
@@ -18,7 +18,7 @@ function MyApp({ Component, pageProps }) {
         signedIn,
         username,
         username_set,
-        loading,
+        load,
         room,
         notification,
       }}

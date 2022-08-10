@@ -12,10 +12,10 @@ export default function useLevel() {
   onAuthStateChanged(auth, async (user) => {
     if (user) {
       await getDoc(doc(firestore, `users`, user?.uid)).then((res) => {
-        setLevel1(res.data().level1);
-        setLevel2(res.data().level2);
-        setLevel3(res.data().level3);
-        setEBook(res.data().ebook);
+        setLevel1(res.data()?.level1);
+        setLevel2(res.data()?.level2);
+        setLevel3(res.data()?.level3);
+        setEBook(res.data()?.ebook);
       });
     }
   });

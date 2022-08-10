@@ -56,6 +56,21 @@ export default function PortalBar() {
     });
   }, []);
 
+  async function createRoom() {
+    setLoading(true);
+
+    await setDoc(doc(firestore, `chats`, id), {
+      uid: [uid, "R3tc0RKCDgX8yhaHS5c0Ej3IXxF3"],
+      title: username,
+      id: id,
+      read: [
+        { uid: uid, read: true },
+        { uid: "R3tc0RKCDgX8yhaHS5c0Ej3IXxF3", read: true },
+      ],
+    });
+    router.push(`/chats/${id}`);
+  }
+
   return (
     <div className={styles.main_container}>
       {loading && <Transition right={true} />}
@@ -83,13 +98,7 @@ export default function PortalBar() {
           </button>
         </Link>
         {room === "" ? (
-          <button
-            className={styles.option}
-            type="button"
-            onClick={() => {
-              toast.error("Please create a chat first");
-            }}
-          >
+          <button className={styles.option} type="button" onClick={createRoom}>
             Chat with admin
           </button>
         ) : (

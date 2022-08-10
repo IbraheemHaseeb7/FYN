@@ -2,7 +2,7 @@
   width: calc(100% - 13rem);
   height: calc(100vh - 6rem);
   position: fixed;
-  bottom: 0;
+  top: 6rem;
   right: 0;
   display: flex;
   justify-content: center;
@@ -14,7 +14,7 @@
   width: 100%;
   height: calc(100vh - 6rem);
   position: fixed;
-  bottom: 0;
+  top: 6rem;
   right: 0;
   display: flex;
   justify-content: center;

@@ -1,0 +1,33 @@
+.main_container {
+  width: 3rem;
+  height: 3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  z-index: 10;
+}
+
+.main_container > div {
+  width: 100%;
+  height: 100%;
+  border: 5px solid transparent;
+  border-top: 5px solid #ff8e7e;
+  border-right: 5px solid #ff8e7e;
+  border-radius: 50%;
+  background-color: white;
+  animation-name: rotate;
+  animation-timing-function: linear;
+  animation-duration: 3s;
+  animation-fill-mode: forwards;
+  animation-iteration-count: infinite;
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotateZ(0deg);
+  }
+  100% {
+    transform: rotateZ(360deg);
+  }
+}

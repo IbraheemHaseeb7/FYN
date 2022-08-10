@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useState, useMemo } from "react";
 import styles from "../../styles/signin.module.css";
 import Footer from "../../components/footer/footer";
 import GoogleIcon from "@mui/icons-material/Google";
@@ -22,17 +22,17 @@ import {
 } from "firebase/firestore";
 import { toast } from "react-hot-toast";
 import Metatags from "../../components/meta/meta";
-import { useAuthState } from "react-firebase-hooks/auth";
+import Loader from "../../components/loader/loader";
 
 export default function SignIn() {
   const [data, setData] = useState({
     username: "",
   });
-  const [user] = useAuthState(auth);
   const [avail, setAvail] = useState(true);
   const [signAvail, setSignAvail] = useState(true);
-  const { uid, signedIn, username, username_set, loading } =
+  const { uid, signedIn, username, username_set, load } =
     useContext(UserContext);
+  const [loading, setLoading] = useState(true);
 
   function handleChange(e) {
     let value = e.target.value;
@@ -47,6 +47,8 @@ export default function SignIn() {
     });
   }
   async function signIn() {
+    setLoading(true);
+
     await signInWithPopup(auth, new GoogleAuthProvider());
 
     let usernameCheck;
@@ -115,6 +117,11 @@ export default function SignIn() {
     });
   }
 
+  const some = useMemo(() => {
+    setLoading(false);
+    return false;
+  }, [signedIn]);
+
   return (
     <div className={styles.signin_container}>
       <Metatags
@@ -130,7 +137,9 @@ export default function SignIn() {
           <img alt="image was here" src="sign.jpg" className={styles.img} />
         </div>
         <form className={styles.form}>
-          {!signedIn ? (
+          {loading ? (
+            <Loader />
+          ) : !signedIn ? (
             <button type="button" onClick={signIn} className={styles.google}>
               <GoogleIcon /> Sign In with Google
             </button>

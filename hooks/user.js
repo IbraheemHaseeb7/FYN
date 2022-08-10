@@ -9,31 +9,31 @@ export default function useUser() {
   const [signedIn, setSignedIn] = useState(false);
   const [username, setUsername] = useState(null);
   const [username_set, setUsername_set] = useState(false);
-  const [user] = useAuthState(auth);
-  const [loading, setLoading] = useState(true);
+  const [user, loading] = useAuthState(auth);
+  const [load, setLoad] = useState(true);
 
   useEffect(() => {
     let unsub;
 
     if (user) {
+      // if (!loading) {
       unsub = onSnapshot(doc(firestore, `users`, user.uid), (data) => {
         setUsername(data.data()?.username);
         setUsername_set(data.data()?.username_set);
         setUid(user.uid);
         setSignedIn(true);
-        setLoading(false);
+        setLoad(false);
       });
     } else {
       setUsername(null);
       setUsername_set(false);
       setSignedIn(false);
       setUid("");
-      setLoading(false);
+      setLoad(false);
     }
-
-    setLoading(false);
+    // }
     return unsub;
   }, [user]);
 
-  return { uid, signedIn, username, username_set, loading };
+  return { uid, signedIn, username, username_set, load };
 }
