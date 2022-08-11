@@ -17,6 +17,7 @@ export default function useLevelApply() {
   const [level1, setLevel1] = useState(false);
   const [level2, setLevel2] = useState(false);
   const [level3, setLevel3] = useState(false);
+  const [ebook, setEBook] = useState(false);
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
@@ -66,9 +67,24 @@ export default function useLevelApply() {
             }
           }
         );
+        // for ebook
+        onSnapshot(
+          query(collection(firestore, "ebook"), where("uid", "==", user.uid)),
+          (res) => {
+            let array = res.docs.map((res) => {
+              return res.data();
+            });
+
+            if (array.length === 0) {
+              setEBook(false);
+            } else {
+              setEBook(true);
+            }
+          }
+        );
       }
     });
   }, [router.query]);
 
-  return { level1, level2, level3 };
+  return { level1, level2, level3, ebook };
 }

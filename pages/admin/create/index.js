@@ -16,6 +16,7 @@ import Lesson from "../../../components/popup/lesson";
 import LooksOneIcon from "@mui/icons-material/LooksOne";
 import LooksTwoIcon from "@mui/icons-material/LooksTwo";
 import Looks3Icon from "@mui/icons-material/Looks3";
+import LocalLibraryIcon from "@mui/icons-material/LocalLibrary";
 
 function reducer(state, action) {
   switch (action.type) {
@@ -142,6 +143,15 @@ export default function Create() {
             <button type="button" className={styles.create_btn}>
               <Link href="/admin/level3">
                 View level3 requests and users here
+              </Link>
+            </button>
+          </div>
+          <div className={`${styles.one_create} ${styles.chats_container}`}>
+            <LocalLibraryIcon />
+            <h2>Manage eBooks here</h2>
+            <button type="button" className={styles.create_btn}>
+              <Link href="/admin/ebooks">
+                View eBook requests and users here
               </Link>
             </button>
           </div>

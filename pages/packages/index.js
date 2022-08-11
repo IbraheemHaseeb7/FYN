@@ -40,8 +40,10 @@ const third = [
   "This is the third thing",
 ];
 
+const ebookPoints = ["Get the ebook"];
+
 export default function Packages() {
-  const { level1, level2, level3 } = useLevelApply();
+  const { level1, level2, level3, ebook } = useLevelApply();
 
   return (
     <div className={styles.main_container}>
@@ -75,6 +77,16 @@ export default function Packages() {
           price={`99`}
           button={`apply for level 3`}
           applied={level3}
+        />
+      </div>
+      <div className={styles.lower_container}>
+        <Package
+          title={`eBook`}
+          level="ebook"
+          points={ebookPoints}
+          price={`30`}
+          button={`Get the eBook`}
+          applied={ebook}
         />
       </div>
       <Footer />
