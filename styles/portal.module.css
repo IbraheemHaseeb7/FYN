@@ -2,6 +2,8 @@
   width: 100%;
   min-height: calc(100vh - 6rem);
   margin-top: 6rem;
+  position: relative;
+  z-index: 1;
 }
 
 .main_container > h1 {
@@ -12,6 +14,8 @@
   left: 50%;
   transform: translate(-50%, -50%);
   color: #d9d9d9;
+  display: flex;
+  z-index: -1;
 }
 
 @media (max-width: 768px) {

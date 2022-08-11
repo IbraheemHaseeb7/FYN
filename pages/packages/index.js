@@ -42,6 +42,8 @@ const third = [
 
 const ebookPoints = ["Get the ebook"];
 
+const meeting = ["Set a meeting with the client"];
+
 export default function Packages() {
   const { level1, level2, level3, ebook } = useLevelApply();
 
@@ -87,6 +89,14 @@ export default function Packages() {
           price={`30`}
           button={`Get the eBook`}
           applied={ebook}
+        />
+        <Package
+          title={`meeting`}
+          level="meeting"
+          points={meeting}
+          price={`15`}
+          button={`Set a Meeting`}
+          applied={false}
         />
       </div>
       <Footer />

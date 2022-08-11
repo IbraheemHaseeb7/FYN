@@ -54,3 +54,12 @@
 .apply:hover {
   background-color: #fd7a69;
 }
+
+@media (max-width: 768px) {
+  .main_container {
+    width: 80%;
+  }
+  .main_container > ul {
+    font-size: 1.25rem;
+  }
+}
