@@ -2,12 +2,14 @@ import { useState } from "react";
 import styles from "./popup.module.css";
 import CloseIcon from "@mui/icons-material/Close";
 
-export default function Popup({ name, title, dispatch, children }) {
+export default function Popup({ name, title, dispatch, children, setLoading }) {
   const [see, setSee] = useState(false);
   const [btnname, setBtnName] = useState("Show");
 
   function closeIt() {
     dispatch({ type: "close", payload: { name: name, value: false } });
+
+    setLoading(false);
   }
 
   return (

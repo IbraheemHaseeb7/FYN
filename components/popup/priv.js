@@ -12,7 +12,6 @@ export default function Priv() {
     question: "",
   });
   const { username, uid } = useContext(UserContext);
-  console.log(username, uid);
 
   function handleChange(e) {
     let values = e.target.value;

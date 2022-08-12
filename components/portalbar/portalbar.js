@@ -153,11 +153,18 @@ export default function PortalBar() {
           Sign Out
         </button>
       </div>
-      {state.priv && (
-        <Popup title={`Post a new question!`} name="priv" dispatch={dispatch}>
-          <Priv />
-        </Popup>
-      )}
+      <div className={styles.question_popup}>
+        {state.priv && (
+          <Popup
+            setLoading={setLoading}
+            title={`Post a new question!`}
+            name="priv"
+            dispatch={dispatch}
+          >
+            <Priv />
+          </Popup>
+        )}
+      </div>
     </div>
   );
 }
