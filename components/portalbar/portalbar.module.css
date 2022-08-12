@@ -76,6 +76,7 @@
     width: 100%;
     border: none;
     position: absolute;
+    top: 0;
   }
   .options_container {
     min-height: 100vh;
