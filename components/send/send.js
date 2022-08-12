@@ -76,7 +76,7 @@ export default function Send({ room_id, array }) {
       >
         <AttachFileIcon />
       </button>
-      <button type="button" onClick={handleSubmit}>
+      <button type="submit" onClick={handleSubmit}>
         <SendIcon />
       </button>
     </form>
