@@ -89,7 +89,7 @@ export default function Forums({ array }) {
         <p>
           A place where all of your questions will be answered and you are
           welcome to share your opinion on them. You only need to sign up that
-          is free and allows you to keeo your identity hidden using our
+          is free and allows you to keep your identity hidden using our
           anonymous account handling.
         </p>
       </div>

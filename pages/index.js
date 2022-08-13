@@ -517,7 +517,7 @@ export default function Home() {
   useEffect(() => {
     // setting up the positions
 
-    if (window.innerWidth > 800) {
+    if (window.innerWidth > 1000) {
       var tl = gsap.timeline({
         scrollTrigger: {
           markers: false,
@@ -593,7 +593,159 @@ export default function Home() {
         },
         0
       );
-    } else if (window.innerWidth > 200 && window.innerWidth <= 800) {
+    } else if (window.innerWidth > 600 && window.innerWidth <= 1000) {
+      var tl = gsap.timeline({
+        scrollTrigger: {
+          markers: false,
+          scrub: true,
+          start: "88% bottom",
+          end: "+=70%",
+          trigger: "#home",
+          pin: "#pin",
+        },
+      });
+
+      gsap.set(left_sign.current, {
+        scale: 1,
+        x: "-100%",
+        y: "-60%",
+      });
+      gsap.set(right_sign.current, {
+        scale: 1,
+        x: "250%",
+        y: "160%",
+      });
+      gsap.set(sign_heading.current, {
+        textAlign: "center",
+        y: "-500%",
+        opacity: 0,
+      });
+      gsap.set(sign_text.current, {
+        x: "50%",
+        y: "-300%",
+        opacity: 0,
+      });
+      gsap.set("#btn_container", {
+        y: "-600%",
+        opacity: 0,
+      });
+
+      // animation timeline is here
+      tl.to(
+        left_sign.current,
+        {
+          x: "0%",
+        },
+        0
+      );
+      tl.to(
+        right_sign.current,
+        {
+          x: "180%",
+        },
+        0
+      );
+      tl.to(
+        sign_heading.current,
+        {
+          y: "-400%",
+          opacity: 1,
+        },
+        0
+      );
+      tl.to(
+        sign_text.current,
+        {
+          y: "-200%",
+          opacity: 1,
+        },
+        0
+      );
+      tl.to(
+        "#btn_container",
+        {
+          y: "-500%",
+          opacity: 1,
+        },
+        0
+      );
+    } else if (window.innerWidth > 450 && window.innerWidth <= 600) {
+      var tl = gsap.timeline({
+        scrollTrigger: {
+          markers: false,
+          scrub: true,
+          start: "88% bottom",
+          end: "+=30%",
+          trigger: "#home",
+          pin: "#pin",
+        },
+      });
+
+      gsap.set(left_sign.current, {
+        scale: 1,
+        x: "-100%",
+        y: "-100%",
+      });
+      gsap.set(right_sign.current, {
+        scale: 1,
+        x: "170%",
+        y: "120%",
+      });
+      gsap.set(sign_heading.current, {
+        textAlign: "center",
+        y: "-1000%",
+        opacity: 0,
+      });
+      gsap.set(sign_text.current, {
+        x: "50%",
+        y: "-300%",
+        opacity: 0,
+      });
+      gsap.set("#btn_container", {
+        y: "-700%",
+        opacity: 0,
+      });
+
+      // animation timeline is here
+      tl.to(
+        left_sign.current,
+        {
+          x: "0%",
+        },
+        0
+      );
+      tl.to(
+        right_sign.current,
+        {
+          x: "30%",
+        },
+        0
+      );
+      tl.to(
+        sign_heading.current,
+        {
+          y: "-900%",
+          opacity: 1,
+        },
+        0
+      );
+      tl.to(
+        sign_text.current,
+        {
+          y: "-250%",
+          opacity: 1,
+        },
+        0
+      );
+      tl.to(
+        "#btn_container",
+        {
+          y: "-600%",
+          opacity: 1,
+        },
+        0
+      );
+    } else if (window.innerWidth > 10 && window.innerWidth <= 450) {
       var tl = gsap.timeline({
         scrollTrigger: {
           markers: false,
@@ -617,16 +769,16 @@ export default function Home() {
       });
       gsap.set(sign_heading.current, {
         textAlign: "center",
-        y: "-1600%",
+        y: "-1550%",
         opacity: 0,
       });
       gsap.set(sign_text.current, {
         x: "50%",
-        y: "-500%",
+        y: "-450%",
         opacity: 0,
       });
       gsap.set("#btn_container", {
-        y: "-1300%",
+        y: "-1250%",
         opacity: 0,
       });
 
