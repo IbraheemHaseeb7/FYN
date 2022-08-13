@@ -59,6 +59,12 @@ export default function Send({ room_id, array }) {
     });
   }
 
+  function handleKey(e) {
+    if (e.key === "Enter" && e.shiftKey == false) {
+      handleSubmit(e);
+    }
+  }
+
   return (
     <form className={styles.form_container}>
       <textarea
@@ -66,6 +72,7 @@ export default function Send({ room_id, array }) {
         value={value}
         name="message"
         onChange={handleChange}
+        onKeyDown={handleKey}
       ></textarea>
       {open && <Image setOpen={setOpen} open={open} />}
       <button
@@ -76,7 +83,7 @@ export default function Send({ room_id, array }) {
       >
         <AttachFileIcon />
       </button>
-      <button type="button" onClick={handleSubmit}>
+      <button type="submit" onClick={handleSubmit}>
         <SendIcon />
       </button>
     </form>
