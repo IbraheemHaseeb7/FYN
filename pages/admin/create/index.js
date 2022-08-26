@@ -18,6 +18,7 @@ import LooksTwoIcon from "@mui/icons-material/LooksTwo";
 import Looks3Icon from "@mui/icons-material/Looks3";
 import LocalLibraryIcon from "@mui/icons-material/LocalLibrary";
 import MeetingRoomIcon from "@mui/icons-material/MeetingRoom";
+import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
 
 function reducer(state, action) {
   switch (action.type) {
@@ -118,6 +119,13 @@ export default function Create() {
             <h2>Chat with people here</h2>
             <button type="button" className={styles.create_btn}>
               <Link href="/admin/chats">View chats here</Link>
+            </button>
+          </div>
+          <div className={`${styles.one_create} ${styles.chats_container}`}>
+            <ManageAccountsIcon />
+            <h2>Manage Account Data here</h2>
+            <button type="button" className={styles.create_btn}>
+              <Link href="/admin/manage">Manage Data here</Link>
             </button>
           </div>
           <div className={`${styles.one_create} ${styles.chats_container}`}>

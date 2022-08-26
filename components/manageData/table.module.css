@@ -1,0 +1,35 @@
+.main_container {
+  width: 80%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
+  border: 1px solid #545454;
+  height: 60vh;
+  overflow-y: scroll;
+}
+
+.main_container > div {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid #eaeaea;
+}
+.main_container > div > .p,
+.main_container > div > button {
+  padding: 0.5rem;
+}
+
+.main_container > div > button {
+  margin: 0.5rem;
+  background-color: #eaeaea;
+  cursor: pointer;
+  border: none;
+  border-radius: 5px;
+  transition: all 0.25s ease;
+}
+
+.main_container > div > button:hover {
+  background-color: #d9d9d9;
+}
