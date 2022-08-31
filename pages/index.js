@@ -893,7 +893,7 @@ export default function Home() {
           <InstagramIcon />
         </a>
         <a
-          href="https://www.facebook.com/fightyournafsofficial"
+          href="https://wa.me/85261507145/?text=I%20would%20like%20to%20ask%20you%20about"
           target="_blank"
           id="social"
         >
