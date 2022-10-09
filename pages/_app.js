@@ -4,6 +4,7 @@ import "../styles/globals.css";
 import React from "react";
 import { Toaster } from "react-hot-toast";
 import useChat from "../hooks/chat";
+import Block from "../components/block/block";
 
 export const UserContext = React.createContext();
 
@@ -23,6 +24,7 @@ function MyApp({ Component, pageProps }) {
         notification,
       }}
     >
+      <Block />
       <Toaster />
       <Navbar />
       <Component {...pageProps} />
