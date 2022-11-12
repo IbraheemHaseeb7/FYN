@@ -24,7 +24,7 @@ function MyApp({ Component, pageProps }) {
         notification,
       }}
     >
-      <Block />
+      {/*<Block />*/}
       <Toaster />
       <Navbar />
       <Component {...pageProps} />
