@@ -1,34 +1,27 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
-
-## Getting Started
-
-First, run the development server:
-
-```bash
-npm run dev
-# or
-yarn dev
+# FYN
+[FYN](https://fightyournafs.vercel.app) (Fight your Nafs) is a brand that helps people that are struck into some inappropriate addictions and help them find a way in their life. This project was developed to assist their business using the most updated and cutting-edge technologies.
 ```
+NOTE: Due to some unknown reasons, the client never updated the website with their own content and website
+      is still today running and active on the testing data
+```
+## Technologies Used
+- Next JS (Frontend + Backend)
+- Firebase Authentication
+- Firestore Database
+- Vercel (Deployment)
+- GSAP (Animations)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Next JS
+Next JS offers great scalability with the options such as Server Side Rendering and its most appealing option for me in this project i.e. Incremental Static Regeneration of pages that boosts the website speed by a huge margin. Alongside these factors, setting up the backend is super easy in Next JS as well as it offers prebuilt `API` routes.
+### Firebase
+Firebase is an obvious choice whenever it comes to Authentication as it offers the easiest steps to integrate proper authentication without worrying much about the tokens and storage.
+### Vercel
+Vercel goes perfectly with Next JS as deploying your web applications on Vercel is extremely straightforward because of the flawless integration between Vercel and Next JS.
+### GSAP
+GSAP is a javascript library that was used to implement all the smooth animations on the homepage you see. It offers great hooks that function well with React JS.
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
-
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
-
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+### Hire Me
+Want a website like this for yourself?
+Let's get in touch here:
+[Email:ibraheemhaseeb7@gmail.com](mailto:ibraheemhaseeb7@gmail.com)
+[Whatsapp: +92-333-457-4770](https://wa.me/923334574770)
